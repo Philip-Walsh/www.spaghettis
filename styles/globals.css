@@ -75,6 +75,161 @@ body {
   opacity: 0.7;
 }
 
+.menu-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.menu-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--color-secondary) 0%, var(--color-background) 100%);
+}
+
+.noodle-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: var(--color-primary);
+  box-shadow: 0 2px 12px #ffe08360;
+  padding: 0.5rem 0;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 1px;
+  gap: 0.75rem;
+  transition: color 0.2s;
+}
+
+.nav-logo:hover {
+  color: var(--color-accent);
+}
+
+.nav-emoji {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px #fff3d6);
+  margin-right: 0.2rem;
+}
+
+.nav-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  text-shadow: 0 1px 8px #fffbe9;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links li a {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.4rem 1.1rem;
+  border-radius: 1.2rem;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links li a:hover {
+  background: var(--color-accent);
+  color: #fffbe9;
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* Responsive nav */
+@media (max-width: 800px) {
+  .nav-toggle {
+    display: block;
+  }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    background: var(--color-primary);
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0;
+    box-shadow: 0 8px 16px #ffe08340;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(.4,2,.6,1);
+  }
+  .nav-links.open {
+    max-height: 300px;
+    overflow: auto;
+  }
+  .nav-links li a {
+    width: 100vw;
+    text-align: left;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    border-radius: 0;
+    border-bottom: 1px solid #ffe08360;
+  }
+}
+
+/* Funky noodle underline effect on nav */
+.nav-logo .nav-emoji {
+  animation: noodle-bounce 1.6s infinite cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes noodle-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  30% { transform: translateY(-8px) rotate(5deg); }
+  60% { transform: translateY(3px) rotate(-6deg); }
+}
+
 @layer base {
     h1 {
         font-size: 2.5rem;
