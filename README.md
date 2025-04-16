@@ -1,7 +1,3 @@
-Here's a more concise version of the README, focusing on the tech stack:
-
----
-
 # Spaghetti Codes - Web Learning Tool
 
 [Live Demo](https://spaghettis.netlify.app/)
