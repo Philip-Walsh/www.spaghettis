@@ -1,21 +1,26 @@
 import Link from 'next/link';
+import styles from './Home.module.css';
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto py-20 px-6">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6">Welcome to Forbidden Ramen</h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Create your perfect bowl of ramen with our custom configurator
-          </p>
-          <Link href="/ramen" className="inline-block">
-            <button className="px-8 py-4 bg-blue-600 text-white rounded-full font-medium text-lg hover:bg-blue-700 transition-colors">
+    <main className={styles.main}>
+      <section className={styles.hero}>
+        <div className={styles.heroBgDrip}></div>
+        <div className={styles.heroContent}>
+          <span className={styles.heroEmoji}>🍜</span>
+          <h1 className={styles.heroTitle}>Forbidden Ramen</h1>
+          <p className={styles.heroSubtitle}>Create your perfect bowl with the most <span className={styles.boldAccent}>next-gen</span> noodle configurator.</p>
+          <Link href="/ramen" className={styles.ctaLink}>
+            <button className={styles.ctaBtn}>
               Start Building Your Ramen
             </button>
           </Link>
         </div>
-      </div>
+      </section>
+      <section className={styles.patternSection}>
+        <h2 className={styles.sectionTitle}>Urban Flavors. Bold Choices.</h2>
+        <p className={styles.sectionDesc}>Mix, match, and customize every ingredient. Ramen, but make it street.</p>
+      </section>
     </main>
   );
 }

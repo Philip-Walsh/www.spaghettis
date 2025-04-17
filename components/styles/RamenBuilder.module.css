@@ -92,13 +92,19 @@
 
 .price-summary {
   width: 100%;
-  margin-top: 2rem;
-  background: #f3f4f6;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  background: rgba(243, 244, 246, 0.96);
   border-radius: 1rem;
   padding: 1.25rem 1rem;
+  box-shadow: 0 4px 24px 0 rgba(37,99,235,0.07);
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: box-shadow 0.28s cubic-bezier(.4,0,.2,1);
 }
 .price-title {
   font-size: 1.5rem;
@@ -107,15 +113,42 @@
   margin-bottom: 0.5rem;
 }
 .price-value {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 900;
   color: #2563eb;
+  letter-spacing: -1px;
+  will-change: transform, opacity;
+  transition: color 0.2s, box-shadow 0.2s;
+  text-shadow: 0 2px 12px rgba(37,99,235,0.10);
+  animation: pricePop 0.4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes pricePop {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  80% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 .price-desc {
   margin-top: 0.5rem;
   color: #6b7280;
   font-size: 1rem;
   text-align: center;
+}
+.button:focus, .buttonPrimary:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #bfdbfe66;
+}
+.button:hover:not(:disabled), .buttonPrimary:hover:not(:disabled) {
+  filter: brightness(1.04) saturate(1.1);
+  box-shadow: 0 2px 12px 0 #2563eb22;
+}
+.optionBtn:focus {
+  outline: 2px solid #ff5f6d;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #ff5f6d33;
+}
+.optionBtn.selected {
+  box-shadow: 0 4px 16px 0 #2563eb22;
 }
 
 @media (min-width: 768px) {

@@ -79,13 +79,39 @@ export default function RamenBuilder() {
               >
                 <StepSelector
                   step={currentStepData}
-                  selectedItems={currentSelection || []}
-                  onSelection={handleSelection}
+                  value={currentSelection || (currentStepData?.multi ? [] : undefined)}
+                  onSelection={(selected) => handleSelection(currentKey, selected)}
                 />
               </motion.div>
             </AnimatePresence>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem', alignItems: 'center', justifyContent: 'center' }}>
+          <motion.div
+            key={totalPrice}
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            className={styles['price-summary']}
+            style={{ marginBottom: '2rem' }}
+          >
+            <div>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 className={styles['price-title']}>Total Price</h3>
+                <motion.div
+                  key={totalPrice}
+                  initial={{ scale: 0.8, opacity: 0.5 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+                  className={styles['price-value']}
+                >
+                  ${totalPrice.toFixed(2)}
+                </motion.div>
+              </div>
+              <div className={styles['price-desc']}>
+                {totalPrice === 0 ? 'Base price included' : 'Additional items selected'}
+              </div>
+            </div>
+          </motion.div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -106,22 +132,6 @@ export default function RamenBuilder() {
               <span style={{ marginLeft: 8 }}>→</span>
             </motion.button>
           </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className={styles['price-summary']}
-          >
-            <div>
-              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 className={styles['price-title']}>Total Price</h3>
-                <div className={styles['price-value']}>${totalPrice.toFixed(2)}</div>
-              </div>
-              <div className={styles['price-desc']}>
-                {totalPrice === 0 ? 'Base price included' : 'Additional items selected'}
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </div>

@@ -1,0 +1,118 @@
+/* Home Page Urban/Funky Styles */
+.main {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.hero {
+  position: relative;
+  width: 100%;
+  padding: 4rem 1rem 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 420px;
+  background: linear-gradient(120deg, #ffe7c7 0%, #ff5f6d 100%);
+  border-radius: 0 0 3rem 3rem;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+}
+.heroBgDrip {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: url('/drip.svg'), linear-gradient(120deg, #ffe7c7 60%, #ff5f6d 100%);
+  background-repeat: repeat-x;
+  background-size: 100vw 120px, cover;
+  z-index: 1;
+  opacity: 0.23;
+}
+.heroContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.heroEmoji {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 3px 12px #ff5f6d);
+}
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  color: #0f172a;
+}
+.heroSubtitle {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  color: #22223b;
+  text-align: center;
+}
+.boldAccent {
+  color: #ff5f6d;
+  font-weight: 800;
+  text-shadow: 0 1px 6px #ffe7c7;
+}
+.ctaLink {
+  text-decoration: none;
+}
+.ctaBtn {
+  padding: 1.1rem 2.5rem;
+  background: linear-gradient(90deg, #0ea5e9 0%, #ff5f6d 100%);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-bottom: 0.5rem;
+}
+.ctaBtn:hover {
+  background: linear-gradient(90deg, #ff5f6d 0%, #0ea5e9 100%);
+  transform: translateY(-2px) scale(1.05);
+}
+.patternSection {
+  padding: 3rem 1rem 2rem 1rem;
+  background: repeating-linear-gradient(135deg, #fff 0 16px, #f1f5f9 16px 32px);
+  border-radius: 2rem;
+  margin: 2rem auto 0 auto;
+  max-width: 38rem;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.06);
+  text-align: center;
+}
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+.sectionDesc {
+  font-size: 1.1rem;
+  color: #22223b;
+  font-weight: 500;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+@media (min-width: 600px) {
+  .heroTitle {
+    font-size: 4rem;
+  }
+  .heroSubtitle {
+    font-size: 1.5rem;
+  }
+  .patternSection {
+    padding: 4rem 2rem 2.5rem 2rem;
+  }
+}
