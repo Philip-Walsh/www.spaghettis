@@ -1,0 +1,86 @@
+.fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.legend {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .optionsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.optionBtn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 2px solid #e5e7eb;
+  background: #fff;
+  transition: border 0.2s, background 0.2s;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.optionBtn:hover {
+  border-color: #2563eb;
+  background: #f0f4ff;
+}
+.selected {
+  border-color: #2563eb;
+  background: #e0e7ff;
+}
+.optionContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+.iconWrap {
+  flex-shrink: 0;
+}
+.icon {
+  font-size: 2rem;
+}
+.optionTextWrap {
+  flex: 1;
+  min-width: 0;
+}
+.optionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.optionDetails {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.priceTag {
+  color: #2563eb;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.input {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #2563eb;
+  border-radius: 50%;
+  accent-color: #2563eb;
+  margin-left: 1rem;
+}

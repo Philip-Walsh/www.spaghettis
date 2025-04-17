@@ -1,9 +1,20 @@
-"use client";
+'use client';
+
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <nav className="noodle-nav">
       <div className="nav-inner">
@@ -19,8 +30,8 @@ export default function Nav() {
           <span className="nav-emoji">🍜</span>
         </button>
         <ul className={`nav-links${open ? ' open' : ''}`}>
+          <li><Link href="/ramen" onClick={() => setOpen(false)}>Ramen</Link></li>
           <li><Link href="/menu" onClick={() => setOpen(false)}>Menu</Link></li>
-          <li><Link href="/order" onClick={() => setOpen(false)}>Order</Link></li>
           <li><Link href="/about" onClick={() => setOpen(false)}>About</Link></li>
         </ul>
       </div>

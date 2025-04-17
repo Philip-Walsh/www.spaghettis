@@ -1,0 +1,131 @@
+.ramen-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #f9fafb, #fff);
+  padding: 1.5rem 0.5rem;
+}
+
+.page-content {
+  width: 100%;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.step-container {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.button {
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem 2rem;
+  background: #f3f4f6;
+  color: #222;
+  border-radius: 999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.button:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.buttonPrimary {
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem 2rem;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.buttonPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.buttonPrimary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.price-summary {
+  width: 100%;
+  margin-top: 2rem;
+  background: #f3f4f6;
+  border-radius: 1rem;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.price-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+.price-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+.price-desc {
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2.5rem 2rem;
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+  .button, .buttonPrimary {
+    font-size: 1.25rem;
+  }
+}

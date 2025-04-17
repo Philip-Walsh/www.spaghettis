@@ -7,10 +7,10 @@
   --color-background: #fffbe9;
   --color-text: #2d1600;
   --color-accent: #e85d04;
+
 }
 
 body {
-  background: var(--color-background);
   color: var(--color-text);
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   margin: 0;
