@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuOptions } from '../data/menuOptions';
 import StepSelector from './StepSelector';
@@ -30,6 +30,16 @@ export default function RamenBuilder() {
   const [selectedItems, setSelectedItems] = useState({});
   const [steps, setSteps] = useState([]);
   const [veggieOnly, setVeggieOnly] = useState(false);
+
+  const navRef = useRef();
+
+  useEffect(() => {
+    const nav = navRef.current;
+    const activeBtn = nav?.querySelector('[aria-current="step"]');
+    if (activeBtn && nav) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [currentStep]);
 
   useEffect(() => {
     if (steps.length === 0) {
@@ -107,46 +117,24 @@ export default function RamenBuilder() {
   return (
     <div className={styles['ramen-container']}>
       <div className={styles['page-content']}>
+        <h1 className={styles['title']}>Build Your Perfect Ramen</h1>
         <div className={styles['card']}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <motion.div
-              key={totalPrice}
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className={styles['price-summary']}
-            >
-              <div>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className={styles['price-title']}>Total Price</h3>
-                  <motion.div
-                    key={totalPrice}
-                    initial={{ scale: 0.8, opacity: 0.5 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: 'spring', stiffness: 350, damping: 22 }}
-                    className={styles['price-value']}
-                  >
-                    ${totalPrice.toFixed(2)}
-                  </motion.div>
-                </div>
-                <div className={styles['price-desc']}>
-                  {totalPrice === 0 ? 'Base price included' : 'Additional items selected'}
-                </div>
-              </div>
-            </motion.div>
-            <label style={{ marginLeft: '1.5rem', display: 'flex', alignItems: 'center', fontWeight: 600, cursor: 'pointer' }}>
+          <div className={styles['card-header-row']}>
+            <div className={styles['price-bento']}>
+              <span className={styles['price-bento-label']}>Total</span>
+              <span className={styles['price-bento-value']}>${totalPrice.toFixed(2)}</span>
+            </div>
+            <label className={styles['veggie-toggle']}>
               <input
                 type="checkbox"
                 checked={veggieOnly}
                 onChange={() => setVeggieOnly(v => !v)}
-                style={{ marginRight: 8 }}
                 aria-label="Veggie Only"
               />
-              <span role="img" aria-label="plant">🥦</span> Veggie Only
+              <span role="img" aria-label="plant">🥦</span>
             </label>
           </div>
-          <h1 className={styles['title']}>Build Your Perfect Ramen</h1>
-          <div className={styles['step-nav']}>
+          <div className={styles['step-nav']} ref={navRef}>
             {filteredSteps.map((step, idx) => (
               <button
                 key={step.key}
@@ -156,7 +144,7 @@ export default function RamenBuilder() {
                 tabIndex={0}
               >
                 <StepIcon icon={stepIcons[step.key]} label={step.label} />
-                {step.label}
+                <span className={styles['step-nav-btn-text']}>{step.label}</span>
               </button>
             ))}
           </div>

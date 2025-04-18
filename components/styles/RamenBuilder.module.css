@@ -42,7 +42,66 @@
   border: 2px solid var(--neon-blue);
   backdrop-filter: blur(12px) saturate(1.2);
   position: relative;
-  overflow: visible;
+  overflow-x: auto;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+.card-header-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.1rem;
+  gap: 1.2rem;
+}
+.price-bento {
+  display: flex;
+  align-items: center;
+  background: var(--glass-bg);
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 8px var(--shadow-blue);
+  padding: 0.38rem 1rem 0.38rem 0.7rem;
+  font-weight: 900;
+  font-size: 1.08rem;
+  color: var(--white);
+  gap: 0.5rem;
+}
+.price-bento-label {
+  color: var(--neon-yellow);
+  font-weight: 700;
+  font-size: 0.92em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 0.3em;
+}
+.price-bento-value {
+  color: var(--white);
+  font-size: 1.18em;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px var(--shadow-blue);
+}
+.veggie-toggle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--glass-bg);
+  border-radius: 0.7rem;
+  padding: 0.25rem 0.7rem 0.25rem 0.5rem;
+  gap: 0.4rem;
+  box-shadow: 0 1px 8px var(--shadow-pink);
+  font-size: 1.08rem;
+  color: var(--white);
+}
+.veggie-toggle input[type="checkbox"] {
+  margin-right: 0.4em;
+  accent-color: var(--neon-pink);
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 0.3em;
+  border: 2px solid var(--neon-blue);
 }
 .title {
   font-size: 2.1rem;
@@ -107,15 +166,23 @@
 .step-nav {
   display: flex;
   gap: 0.7rem;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1.7rem;
   background: var(--nav-bg);
   border-radius: var(--nav-radius);
   box-shadow: var(--nav-shadow);
   padding: 0.4rem 0.6rem;
   filter: var(--button-dark-filter);
+  overflow-x: auto;
+  position: relative;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100vw;
 }
 .step-nav-btn {
+  scroll-snap-align: center;
+  min-width: 110px;
+  flex: 0 0 auto;
   background: none;
   border: none;
   color: var(--white);
@@ -130,6 +197,21 @@
   align-items: center;
   gap: 0.6rem;
   outline: none;
+}
+.step-nav-btn-text {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.22s cubic-bezier(.4,0,.2,1), opacity 0.14s cubic-bezier(.4,0,.2,1);
+  vertical-align: middle;
+}
+.step-nav-btn:hover .step-nav-btn-text,
+.step-nav-btn:focus .step-nav-btn-text,
+.step-nav-btn[aria-current="step"] .step-nav-btn-text {
+  max-width: 220px;
+  opacity: 1;
 }
 .step-nav-btn[aria-current="step"], .step-nav-btn.active {
   background: var(--button-bg);
@@ -148,7 +230,23 @@
   outline-offset: 1.5px;
   box-shadow: 0 0 0 6px var(--shadow-yellow);
 }
-
+.step-nav::before,
+.step-nav::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 32px;
+  z-index: 2;
+  pointer-events: none;
+}
+.step-nav::before {
+  left: 0;
+  background: linear-gradient(to right, var(--nav-bg) 70%, transparent);
+}
+.step-nav::after {
+  right: 0;
+  background: linear-gradient(to left, var(--nav-bg) 70%, transparent);
+}
 .button-row {
   display: flex;
   flex-direction: row;
@@ -254,5 +352,16 @@
   }
   .button, .buttonPrimary {
     font-size: 1.33rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .card {
+    padding: 1.2rem 0.2rem 1.5rem 0.2rem;
+  }
+  .step-nav-btn {
+    min-width: 90px;
+    font-size: 0.98rem;
+    padding: 0.4rem 0.7rem;
   }
 }
