@@ -205,4 +205,10 @@ describe('RamenBuilder', () => {
     // No error should be thrown, and UI should update
     expect(screen.getByRole('checkbox', { name: /Tofu/i })).not.toBeChecked();
   });
+
+  test('card uses responsive clamp max-width', () => {
+    render(<RamenBuilder />);
+    const card = screen.getByTestId('card');
+    expect(card).toHaveStyle('max-width: clamp(360px, 90%, 1200px)');
+  });
 });

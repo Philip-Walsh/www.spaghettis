@@ -9,6 +9,17 @@ import StepIcon from './StepIcon';
 import { calculateTotalPrice } from './utils';
 import styles from './styles/RamenBuilder.module.css';
 
+// Hook to track window width
+function useWindowWidth() {
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return width;
+}
+
 const stepVariants = {
   initial: { opacity: 0, x: 100 },
   animate: { opacity: 1, x: 0 },
@@ -32,6 +43,8 @@ export default function RamenBuilder() {
   const [veggieOnly, setVeggieOnly] = useState(false);
 
   const navRef = useRef();
+
+  const width = useWindowWidth();
 
   useEffect(() => {
     const nav = navRef.current;
@@ -116,9 +129,9 @@ export default function RamenBuilder() {
 
   return (
     <div className={styles['ramen-container']}>
-      <div className={styles['page-content']}>
+      <div className={styles['page-content']} style={{ maxWidth: 'clamp(360px, 90%, 1200px)' }}>
         <h1 className={styles['title']}>Build Your Perfect Ramen</h1>
-        <div className={styles['card']}>
+        <div className={styles['card']} data-testid="card">
           <div className={styles['card-header-row']}>
             <div className={styles['price-bento']}>
               <span className={styles['price-bento-label']}>Total</span>
@@ -174,6 +187,7 @@ export default function RamenBuilder() {
                 className={styles['step-content-drip']}
               >
                 <StepSelector
+                  width={width}
                   step={{ ...currentStepData, icon: stepIcons[currentStepData?.key] }}
                   value={currentSelection}
                   onSelection={selected => handleSelection(currentKey, selected)}

@@ -31,32 +31,21 @@
   z-index: 1;
 }
 .card {
-  max-width: 700px;
+  max-width: clamp(360px, 90%, 1200px);
   width: 100%;
   margin: 0 auto;
   background: var(--card-bg);
   border-radius: 1.3rem;
-  box-shadow: 0 8px 32px 0 var(--shadow-blue), 0 2px 12px 0 var(--shadow-pink);
+  box-shadow: 0 8px 32px 0 var(--shadow-accent), 0 2px 12px 0 var(--shadow-gold);
   padding: 2.5rem 1.5rem 2.5rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid var(--neon-blue);
+  border: 2px solid var(--accent-main);
   backdrop-filter: blur(12px) saturate(1.2);
   position: relative;
   overflow-x: auto;
   min-width: 0;
-  box-sizing: border-box;
-}
-@media (min-width: 700px) {
-  .card {
-    padding: 2.5rem 2.2rem 2.5rem 2.2rem;
-  }
-}
-@media (min-width: 1100px) {
-  .card {
-    padding: 2.5rem 3rem 2.5rem 3rem;
-  }
 }
 @media (max-width: 700px) {
   .card {
@@ -182,11 +171,9 @@
 /* Step Navigation Bar */
 .step-nav {
   display: flex;
-  overflow-x: auto;
-  position: relative;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.7rem;
+  gap: clamp(0.5rem, 3vw, 2.5rem);
   width: 100%;
   max-width: 100%;
   margin: 0 auto 1.7rem auto;
@@ -194,36 +181,49 @@
   background: var(--nav-bg);
   border-radius: var(--nav-radius);
   box-shadow: var(--nav-shadow);
-  scrollbar-width: thin;
-  scrollbar-color: var(--neon-pink) var(--nav-bg);
+  overflow-x: auto;
+  position: relative;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .step-nav::-webkit-scrollbar {
-  height: 7px;
-}
-.step-nav::-webkit-scrollbar-thumb {
-  background: var(--neon-pink);
-  border-radius: 4px;
-}
-.step-nav::-webkit-scrollbar-track {
-  background: var(--nav-bg);
+  display: none;
 }
 .step-nav-btn {
-  min-width: 110px;
-  flex: 0 0 auto;
-  transition: box-shadow 0.18s, background 0.18s, transform 0.18s;
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 1.07rem;
-  font-weight: 700;
-  padding: 0.5rem 1.1rem;
-  border-radius: var(--button-radius);
-  cursor: pointer;
-  filter: var(--button-dark-filter);
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  min-height: 54px;
+  max-width: 54px;
+  max-height: 54px;
+  border-radius: 1.1rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  outline: none;
+  justify-content: center;
+  padding: 0;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--accent-main);
+  transition: box-shadow 0.18s, background 0.18s, transform 0.18s;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  margin: 0;
+}
+.step-nav-btn[aria-current="step"], .step-nav-btn.active {
+  background: var(--button-bg);
+  color: var(--accent-dark);
+  box-shadow: 0 2px 12px var(--shadow-accent), 0 0 0 6px var(--accent-light);
+  font-weight: 900;
+  filter: none;
+  animation: nav-pop 0.36s cubic-bezier(.4,1.5,.5,1) both;
+}
+@keyframes nav-pop {
+  0% { transform: scale(0.88) rotate(-6deg); }
+  60% { transform: scale(1.08) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 .step-nav-btn-text {
   display: inline-block;
@@ -242,13 +242,6 @@
 .step-nav-btn:focus .step-nav-btn-text {
   max-width: 0;
   opacity: 0;
-}
-.step-nav-btn[aria-current="step"], .step-nav-btn.active {
-  background: var(--button-bg);
-  color: var(--dark);
-  box-shadow: 0 2px 12px var(--shadow-blue);
-  font-weight: 900;
-  filter: none;
 }
 .step-nav-btn:hover:not([aria-current="step"]):not(:disabled) {
   background: var(--button-bg-alt);
@@ -334,31 +327,76 @@
 }
 
 /* Glassy option buttons */
+.optionBtn input[type='checkbox'],
+.optionBtn input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Bento Style for Option Cards --- */
 .optionBtn {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 1.5rem;
-  border-radius: 1.25rem;
-  border: 1.5px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.68);
-  box-shadow: 0 2px 12px #ffe70022, 0 1.5px 8px #fff inset;
-  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
-  cursor: pointer;
-  box-sizing: border-box;
-  margin-bottom: 0.5rem;
-  backdrop-filter: blur(10px) saturate(1.2);
-  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  min-height: 68px;
+  padding: 0.5rem 0.2rem;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  background: var(--glass-bg);
+  box-shadow: 0 1px 7px var(--shadow-accent);
+  margin-bottom: 0.3rem;
+  text-align: center;
+  position: relative;
+  transition: border 0.16s, box-shadow 0.16s, background 0.16s, transform 0.14s;
 }
-.optionBtn.selected {
-  border-color: #ffe700;
-  box-shadow: 0 4px 16px 0 #ffe70033;
-  background: rgba(255,255,255,0.92);
+.optionBtn.selected,
+.optionBtn[aria-pressed='true'] {
+  border-color: var(--accent-main);
+  background: var(--accent-light);
+  box-shadow: 0 2px 10px var(--shadow-accent);
+  transform: scale(1.04) rotate(-1deg);
 }
-.optionBtn:focus {
-  outline: 2px solid #ff5f6d;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px #ff5f6d33;
+.optionBtn:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  background: var(--glass-bg);
+  transform: scale(1.03) rotate(1deg);
+}
+.iconWrap {
+  font-size: 1.6rem;
+  margin-bottom: 0.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.optionTextWrap {
+  font-size: 0.97rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+  text-align: center;
+}
+.optionDetails {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 599px) {
+  .optionBtn {
+    min-height: 56px;
+    padding: 0.25rem 0.1rem;
+    font-size: 0.92rem;
+  }
+  .optionTextWrap {
+    font-size: 0.93rem;
+  }
 }
 
 /* Option grid layout */
@@ -381,9 +419,6 @@
 }
 
 @media (min-width: 768px) {
-  .card {
-    padding: 3.2rem 2.5rem;
-  }
   .title {
     font-size: 2.9rem;
   }
@@ -401,4 +436,24 @@
     font-size: 0.98rem;
     padding: 0.4rem 0.7rem;
   }
+}
+
+/* --- Accessibility & Layout --- */
+.iconLegend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.3rem;
+  margin-bottom: 0.3rem;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
