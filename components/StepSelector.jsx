@@ -74,6 +74,12 @@ export default function StepSelector({ step, value, onSelection }) {
               }
               tabIndex={0}
               aria-pressed={isSelected}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleSelect(item);
+                }
+              }}
             >
               <input
                 type={step.multi ? 'checkbox' : 'radio'}

@@ -52,6 +52,72 @@ A professional, fully accessible multi-step ramen/spaghetti order builder—buil
 
 ---
 
+## Testing
+
+This project uses Jest and React Testing Library for testing. We maintain high test coverage to ensure code quality.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests with coverage in watch mode
+npm run test:coverage:watch
+
+# Generate coverage report and open in browser
+npm run test:coverage:html
+
+# Run full test suite with coverage badge generation
+npm run test:full
+```
+
+### Coverage Requirements
+
+We maintain the following coverage thresholds:
+- Branches: 80%
+- Functions: 80%
+- Lines: 80%
+- Statements: 80%
+
+![Coverage Badge](./coverage/badge.svg)
+
+### Writing Tests
+
+When writing tests:
+1. Focus on user interactions and behavior
+2. Test both success and error cases
+3. Use meaningful test descriptions
+4. Follow the testing pyramid (more unit tests, fewer integration tests)
+
+Example test structure:
+```javascript
+describe('ComponentName', () => {
+  it('should do something specific', () => {
+    // Arrange
+    // Act
+    // Assert
+  });
+});
+```
+
+### Coverage Reports
+
+Coverage reports are generated in multiple formats:
+- Text summary in the console
+- HTML report in `coverage/lcov-report/index.html`
+- LCOV report for CI integration
+
+The coverage badge is automatically updated when running `npm run test:full`.
+
+---
+
 <footer>
   <span>
     <a href="https://windsurf.com/refer?referral_code=f181515cf7" target="_blank" rel="noopener noreferrer">

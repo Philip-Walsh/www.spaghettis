@@ -1,4 +1,5 @@
 import Footer from '../../components/Footer';
+import CoverageBadge from '../../components/CoverageBadge';
 
 export const metadata = {
   title: 'About | Forbidden Ramen',
@@ -19,6 +20,14 @@ export default function AboutPage() {
           <li>Discover new utilities and use cases for AI-driven codebases and developer experience</li>
           <li>Demonstrate best practices in Next.js, Netlify, and modern frontend engineering</li>
         </ul>
+
+        <h2>Code Quality</h2>
+        <p>
+          We maintain high code quality through comprehensive testing and continuous integration.
+          Our test coverage is monitored and displayed below:
+        </p>
+        <CoverageBadge />
+
         <h2>Technologies Used</h2>
         <ul>
           <li>Next.js 14 (App Router)</li>
@@ -29,10 +38,11 @@ export default function AboutPage() {
           <li>Tailwind CSS</li>
           <li>Windsurf</li>
         </ul>
+
         <h2>Open Source</h2>
         <p>
           View the source code and contribute on GitHub:
-          <br/>
+          <br />
           <a href="https://github.com/Philip-Walsh/www.spaghettis" target="_blank" rel="noopener noreferrer">
             github.com/Philip-Walsh/www.spaghettis
           </a>

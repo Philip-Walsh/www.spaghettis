@@ -7,17 +7,17 @@ export default function HomePage() {
       <div className={styles.heroBgGlow}></div>
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle + ' animated-gradient'}>
+          <h1 className={styles.heroTitle}>
             <span className={styles.ramenIcon}>🍜</span>
             Forbidden Ramen
           </h1>
-          <p className={styles.heroSubtitle + ' animated-gradient'}>
-            The next generation of noodles. <br />
-            <span className={styles.gradientText}>Vibe Coding with AI & Windsurf</span>
+          <p className={styles.heroSubtitle}>
+            Build your perfect bowl of ramen
           </p>
           <div className={styles.heroActions}>
-            <Link href="/ramen" className={styles.ctaButton + ' animated-gradient'}>Start Your Order</Link>
-            <Link href="/about" className={styles.secondaryButton}>Learn More</Link>
+            <Link href="/ramen" className={styles.ctaButton}>
+              Start Building
+            </Link>
           </div>
         </div>
       </section>
