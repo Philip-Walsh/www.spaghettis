@@ -18,9 +18,9 @@ export default function Nav() {
   return (
     <nav className="noodle-nav">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo" aria-label="Spaghetti Codes Home">
+        <Link href="/" className="nav-logo" aria-label="Forbidden Ramen Home">
           <span role="img" aria-label="noodles" className="nav-emoji">🍜</span>
-          <span className="nav-title">Spaghetti Codes</span>
+          <span className="nav-title">Forbidden Ramen</span>
         </Link>
         <button
           className="nav-toggle"

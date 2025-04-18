@@ -4,8 +4,8 @@ import Footer from '../components/Footer';
 
 export const metadata = {
     title: {
-        default: 'Spaghetti Codes',
-        template: '%s | Spaghetti Codes',
+        default: 'Forbidden Ramen',
+        template: '%s | Forbidden Ramen',
     },
     description: 'The next generation of noodles',
 };

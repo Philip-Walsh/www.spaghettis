@@ -11,6 +11,7 @@ A professional, fully accessible multi-step ramen/spaghetti order builder—buil
 - **Test the capabilities of Windsurf and AI assistants** for rapid prototyping, testing, and UI/UX iteration
 - **Discover new utilities and use cases** for AI-driven codebases and developer experience
 - **Demonstrate best practices** in Next.js, Netlify, and modern frontend engineering
+[Source Code on GitHub](https://github.com/Philip-Walsh/www.spaghettis)
 
 ---
 
