@@ -31,7 +31,7 @@ const uniqueNamesConfig = {
 };
 
 export function uniqueName() {
-    return uniqueNamesGenerator(uniqueNamesConfig) + "-" + randomInt(100, 999);
+    return uniqueNamesGenerator(uniqueNamesConfig) + '-' + randomInt(100, 999);
 }
 
-export const uploadDisabled = process.env.NEXT_PUBLIC_DISABLE_UPLOADS?.toLowerCase() === "true";
+export const uploadDisabled = process.env.NEXT_PUBLIC_DISABLE_UPLOADS?.toLowerCase() === 'true';

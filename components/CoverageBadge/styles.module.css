@@ -1,0 +1,38 @@
+.badgeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+}
+
+.badgeLink {
+    text-decoration: none;
+}
+
+.badge {
+    border-radius: 0.25rem;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.error {
+    color: #dc2626;
+    padding: 1rem;
+    background: #fee2e2;
+    border-radius: 0.25rem;
+}
+
+.loading {
+    color: #4b5563;
+    padding: 1rem;
+}

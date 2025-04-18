@@ -7,8 +7,22 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "lint:fix": "next lint --fix",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+        "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:file": "jest",
+        "test:debug": "jest --debug",
+        "test:coverage:watch": "jest --coverage --watch",
+        "test:coverage:html": "jest --coverage && open coverage/lcov-report/index.html",
+        "coverage:badge": "node scripts/coverage-badge.js",
+        "test:full": "npm run test:coverage && npm run coverage:badge",
+        "pre-push": "node scripts/pre-push.js",
+        "setup": "node scripts/setup-pre-push.js",
+        "prepare": "husky install",
+        "format:all": "npm run format && npm run lint:fix"
     },
     "dependencies": {
         "@apollo/client": "^3.13.8",
@@ -19,9 +33,11 @@
         "graphql": "^16.10.0",
         "markdown-to-jsx": "^7.4.5",
         "next": "15.3.0",
+        "node-fetch": "^2.6.7",
         "react": "18.3.1",
         "react-dom": "18.3.1",
-        "unique-names-generator": "^4.7.1"
+        "unique-names-generator": "^4.7.1",
+        "@octokit/rest": "^20.0.2"
     },
     "devDependencies": {
         "@tailwindcss/postcss": "^4.0.15",
@@ -37,6 +53,12 @@
         "jest-environment-jsdom": "^29.7.0",
         "postcss": "^8.4.36",
         "tailwindcss": "^4.0.15",
-        "ts-node": "^10.9.2"
+        "ts-node": "^10.9.2",
+        "chalk": "^4.1.2",
+        "prettier": "^3.2.5",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3"
     }
 }
