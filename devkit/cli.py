@@ -1,10 +1,30 @@
 #!/usr/bin/env python3
 
-import click
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional, Tuple
+
+import click
+
+
+def run_command(
+    command: List[str], capture_output: bool = True, check: bool = True
+) -> Tuple[bool, Optional[str]]:
+    """Run a shell command and return success status and output."""
+    try:
+        if capture_output:
+            result = subprocess.run(
+                command, check=check, capture_output=True, text=True
+            )
+            return True, result.stdout
+        else:
+            subprocess.run(command, check=check)
+            return True, None
+    except subprocess.CalledProcessError as e:
+        if capture_output:
+            click.echo(f"Error: {e.stderr}", err=True)
+        return False, None
 
 
 class GitManager:
@@ -14,8 +34,7 @@ class GitManager:
 
     def _run_command(self, command: List[str], check: bool = True) -> bool:
         try:
-            subprocess.run(command, check=check,
-                           capture_output=True, text=True)
+            subprocess.run(command, check=check, capture_output=True, text=True)
             return True
         except subprocess.CalledProcessError as e:
             click.echo(f"Error: {e.stderr}", err=True)
@@ -25,7 +44,8 @@ class GitManager:
         result = subprocess.run(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
             capture_output=True,
-            text=True
+            text=True,
+            check=False,
         )
         return result.stdout.strip()
 
@@ -57,98 +77,150 @@ class GitManager:
 
     def check_branch_protection(self, target_branch: str) -> bool:
         if target_branch == "main":
-            click.echo(
-                "❌ Direct pushes to main branch are not allowed.", err=True)
-            click.echo(
-                "Please create a pull request from your feature branch to main.")
+            click.echo("❌ Direct pushes to main branch are not allowed.", err=True)
+            click.echo("Please create a pull request from your feature branch to main.")
             return False
         elif target_branch != "dev":
-            click.echo(
-                f"⚠️  Warning: Pushing to {target_branch} instead of dev branch.")
+            click.echo(f"⚠️  Warning: Pushing to {target_branch} instead of dev branch.")
             click.echo("Consider pushing to dev branch instead.")
         return True
 
 
 @click.group()
 def cli():
-    """Development toolkit for managing git operations and pre-push checks."""
+    """DevKit CLI - Development workflow automation tool"""
     pass
 
 
 @cli.command()
-@click.argument('branch', required=False)
-@click.option('--force', '-f', is_flag=True, help='Force push changes')
-def push(branch: Optional[str], force: bool):
-    """Push changes to remote repository with pre-push checks."""
-    git = GitManager()
-    target_branch = branch or git.current_branch
-
-    if not git.check_branch_protection(target_branch):
+@click.argument("branch_type")
+@click.argument("branch_name")
+def create(branch_type, branch_name):
+    """Create a new branch with proper naming convention"""
+    valid_types = ["feature", "bugfix", "release", "hotfix"]
+    if branch_type not in valid_types:
+        click.echo(f"Error: Branch type must be one of {valid_types}")
         sys.exit(1)
 
-    if not git.fetch_all():
+    branch = f"{branch_type}/{branch_name}"
+    success, _ = run_command(["git", "checkout", "-b", branch])
+    if not success:
         sys.exit(1)
-
-    if not git.pull_rebase(target_branch):
-        click.echo("❌ Rebase failed. Please resolve conflicts and try again.")
-        click.echo("To resolve conflicts:")
-        click.echo("1. Fix the conflicts in the files")
-        click.echo("2. git add <fixed-files>")
-        click.echo("3. git rebase --continue")
-        sys.exit(1)
-
-    if not git.run_lint():
-        click.echo("❌ Linting failed. Please fix the issues before pushing.")
-        sys.exit(1)
-
-    if not git.run_tests():
-        click.echo("❌ Tests failed. Please fix the failing tests before pushing.")
-        sys.exit(1)
-
-    if not git.push(target_branch, force):
-        sys.exit(1)
-
-    click.echo("✅ All checks passed! Changes pushed successfully.")
+    click.echo(f"Created and switched to branch: {branch}")
 
 
 @cli.command()
-@click.argument('branch')
-def checkout(branch: str):
-    """Checkout a branch and set up tracking if needed."""
-    git = GitManager()
-
-    click.echo(f"🔄 Checking out {branch}...")
-    if not git._run_command(["git", "checkout", branch]):
+@click.argument("target_branch", default="dev")
+def push(target_branch):
+    """Push changes with pre-push checks"""
+    # Check branch protection
+    if target_branch == "main":
+        click.echo("❌ Direct pushes to main branch are not allowed.", err=True)
+        click.echo("Please create a pull request from your feature branch to main.")
         sys.exit(1)
 
-    # Check if branch exists on remote
-    result = subprocess.run(
-        ["git", "ls-remote", "--heads", "origin", branch],
-        capture_output=True,
-        text=True
-    )
+    # Run formatting
+    click.echo("Running code formatting...")
+    success, _ = run_command(["npm", "run", "format:all"])
+    if not success:
+        click.echo("❌ Code formatting failed")
+        sys.exit(1)
 
-    if not result.stdout.strip():
-        click.echo(f"⚠️  Branch {branch} does not exist on remote.")
-        click.echo("Setting up tracking...")
-        if not git._run_command(["git", "push", "--set-upstream", "origin", branch]):
+    # Run Python formatting
+    click.echo("Running Python formatting...")
+    commands = [["black", "."], ["isort", "."], ["ruff", "check", ".", "--fix"]]
+    for cmd in commands:
+        success, _ = run_command(cmd)
+        if not success:
+            click.echo(f"❌ Python formatting failed: {' '.join(cmd)}")
             sys.exit(1)
 
+    # Run tests
+    click.echo("Running tests...")
+    success, output = run_command(["npm", "test"], capture_output=False)
+    if not success:
+        click.echo("❌ Tests failed")
+        sys.exit(1)
+
+    # Push changes
+    click.echo(f"Pushing to {target_branch}...")
+    success, _ = run_command(["git", "push", "origin", f"HEAD:{target_branch}"])
+    if not success:
+        click.echo("❌ Push failed")
+        sys.exit(1)
+
+    click.echo("✅ All checks passed and changes pushed successfully!")
+
 
 @cli.command()
-@click.argument('branch')
-def create(branch: str):
-    """Create a new branch and set up tracking."""
-    git = GitManager()
-
-    click.echo(f"🌱 Creating new branch {branch}...")
-    if not git._run_command(["git", "checkout", "-b", branch]):
+def format():
+    """Format all code files"""
+    click.echo("Formatting JavaScript/TypeScript files...")
+    success, _ = run_command(["npm", "run", "format:all"])
+    if not success:
         sys.exit(1)
 
-    click.echo("Setting up tracking...")
-    if not git._run_command(["git", "push", "--set-upstream", "origin", branch]):
+    click.echo("Formatting Python files...")
+    commands = [["black", "."], ["isort", "."], ["ruff", "check", ".", "--fix"]]
+    for cmd in commands:
+        success, _ = run_command(cmd)
+        if not success:
+            sys.exit(1)
+
+    click.echo("✅ Formatting complete!")
+
+
+@cli.command()
+def setup():
+    """Setup development environment"""
+    click.echo("Installing npm dependencies...")
+    success, _ = run_command(["npm", "install"])
+    if not success:
+        sys.exit(1)
+
+    click.echo("Installing Python dependencies...")
+    commands = [
+        ["pip", "install", "-e", "."],
+        ["pip", "install", "black", "isort", "ruff"],
+    ]
+    for cmd in commands:
+        success, _ = run_command(cmd)
+        if not success:
+            sys.exit(1)
+
+    click.echo("Setting up git hooks...")
+    success, _ = run_command(["npx", "husky", "install"])
+    if not success:
+        sys.exit(1)
+
+    click.echo("✅ Setup complete!")
+
+
+@cli.command()
+def status():
+    """Check development environment status"""
+    all_good = True
+
+    click.echo("Checking npm dependencies...")
+    success, _ = run_command(["npm", "list", "--depth=0"])
+    if not success:
+        all_good = False
+
+    click.echo("\nChecking Python dependencies...")
+    success, _ = run_command(["pip", "list"])
+    if not success:
+        all_good = False
+
+    click.echo("\nChecking git hooks...")
+    if Path(".husky").exists():
+        click.echo("✅ Git hooks are installed")
+    else:
+        click.echo("❌ Git hooks are not installed")
+        all_good = False
+
+    if not all_good:
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
