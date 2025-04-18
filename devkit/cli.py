@@ -135,6 +135,15 @@ def push(target_branch):
             click.echo(f"❌ Python formatting failed: {' '.join(cmd)}")
             sys.exit(1)
 
+    # Verify build works
+    click.echo("Verifying build...")
+    success, _ = run_command(
+        ["npm", "run", "build", "--", "--no-lint"], capture_output=False
+    )
+    if not success:
+        click.echo("❌ Build verification failed")
+        sys.exit(1)
+
     # Run tests
     click.echo("Running tests...")
     success, output = run_command(
