@@ -61,10 +61,11 @@
   color: var(--accent-main);
 }
 .gradientText {
-  background: linear-gradient(90deg, var(--accent-main), var(--accent-gold));
+  background: linear-gradient(90deg, #16c784, #ffd700, #ff5af7 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
+  filter: drop-shadow(0 0 4px #16c784) drop-shadow(0 0 8px #ffd700);
 }
 .heroActions {
   margin-top: 1.1rem;
@@ -72,42 +73,29 @@
   gap: 2em;
   justify-content: center;
 }
-.ctaButton {
-  background: var(--accent-main);
-  color: var(--accent-dark);
+.ctaButton, .secondaryButton {
+  background: linear-gradient(90deg, #16c784 0%, #ffd700 60%, #ff5af7 100%);
+  color: #181c27;
   font-size: 1.35rem;
   font-weight: 900;
   border-radius: 0.8em;
   padding: 0.9em 2.2em;
-  box-shadow: 0 3px 18px var(--shadow-accent);
+  box-shadow: 0 3px 18px #ff5af744, 0 1.5px 8px #16c78444;
   border: none;
   transition: background 0.18s, color 0.18s, transform 0.13s;
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: 1.2px;
 }
-.ctaButton:hover, .ctaButton:focus {
-  background: var(--accent-gold);
-  color: var(--accent-main);
-  transform: scale(1.06);
+.ctaButton:hover, .ctaButton:focus, .secondaryButton:hover, .secondaryButton:focus {
+  background: linear-gradient(90deg, #ff5af7 0%, #ffd700 60%, #16c784 100%);
+  color: #e85d04;
+  transform: scale(1.07);
+  box-shadow: 0 6px 24px #ffd70099, 0 2px 10px #16c78444;
 }
 .secondaryButton {
   background: var(--accent-light);
-  color: var(--accent-dark);
   font-size: 1.18rem;
   font-weight: 700;
-  border-radius: 0.8em;
-  padding: 0.8em 1.9em;
-  box-shadow: 0 1.5px 8px var(--shadow-accent);
-  border: none;
-  transition: background 0.18s, color 0.18s, transform 0.13s;
-  cursor: pointer;
-  text-decoration: none;
-}
-.secondaryButton:hover, .secondaryButton:focus {
-  background: var(--accent-gold);
-  color: var(--accent-main);
-  transform: scale(1.04);
 }
 @media (max-width: 700px) {
   .heroFullScreen {

@@ -65,44 +65,37 @@ export default function StepSelector({ step, value, onSelection }) {
             : value === item.name;
 
           return (
-            <label
-              key={item.name}
+            <button
+              type="button"
               role="button"
+              key={item.name}
               aria-label={item.name}
               className={
                 styles.optionBtn + (isSelected ? ` ${styles.selected}` : '')
               }
               tabIndex={0}
               aria-pressed={isSelected}
+              onClick={() => handleSelect(item)}
             >
-              <input
-                type={step.multi ? 'checkbox' : 'radio'}
-                name={step.key}
-                className={styles.input}
-                checked={isSelected}
-                onChange={() => handleSelect(item)}
-                style={{marginRight: 18, width: 24, height: 24}}
-              />
-              <div className={styles.optionContent} style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                <div className={styles.iconWrap} style={{fontSize: 32, marginRight: 16}}>
-                  <span className={styles.icon + ' noto-emoji'} style={{ fontFamily: 'Noto Emoji, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, EmojiOne Color, sans-serif' }}>
-                    {icons[item.tag] || icons.base}
-                  </span>
-                </div>
-                <div className={styles.optionTextWrap} style={{flex: 1, minWidth: 0}}>
-                  <h3 className={styles.optionTitle} style={{fontWeight: 700, fontSize: '1.15rem'}}>{item.name}</h3>
-                  <div className={styles.optionDetails} style={{marginTop: 4, display: 'flex', alignItems: 'center', gap: 8}}>
-                    {item.tag && <Tag label={item.tag} type={item.tag} />}
-                    {typeof item.price === 'number' && item.price > 0 && (
-                      <span className={styles.priceTag}>+${item.price}</span>
-                    )}
+              <span aria-hidden="true">
+                <div className={styles.optionContent} style={{display: 'flex', alignItems: 'center', width: '100%'}}>
+                  <div className={styles.iconWrap} style={{fontSize: 32, marginRight: 16}}>
+                    <span className={styles.icon + ' noto-emoji'} style={{ fontFamily: 'Noto Emoji, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, EmojiOne Color, sans-serif' }}>
+                      {icons[item.tag] || icons.base}
+                    </span>
                   </div>
-                  {item.description && (
-                    <div style={{fontSize: '0.95rem', color: '#444', marginTop: 4}}>{item.description}</div>
-                  )}
+                  <div className={styles.optionTextWrap} style={{flex: 1, minWidth: 0}}>
+                    <span className={styles.optionTitle}>{item.name}</span>
+                    <div className={styles.optionDetails} style={{marginTop: 4, display: 'flex', alignItems: 'center', gap: 8}}>
+                      <span className={styles.inlineFlex + ' priceTag'}>{step.key}</span>
+                      {item.price > 0 && (
+                        <span className={styles.priceTag}>+${item.price}</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </label>
+              </span>
+            </button>
           );
         })}
       </div>

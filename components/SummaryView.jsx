@@ -10,7 +10,7 @@ export default function SummaryView({ selectedItems, totalPrice, onOrderMore }) 
         <ul>
           {Object.entries(selectedItems).map(([key, val]) => (
             <li key={key}>
-              <strong>{key}:</strong> {Array.isArray(val) ? val.join(', ') : val}
+              <strong>{key}:</strong> {Array.isArray(val) ? val.map(v => (v && typeof v === 'object' ? v.name : v)).join(', ') : (val && typeof val === 'object' ? val.name : val)}
             </li>
           ))}
         </ul>

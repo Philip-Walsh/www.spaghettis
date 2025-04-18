@@ -18,7 +18,7 @@ describe('RamenBuilder', () => {
 
   // Utility for robust option selection
   const selectOption = async (role, name) => {
-    // Use role=button for custom optionBtn
+    // Use getByRole for button with aria-label
     const el = await screen.findByRole('button', { name });
     await userEvent.click(el);
   };

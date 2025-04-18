@@ -17,6 +17,7 @@ export default function HomePage() {
           </p>
           <div className={styles.heroActions}>
             <Link href="/ramen" className={styles.ctaButton + ' animated-gradient'}>Start Your Order</Link>
+            <Link href="/ramen" className={styles.secondaryButton}>Go to Order</Link>
             <Link href="/about" className={styles.secondaryButton}>Learn More</Link>
           </div>
         </div>

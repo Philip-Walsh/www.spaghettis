@@ -47,12 +47,17 @@ export default function RamenBuilder() {
 
   const width = useWindowWidth();
 
+  // Fix scrollIntoView for jsdom test environment
+  const scrollIntoViewIfSupported = (el) => {
+    if (el && typeof el.scrollIntoView === 'function') {
+      el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  };
+
   useEffect(() => {
     const nav = navRef.current;
     const activeBtn = nav?.querySelector('[aria-current="step"]');
-    if (activeBtn && nav) {
-      activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
+    scrollIntoViewIfSupported(activeBtn);
   }, [currentStep]);
 
   useEffect(() => {
@@ -84,9 +89,9 @@ export default function RamenBuilder() {
     setSelectedItems(prev => {
       let updated;
       if (Array.isArray(selectedItem)) {
-        updated = { ...prev, [stepKey]: selectedItem.map(i => (typeof i === 'object' && i !== null && 'name' in i ? i.name : i)) };
-      } else if (selectedItem && selectedItem.name) {
-        updated = { ...prev, [stepKey]: selectedItem.name };
+        updated = { ...prev, [stepKey]: selectedItem };
+      } else if (selectedItem && typeof selectedItem === 'object') {
+        updated = { ...prev, [stepKey]: selectedItem };
       } else {
         updated = { ...prev, [stepKey]: selectedItem };
       }
@@ -96,7 +101,11 @@ export default function RamenBuilder() {
             Array.isArray(names) &&
             menuOptions[key]
           ) {
-            updated[key] = names;
+            // Only set defaults if not already set by user
+            if (!prev[key] || (Array.isArray(prev[key]) && prev[key].length === 0)) {
+              const fullChoices = menuOptions[key].choices.filter(opt => names.includes(opt.name));
+              updated[key] = menuOptions[key].multi ? fullChoices : fullChoices[0];
+            }
           }
         });
       }
