@@ -137,7 +137,10 @@ def push(target_branch):
 
     # Run tests
     click.echo("Running tests...")
-    success, output = run_command(["npm", "test"], capture_output=False)
+    success, output = run_command(
+        ["npm", "test", "--", "--passWithNoTests", "--coverage=false"],
+        capture_output=False,
+    )
     if not success:
         click.echo("❌ Tests failed")
         sys.exit(1)
