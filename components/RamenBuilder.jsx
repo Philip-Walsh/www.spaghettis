@@ -6,6 +6,7 @@ import { menuOptions } from '../data/menuOptions';
 import StepSelector from './StepSelector';
 import ProgressBar from './ProgressBar';
 import StepIcon from './StepIcon';
+import SummaryView from './SummaryView';
 import { calculateTotalPrice } from './utils';
 import styles from './styles/RamenBuilder.module.css';
 
@@ -56,7 +57,10 @@ export default function RamenBuilder() {
 
   useEffect(() => {
     if (steps.length === 0) {
-      setSteps(Object.values(menuOptions));
+      setSteps([
+        ...Object.values(menuOptions),
+        { key: 'summary', label: 'Summary' }
+      ]);
     }
   }, [steps]);
 
@@ -114,6 +118,11 @@ export default function RamenBuilder() {
     }
   };
 
+  const handleOrderMore = () => {
+    setSelectedItems({});
+    setCurrentStep(0);
+  };
+
   const currentStepData = filteredSteps[currentStep];
   const currentKey = currentStepData?.key;
   const currentSelection = selectedItems[currentKey];
@@ -123,6 +132,8 @@ export default function RamenBuilder() {
 
   const totalPrice = calculateTotalPrice(selectedItems);
 
+  const isSummaryStep = filteredSteps[currentStep]?.key === 'summary';
+
   if (!filteredSteps.length) {
     return <div>Loading...</div>;
   }
@@ -130,94 +141,102 @@ export default function RamenBuilder() {
   return (
     <div className={styles['ramen-container']}>
       <div className={styles['page-content']} style={{ maxWidth: 'clamp(360px, 90%, 1200px)' }}>
-        <h1 className={styles['title']}>Build Your Perfect Ramen</h1>
-        <div className={styles['card']} data-testid="card">
-          <div className={styles['card-header-row']}>
-            <div className={styles['price-bento']}>
-              <span className={styles['price-bento-label']}>Total</span>
-              <span className={styles['price-bento-value']}>${totalPrice.toFixed(2)}</span>
-            </div>
-            <label className={styles['veggie-toggle']}>
-              <input
-                type="checkbox"
-                checked={veggieOnly}
-                onChange={() => setVeggieOnly(v => !v)}
-                aria-label="Veggie Only"
-              />
-              <span role="img" aria-label="plant">🥦</span>
-            </label>
-          </div>
-          <div className={styles['step-nav']} ref={navRef}>
-            {filteredSteps.map((step, idx) => (
-              <button
-                key={step.key}
-                onClick={() => handleTabClick(idx)}
-                className={styles['step-nav-btn']}
-                aria-current={idx === currentStep ? 'step' : undefined}
-                tabIndex={0}
-              >
-                <StepIcon icon={stepIcons[step.key]} />
-              </button>
-            ))}
-          </div>
-          <div>
-            <ProgressBar currentStep={currentStep} totalSteps={filteredSteps.length} />
-          </div>
-          <div className={styles['step-container']}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{
-                  opacity: 0,
-                  clipPath: currentStep > 0
-                    ? 'ellipse(80% 0% at 50% 100%)'
-                    : 'ellipse(80% 0% at 50% 0%)'
-                }}
-                animate={{
-                  opacity: 1,
-                  clipPath: 'ellipse(100% 100% at 50% 50%)'
-                }}
-                exit={{
-                  opacity: 0,
-                  clipPath: currentStep > 0
-                    ? 'ellipse(80% 0% at 50% 0%)'
-                    : 'ellipse(80% 0% at 50% 100%)'
-                }}
-                transition={{ duration: 0.44, ease: [0.4, 0, 0.2, 1] }}
-                className={styles['step-content-drip']}
-              >
-                <StepSelector
-                  width={width}
-                  step={{ ...currentStepData, icon: stepIcons[currentStepData?.key] }}
-                  value={currentSelection}
-                  onSelection={selected => handleSelection(currentKey, selected)}
+        <h1 className={styles['title']}>{isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}</h1>
+        {isSummaryStep ? (
+          <SummaryView
+            selectedItems={selectedItems}
+            totalPrice={totalPrice}
+            onOrderMore={handleOrderMore}
+          />
+        ) : (
+          <div className={styles['card']} data-testid="card">
+            <div className={styles['card-header-row']}>
+              <div className={styles['price-bento']}>
+                <span className={styles['price-bento-label']}>Total</span>
+                <span className={styles['price-bento-value']}>${totalPrice.toFixed(2)}</span>
+              </div>
+              <label className={styles['veggie-toggle']}>
+                <input
+                  type="checkbox"
+                  checked={veggieOnly}
+                  onChange={() => setVeggieOnly(v => !v)}
+                  aria-label="Veggie Only"
                 />
-              </motion.div>
-            </AnimatePresence>
+                <span role="img" aria-label="plant">🥦</span>
+              </label>
+            </div>
+            <div className={styles['step-nav']} ref={navRef}>
+              {filteredSteps.map((step, idx) => (
+                <button
+                  key={step.key}
+                  onClick={() => setCurrentStep(idx)}
+                  className={styles['step-nav-btn']}
+                  aria-current={idx === currentStep ? 'step' : undefined}
+                  tabIndex={0}
+                >
+                  <StepIcon icon={stepIcons[step.key]} />
+                </button>
+              ))}
+            </div>
+            <div>
+              <ProgressBar currentStep={currentStep} totalSteps={filteredSteps.length} />
+            </div>
+            <div className={styles['step-container']}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  initial={{
+                    opacity: 0,
+                    clipPath: currentStep > 0
+                      ? 'ellipse(80% 0% at 50% 100%)'
+                      : 'ellipse(80% 0% at 50% 0%)'
+                  }}
+                  animate={{
+                    opacity: 1,
+                    clipPath: 'ellipse(100% 100% at 50% 50%)'
+                  }}
+                  exit={{
+                    opacity: 0,
+                    clipPath: currentStep > 0
+                      ? 'ellipse(80% 0% at 50% 0%)'
+                      : 'ellipse(80% 0% at 50% 100%)'
+                  }}
+                  transition={{ duration: 0.44, ease: [0.4, 0, 0.2, 1] }}
+                  className={styles['step-content-drip']}
+                >
+                  <StepSelector
+                    width={width}
+                    step={{ ...currentStepData, icon: stepIcons[currentStepData?.key] }}
+                    value={currentSelection}
+                    onSelection={selected => handleSelection(currentKey, selected)}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className={styles['button-row']}>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleBack}
+                disabled={currentStep === 0}
+                className={styles['button']}
+                aria-label="Back"
+              >
+                <span aria-hidden="true">←</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setCurrentStep(currentStep + 1)}
+                disabled={!canProceed}
+                className={styles['buttonPrimary']}
+                aria-label={currentStep === filteredSteps.length - 2 ? 'Finish' : 'Next'}
+              >
+                <span aria-hidden="true">→</span>
+              </motion.button>
+            </div>
           </div>
-          <div className={styles['button-row']}>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleBack}
-              disabled={currentStep === 0}
-              className={styles['button']}
-              aria-label="Back"
-            >
-              <span aria-hidden="true">←</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleNext}
-              disabled={!canProceed}
-              className={styles['buttonPrimary']}
-              aria-label={currentStep === filteredSteps.length - 1 ? 'Finish' : 'Next'}
-            >
-              <span aria-hidden="true">→</span>
-            </motion.button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

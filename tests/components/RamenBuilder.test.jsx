@@ -18,15 +18,15 @@ describe('RamenBuilder', () => {
 
   // Utility for robust option selection
   const selectOption = async (role, name) => {
-    const el = await screen.findByRole(role, { name });
+    // Use role=button for custom optionBtn
+    const el = await screen.findByRole('button', { name });
     await userEvent.click(el);
   };
 
   test('renders initial state correctly', async () => {
     render(<RamenBuilder />);
-
     expect(await screen.findByText('Build Your Perfect Ramen')).toBeInTheDocument();
-    expect(await screen.findByText('Total Price')).toBeInTheDocument();
+    expect(await screen.findByText('Total')).toBeInTheDocument();
     expect(await screen.findByText('$0.00')).toBeInTheDocument();
   });
 
@@ -34,7 +34,7 @@ describe('RamenBuilder', () => {
     const user = userEvent.setup();
     render(<RamenBuilder />);
 
-    await selectOption('radio', /Neo Udon/i);
+    await selectOption('button', /Neo Udon/i);
 
     expect(await screen.findByText('$1.50')).toBeInTheDocument();
   });
@@ -44,7 +44,7 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select a base to enable Next
-    await selectOption('radio', /Forbidden Ramen/i);
+    await selectOption('button', /Forbidden Ramen/i);
     
     // Navigate to protein step
     const nextButton = await screen.findByRole('button', { name: /next/i });
@@ -54,8 +54,8 @@ describe('RamenBuilder', () => {
     screen.debug();
     try {
       // Use findByText for async/fuzzy match
-      await selectOption('checkbox', /Chicken/i);
-      await selectOption('checkbox', /Tofu/i);
+      await selectOption('button', /Chicken/i);
+      await selectOption('button', /Tofu/i);
       // Price should be base + chicken + tofu
       expect(await screen.findByText('$3.75')).toBeInTheDocument();
     } catch (e) {
@@ -71,7 +71,7 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select a base to enable navigation
-    await selectOption('radio', /Forbidden Ramen/i);
+    await selectOption('button', /Forbidden Ramen/i);
     
     const nextButton = await screen.findByRole('button', { name: /next/i });
     const backButton = await screen.findByRole('button', { name: /back/i });
@@ -88,16 +88,16 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select multiple bases (simulate real menuOptions)
-    await selectOption('radio', /Forbidden Ramen/i);
-    await selectOption('radio', /Neo Udon/i);
+    await selectOption('button', /Forbidden Ramen/i);
+    await selectOption('button', /Neo Udon/i);
 
     // Go to next step (protein)
     const nextButton = await screen.findByRole('button', { name: /next/i });
     await userEvent.click(nextButton);
 
     // Select multiple proteins
-    await selectOption('checkbox', /Chicken/i);
-    await selectOption('checkbox', /Tofu/i);
+    await selectOption('button', /Chicken/i);
+    await selectOption('button', /Tofu/i);
 
     // Check price reflects all selected
     // (Assuming Forbidden Ramen $0, Neo Udon $1.5, Chicken $2.0, Tofu $1.75)
@@ -109,14 +109,14 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select Rice Noodles (GF)
-    await selectOption('radio', /Rice Noodles \(GF\)/i);
+    await selectOption('button', /Rice Noodles \(GF\)/i);
 
     // Go to next step
     const nextButton = await screen.findByRole('button', { name: /next/i });
     await userEvent.click(nextButton);
 
     // Select Edamame (GF)
-    await selectOption('checkbox', /Edamame \(GF\)/i);
+    await selectOption('button', /Edamame \(GF\)/i);
 
     // Check price reflects both
     // (Rice Noodles $1.5, Edamame $1.0)
@@ -128,26 +128,26 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Step 1: Select two bases
-    await selectOption('radio', /Forbidden Ramen/i);
-    await selectOption('radio', /Neo Udon/i);
+    await selectOption('button', /Forbidden Ramen/i);
+    await selectOption('button', /Neo Udon/i);
     // Next
     const nextButton = await screen.findByRole('button', { name: /next/i });
     await userEvent.click(nextButton);
 
     // Step 2: Select two proteins
-    await selectOption('checkbox', /Chicken/i);
-    await selectOption('checkbox', /Tofu/i);
+    await selectOption('button', /Chicken/i);
+    await selectOption('button', /Tofu/i);
     // Next
     await userEvent.click(nextButton);
 
     // Step 3: Select two garden picks
-    await selectOption('checkbox', /Bok Choy/i);
-    await selectOption('checkbox', /Mushrooms/i);
+    await selectOption('button', /Bok Choy/i);
+    await selectOption('button', /Mushrooms/i);
     // Next
     await userEvent.click(nextButton);
 
     // Step 4: Select a broth
-    await selectOption('radio', /Miso/i);
+    await selectOption('button', /Miso/i);
     // Next (Finish)
     await userEvent.click(nextButton);
 
@@ -170,19 +170,19 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select Quantum Soba and default picks
-    await selectOption('radio', /Quantum Soba/i);
+    await selectOption('button', /Quantum Soba/i);
     // Next to proteins
     const nextButton = await screen.findByRole('button', { name: /next/i });
     await userEvent.click(nextButton); // To Protein
     // Select a protein so we can proceed
-    await selectOption('checkbox', /Tofu/i);
+    await selectOption('button', /Tofu/i);
     // Next to garden picks
     await userEvent.click(nextButton);
 
     // Default garden picks: Mushrooms, Bean Sprouts should be checked
     await waitFor(() => {
-      expect(screen.getByRole('checkbox', { name: /Mushrooms/i })).toBeChecked();
-      expect(screen.getByRole('checkbox', { name: /Bean Sprouts/i })).toBeChecked();
+      expect(screen.getByRole('button', { name: /Mushrooms/i })).toBeChecked();
+      expect(screen.getByRole('button', { name: /Bean Sprouts/i })).toBeChecked();
     });
   });
 
@@ -191,24 +191,133 @@ describe('RamenBuilder', () => {
     render(<RamenBuilder />);
 
     // Select a noodle base
-    await selectOption('radio', /Quantum Soba/i);
+    await selectOption('button', /Quantum Soba/i);
 
     // Next to Protein
     const nextButton = await screen.findByRole('button', { name: /next/i });
     await userEvent.click(nextButton);
 
     // Select a protein (simulate object)
-    await selectOption('checkbox', /Tofu/i);
+    await selectOption('button', /Tofu/i);
     // Deselect (simulate array of names)
-    await selectOption('checkbox', /Tofu/i);
+    await selectOption('button', /Tofu/i);
 
     // No error should be thrown, and UI should update
-    expect(screen.getByRole('checkbox', { name: /Tofu/i })).not.toBeChecked();
+    expect(screen.getByRole('button', { name: /Tofu/i })).not.toBeChecked();
   });
 
   test('card uses responsive clamp max-width', () => {
     render(<RamenBuilder />);
     const card = screen.getByTestId('card');
     expect(card).toHaveStyle('max-width: clamp(360px, 90%, 1200px)');
+  });
+
+  test('shows summary on finish and allows ordering more', async () => {
+    const user = userEvent.setup();
+    render(<RamenBuilder />);
+
+    // Complete flow: select one from each step
+    await selectOption('button', /Forbidden Ramen/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Chicken/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Bok Choy/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Miso/i);
+    // Finish button
+    const finishBtn = await screen.findByRole('button', { name: /Finish/i });
+    await userEvent.click(finishBtn);
+
+    // Summary should appear
+    expect(await screen.findByText('Selection Complete!')).toBeInTheDocument();
+    expect(screen.getByText('Your Order')).toBeInTheDocument();
+    // Check items listed
+    expect(screen.getByText(/Forbidden Ramen/i)).toBeInTheDocument();
+    expect(screen.getByText(/Chicken/i)).toBeInTheDocument();
+    expect(screen.getByText(/Bok Choy/i)).toBeInTheDocument();
+    expect(screen.getByText(/Miso/i)).toBeInTheDocument();
+    // Check total
+    expect(screen.getByText(/Total: \$/i)).toBeInTheDocument();
+
+    // Order more resets flow
+    const orderMoreBtn = screen.getByRole('button', { name: /Order More/i });
+    await userEvent.click(orderMoreBtn);
+    // Should return to first step
+    expect(await screen.findByText('Choose Your Noodle Base')).toBeInTheDocument();
+  });
+
+  test('stepper and summary happy path', async () => {
+    const user = userEvent.setup();
+    render(<RamenBuilder />);
+    // Nice order: select one per step
+    await selectOption('button', /Forbidden Ramen/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Chicken/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Bok Choy/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Miso/i);
+    // Finish
+    await userEvent.click(await screen.findByRole('button', { name: /Finish/i }));
+    expect(await screen.findByText('Selection Complete!')).toBeInTheDocument();
+    expect(screen.getByText('Your Order')).toBeInTheDocument();
+    expect(screen.getByText(/Forbidden Ramen/)).toBeInTheDocument();
+    expect(screen.getByText(/Chicken/)).toBeInTheDocument();
+    expect(screen.getByText(/Bok Choy/)).toBeInTheDocument();
+    expect(screen.getByText(/Miso/)).toBeInTheDocument();
+    expect(screen.getByText(/Total: \$/)).toBeInTheDocument();
+    // Order more resets
+    await userEvent.click(screen.getByRole('button', { name: /Order More/i }));
+    expect(await screen.findByText('Choose Your Noodle Base')).toBeInTheDocument();
+  });
+
+  test('multiselect and summary with complex order', async () => {
+    const user = userEvent.setup();
+    render(<RamenBuilder />);
+    // Complicated: select multiple proteins, garden, garnish
+    await selectOption('button', /Neo Udon/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Chicken/i);
+    await selectOption('button', /Tofu/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Mushrooms/i);
+    await selectOption('button', /Bok Choy/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Spicy Miso/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Finish/i }));
+    expect(await screen.findByText('Selection Complete!')).toBeInTheDocument();
+    expect(screen.getByText(/Neo Udon/)).toBeInTheDocument();
+    expect(screen.getByText(/Chicken/)).toBeInTheDocument();
+    expect(screen.getByText(/Tofu/)).toBeInTheDocument();
+    expect(screen.getByText(/Mushrooms/)).toBeInTheDocument();
+    expect(screen.getByText(/Bok Choy/)).toBeInTheDocument();
+    expect(screen.getByText(/Spicy Miso/)).toBeInTheDocument();
+    expect(screen.getByText(/Total: \$/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: /Order More/i }));
+    expect(await screen.findByText('Choose Your Noodle Base')).toBeInTheDocument();
+  });
+
+  test('robustness: random order, deselect, reselect', async () => {
+    const user = userEvent.setup();
+    render(<RamenBuilder />);
+    // Select and deselect in various steps
+    await selectOption('button', /Quantum Soba/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Tofu/i);
+    await selectOption('button', /Chicken/i);
+    await selectOption('button', /Tofu/i); // Deselect
+    await selectOption('button', /Tofu/i); // Reselect
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Carrots/i);
+    await selectOption('button', /Carrots/i); // Deselect
+    await userEvent.click(await screen.findByRole('button', { name: /Next/i }));
+    await selectOption('button', /Tonkotsu/i);
+    await userEvent.click(await screen.findByRole('button', { name: /Finish/i }));
+    expect(await screen.findByText('Selection Complete!')).toBeInTheDocument();
+    expect(screen.getByText(/Quantum Soba/)).toBeInTheDocument();
+    expect(screen.getByText(/Tofu/)).toBeInTheDocument();
+    expect(screen.getByText(/Chicken/)).toBeInTheDocument();
+    expect(screen.getByText(/Tonkotsu/)).toBeInTheDocument();
+    expect(screen.getByText(/Total: \$/)).toBeInTheDocument();
   });
 });

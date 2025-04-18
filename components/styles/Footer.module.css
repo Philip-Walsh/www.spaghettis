@@ -1,0 +1,31 @@
+.footer {
+  grid-area: footer;
+  width: 100%;
+  padding: 1.2rem 0 1.5rem 0;
+  background: var(--card-bg);
+  color: var(--accent-main);
+  text-align: center;
+  font-size: 1.04rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1.5px solid var(--accent-main);
+  box-shadow: 0 -2px 14px var(--shadow-accent);
+  z-index: 2;
+}
+.footer a {
+  color: var(--accent-main);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.footer img {
+  display: inline;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  filter: drop-shadow(0 0 2px var(--accent-gold));
+}

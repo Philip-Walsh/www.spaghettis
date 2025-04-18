@@ -67,31 +67,17 @@ export default function StepSelector({ step, value, onSelection }) {
           return (
             <label
               key={item.name}
+              role="button"
+              aria-label={item.name}
               className={
                 styles.optionBtn + (isSelected ? ` ${styles.selected}` : '')
               }
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-                minHeight: 64,
-                fontSize: '1.15rem',
-                borderRadius: '1rem',
-                marginBottom: 8,
-                border: isSelected ? '3px solid #2563eb' : '2px solid #e5e7eb',
-                background: isSelected ? '#f0f7ff' : '#fff',
-                boxShadow: isSelected ? '0 0 0 4px #2563eb22' : 'none',
-                padding: '1.5rem',
-                transition: 'border 0.2s, background 0.2s, box-shadow 0.2s',
-                cursor: 'pointer',
-              }}
               tabIndex={0}
               aria-pressed={isSelected}
             >
               <input
                 type={step.multi ? 'checkbox' : 'radio'}
                 name={step.key}
-                aria-label={item.name}
                 className={styles.input}
                 checked={isSelected}
                 onChange={() => handleSelect(item)}
