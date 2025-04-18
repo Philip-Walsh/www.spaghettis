@@ -18,7 +18,7 @@ describe('RamenBuilder User Experience', () => {
   it('shows welcome and lets user complete a simple order', async () => {
     render(<RamenBuilder />);
     await screen.findByText(/choose your noodle base/i);
-    await selectOptionByLabel('forbidden ramen');
+    await selectOptionByLabel('Ramen');
     screen.getByLabelText(/next/i).click();
     await screen.findByText(/choose your protein/i);
     await selectOptionByLabel('tofu');
@@ -33,7 +33,7 @@ describe('RamenBuilder User Experience', () => {
     await screen.findByText(/garnish/i);
     await selectOptionByLabel('seaweed');
     screen.getByLabelText(/finish/i).click();
-    expect(screen.getByText(/forbidden ramen/i)).toBeInTheDocument();
+    expect(screen.getByText(/ramen/i)).toBeInTheDocument();
     expect(screen.getByText(/tofu/i)).toBeInTheDocument();
     expect(screen.getByText(/chicken/i)).toBeInTheDocument();
     expect(screen.getByText(/bok choy/i)).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('RamenBuilder User Experience', () => {
   it('pre-ticks defaults for Quantum Soba', async () => {
     render(<RamenBuilder />);
     await screen.findByText(/choose your noodle base/i);
-    await selectOptionByLabel('quantum soba');
+    await selectOptionByLabel('Udon');
     screen.getByLabelText(/next/i).click();
     await screen.findByText(/choose your protein/i);
     screen.getByLabelText(/next/i).click();
@@ -69,14 +69,14 @@ describe('RamenBuilder User Experience', () => {
     await screen.findByText(/choose your noodle base/i);
     // Next should be disabled
     expect(screen.getByLabelText(/next/i)).toBeDisabled();
-    await selectOptionByLabel('neo udon');
+    await selectOptionByLabel('Udon');
     expect(screen.getByLabelText(/next/i)).not.toBeDisabled();
   });
 
   it('supports keyboard navigation for selection', async () => {
     render(<RamenBuilder />);
     await screen.findByText(/choose your noodle base/i);
-    const option = screen.getByLabelText(/neo udon/i);
+    const option = screen.getByLabelText(/udon/i);
     option.focus();
     fireEvent.keyDown(option, { key: ' ', code: 'Space' });
     expect(option).toBeChecked();
@@ -85,7 +85,7 @@ describe('RamenBuilder User Experience', () => {
   it('is robust to random navigation and selection changes', async () => {
     render(<RamenBuilder />);
     await screen.findByText(/choose your noodle base/i);
-    await selectOptionByLabel('neo udon');
+    await selectOptionByLabel('Udon');
     screen.getByLabelText(/next/i).click();
     await screen.findByText(/choose your protein/i);
     await selectOptionByLabel('shrimp');
@@ -102,7 +102,7 @@ describe('RamenBuilder User Experience', () => {
     await screen.findByText(/garnish/i);
     await selectOptionByLabel('egg');
     screen.getByLabelText(/finish/i).click();
-    expect(screen.getByText(/neo udon/i)).toBeInTheDocument();
+    expect(screen.getByText(/udon/i)).toBeInTheDocument();
     expect(screen.getByText(/shrimp/i)).toBeInTheDocument();
     expect(screen.getByText(/tofu/i)).toBeInTheDocument();
     expect(screen.getByText(/carrots/i)).toBeInTheDocument();
