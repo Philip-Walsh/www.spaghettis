@@ -2,31 +2,35 @@ export const menuOptions = {
   noodleBase: {
     label: "Choose Your Noodle Base",
     key: "noodleBase",
-    multi: false,
+    multi: true,
     choices: [
       {
-        name: "Ramen",
+        name: "Forbidden Ramen",
         price: 0,
-        icon: "🍜",
-        tag: "base"
+        icon: "🥷🍜",
+        tag: "base",
+        description: "Signature spicy ramen with secret sauce."
       },
       {
-        name: "Harusame",
+        name: "Neo Udon",
         price: 1.5,
-        icon: "🍜",
-        tag: "base"
+        icon: "🤖🍜",
+        tag: "base",
+        description: "Thick noodles, futuristic broth, plant protein."
       },
       {
-        name: "Udon",
+        name: "Quantum Soba",
         price: 1.75,
-        icon: "🍜",
-        tag: "base"
+        icon: "🌀🥢",
+        tag: "base",
+        description: "Buckwheat noodles, umami dashi, nano-greens."
       },
       {
-        name: "Shirataki",
-        price: 1.25,
-        icon: "🌱",
-        tag: "vegan"
+        name: "Rice Noodles (GF)",
+        price: 1.5,
+        icon: "🌾🚫",
+        tag: "glutenfree",
+        description: "Classic rice noodles, 100% gluten free."
       }
     ]
   },
@@ -64,6 +68,13 @@ export const menuOptions = {
         price: 1.0,
         icon: "🍳",
         tag: "vegetarian"
+      },
+      {
+        name: "Edamame (GF)",
+        price: 1.0,
+        icon: "🌾🚫",
+        tag: "glutenfree",
+        description: "Steamed edamame beans, gluten free."
       }
     ]
   },
@@ -101,6 +112,13 @@ export const menuOptions = {
         price: 0.75,
         icon: "🌱",
         tag: "vegetarian"
+      },
+      {
+        name: "Avocado (GF)",
+        price: 1.25,
+        icon: "🥑",
+        tag: "glutenfree",
+        description: "Fresh avocado, gluten free."
       }
     ]
   },
@@ -120,6 +138,13 @@ export const menuOptions = {
         price: 0.5,
         icon: "🌶️",
         tag: "vegetarian"
+      },
+      {
+        name: "Clear Dashi (GF)",
+        price: 0.5,
+        icon: "🌾🚫",
+        tag: "glutenfree",
+        description: "Light, clear, gluten free dashi broth."
       },
       {
         name: "Tonkotsu",

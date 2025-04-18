@@ -63,6 +63,31 @@ export default function RamenBuilder() {
     <div className={styles['ramen-container']}>
       <div className={styles['page-content']}>
         <div className={styles['card']}>
+          <motion.div
+            key={totalPrice}
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            className={styles['price-summary']}
+          >
+            <div>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 className={styles['price-title']}>Total Price</h3>
+                <motion.div
+                  key={totalPrice}
+                  initial={{ scale: 0.8, opacity: 0.5 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+                  className={styles['price-value']}
+                >
+                  ${totalPrice.toFixed(2)}
+                </motion.div>
+              </div>
+              <div className={styles['price-desc']}>
+                {totalPrice === 0 ? 'Base price included' : 'Additional items selected'}
+              </div>
+            </div>
+          </motion.div>
           <h1 className={styles['title']}>Build Your Perfect Ramen</h1>
           <div>
             <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
@@ -85,51 +110,26 @@ export default function RamenBuilder() {
               </motion.div>
             </AnimatePresence>
           </div>
-          <motion.div
-            key={totalPrice}
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={styles['price-summary']}
-            style={{ marginBottom: '2rem' }}
-          >
-            <div>
-              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 className={styles['price-title']}>Total Price</h3>
-                <motion.div
-                  key={totalPrice}
-                  initial={{ scale: 0.8, opacity: 0.5 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: 'spring', stiffness: 350, damping: 22 }}
-                  className={styles['price-value']}
-                >
-                  ${totalPrice.toFixed(2)}
-                </motion.div>
-              </div>
-              <div className={styles['price-desc']}>
-                {totalPrice === 0 ? 'Base price included' : 'Additional items selected'}
-              </div>
-            </div>
-          </motion.div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
+          <div className={styles['button-row']}>
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleBack}
               disabled={currentStep === 0}
               className={styles['button']}
+              aria-label="Back"
             >
-              <span style={{ marginRight: 8 }}>←</span>Back
+              <span aria-hidden="true">←</span>
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleNext}
               disabled={!canProceed}
               className={styles['buttonPrimary']}
+              aria-label={currentStep === steps.length - 1 ? 'Finish' : 'Next'}
             >
-              {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
-              <span style={{ marginLeft: 8 }}>→</span>
+              <span aria-hidden="true">→</span>
             </motion.button>
           </div>
         </div>

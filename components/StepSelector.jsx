@@ -10,7 +10,8 @@ const icons = {
   meat: '🥩',
   seafood: '🐟',
   vegetarian: '🥬',
-  vegan: '🌱'
+  vegan: '🌱',
+  egg: '🍳'
 };
 
 const optionVariants = {
@@ -82,6 +83,9 @@ export default function StepSelector({ step, value, onSelection }) {
                 </div>
                 <div className={styles.optionTextWrap}>
                   <h3 className={styles.optionTitle}>{item.name}</h3>
+                  {item.description && (
+                    <div className={styles.optionDesc}>{item.description}</div>
+                  )}
                   <div className={styles.optionDetails}>
                     {item.tag && <Tag label={item.tag} type={item.tag} />}
                     {item.price > 0 && (
