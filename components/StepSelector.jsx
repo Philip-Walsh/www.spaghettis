@@ -85,7 +85,9 @@ export default function StepSelector({ step, value, onSelection }) {
               />
               <div className={styles.optionContent} style={{display: 'flex', alignItems: 'center', width: '100%'}}>
                 <div className={styles.iconWrap} style={{fontSize: 32, marginRight: 16}}>
-                  <span className={styles.icon}>{icons[item.tag] || icons.base}</span>
+                  <span className={styles.icon + ' noto-emoji'} style={{ fontFamily: 'Noto Emoji, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, EmojiOne Color, sans-serif' }}>
+                    {icons[item.tag] || icons.base}
+                  </span>
                 </div>
                 <div className={styles.optionTextWrap} style={{flex: 1, minWidth: 0}}>
                   <h3 className={styles.optionTitle} style={{fontWeight: 700, fontSize: '1.15rem'}}>{item.name}</h3>

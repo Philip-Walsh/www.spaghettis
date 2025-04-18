@@ -3,7 +3,8 @@ import styles from './Home.module.css';
 
 export default function HomePage() {
   return (
-    <div className={styles.heroWrap}>
+    <div className={styles.heroFullScreen}>
+      <div className={styles.heroBgGlow}></div>
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle + ' animated-gradient'}>
@@ -15,14 +16,9 @@ export default function HomePage() {
             <span className={styles.gradientText}>Vibe Coding with AI & Windsurf</span>
           </p>
           <div className={styles.heroActions}>
-            <Link href="/ramen" className={styles.ctaButton}>Start Your Order</Link>
+            <Link href="/ramen" className={styles.ctaButton + ' animated-gradient'}>Start Your Order</Link>
             <Link href="/about" className={styles.secondaryButton}>Learn More</Link>
           </div>
-        </div>
-        <div className={styles.heroBoxes}>
-          <div className={styles.noodleBox + ' ' + styles.box1}>🍜</div>
-          <div className={styles.noodleBox + ' ' + styles.box2}>🥡</div>
-          <div className={styles.noodleBox + ' ' + styles.box3}>🍥</div>
         </div>
       </section>
     </div>
