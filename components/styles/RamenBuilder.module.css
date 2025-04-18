@@ -31,7 +31,9 @@
   z-index: 1;
 }
 .card {
+  max-width: 700px;
   width: 100%;
+  margin: 0 auto;
   background: var(--card-bg);
   border-radius: 1.3rem;
   box-shadow: 0 8px 32px 0 var(--shadow-blue), 0 2px 12px 0 var(--shadow-pink);
@@ -43,8 +45,23 @@
   backdrop-filter: blur(12px) saturate(1.2);
   position: relative;
   overflow-x: auto;
-  max-width: 100vw;
+  min-width: 0;
   box-sizing: border-box;
+}
+@media (min-width: 700px) {
+  .card {
+    padding: 2.5rem 2.2rem 2.5rem 2.2rem;
+  }
+}
+@media (min-width: 1100px) {
+  .card {
+    padding: 2.5rem 3rem 2.5rem 3rem;
+  }
+}
+@media (max-width: 700px) {
+  .card {
+    max-width: 98vw;
+  }
 }
 .card-header-row {
   display: flex;
@@ -165,24 +182,35 @@
 /* Step Navigation Bar */
 .step-nav {
   display: flex;
-  gap: 0.7rem;
+  overflow-x: auto;
+  position: relative;
   justify-content: flex-start;
-  margin-bottom: 1.7rem;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 1.7rem auto;
+  padding: 0.4rem 0.6rem;
   background: var(--nav-bg);
   border-radius: var(--nav-radius);
   box-shadow: var(--nav-shadow);
-  padding: 0.4rem 0.6rem;
-  filter: var(--button-dark-filter);
-  overflow-x: auto;
-  position: relative;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100vw;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-pink) var(--nav-bg);
+}
+.step-nav::-webkit-scrollbar {
+  height: 7px;
+}
+.step-nav::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: 4px;
+}
+.step-nav::-webkit-scrollbar-track {
+  background: var(--nav-bg);
 }
 .step-nav-btn {
-  scroll-snap-align: center;
   min-width: 110px;
   flex: 0 0 auto;
+  transition: box-shadow 0.18s, background 0.18s, transform 0.18s;
   background: none;
   border: none;
   color: var(--white);
@@ -191,7 +219,6 @@
   padding: 0.5rem 1.1rem;
   border-radius: var(--button-radius);
   cursor: pointer;
-  transition: background 0.16s, color 0.16s, box-shadow 0.16s;
   filter: var(--button-dark-filter);
   display: flex;
   align-items: center;
@@ -204,14 +231,17 @@
   opacity: 0;
   overflow: hidden;
   white-space: nowrap;
-  transition: max-width 0.22s cubic-bezier(.4,0,.2,1), opacity 0.14s cubic-bezier(.4,0,.2,1);
+  transition: max-width 0.33s cubic-bezier(.4,0,.2,1), opacity 0.22s cubic-bezier(.4,0,.2,1);
   vertical-align: middle;
 }
-.step-nav-btn:hover .step-nav-btn-text,
-.step-nav-btn:focus .step-nav-btn-text,
 .step-nav-btn[aria-current="step"] .step-nav-btn-text {
   max-width: 220px;
   opacity: 1;
+}
+.step-nav-btn:hover .step-nav-btn-text,
+.step-nav-btn:focus .step-nav-btn-text {
+  max-width: 0;
+  opacity: 0;
 }
 .step-nav-btn[aria-current="step"], .step-nav-btn.active {
   background: var(--button-bg);
@@ -341,6 +371,13 @@
   .optionsGrid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.step-content-drip {
+  overflow: hidden;
+  background: var(--card-bg);
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 20px var(--shadow-blue);
 }
 
 @media (min-width: 768px) {

@@ -143,8 +143,7 @@ export default function RamenBuilder() {
                 aria-current={idx === currentStep ? 'step' : undefined}
                 tabIndex={0}
               >
-                <StepIcon icon={stepIcons[step.key]} label={step.label} />
-                <span className={styles['step-nav-btn-text']}>{step.label}</span>
+                <StepIcon icon={stepIcons[step.key]} />
               </button>
             ))}
           </div>
@@ -155,11 +154,24 @@ export default function RamenBuilder() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={stepVariants}
-                transition={{ duration: 0.5 }}
+                initial={{
+                  opacity: 0,
+                  clipPath: currentStep > 0
+                    ? 'ellipse(80% 0% at 50% 100%)'
+                    : 'ellipse(80% 0% at 50% 0%)'
+                }}
+                animate={{
+                  opacity: 1,
+                  clipPath: 'ellipse(100% 100% at 50% 50%)'
+                }}
+                exit={{
+                  opacity: 0,
+                  clipPath: currentStep > 0
+                    ? 'ellipse(80% 0% at 50% 0%)'
+                    : 'ellipse(80% 0% at 50% 100%)'
+                }}
+                transition={{ duration: 0.44, ease: [0.4, 0, 0.2, 1] }}
+                className={styles['step-content-drip']}
               >
                 <StepSelector
                   step={{ ...currentStepData, icon: stepIcons[currentStepData?.key] }}
