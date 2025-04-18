@@ -20,11 +20,11 @@ const hookPath = path.join('.git', 'hooks', 'pre-push');
 
 // Create .git/hooks directory if it doesn't exist
 if (!fs.existsSync(path.dirname(hookPath))) {
-  fs.mkdirSync(path.dirname(hookPath), { recursive: true });
+    fs.mkdirSync(path.dirname(hookPath), { recursive: true });
 }
 
 // Write the pre-push hook
 fs.writeFileSync(hookPath, prePushHook);
 fs.chmodSync(hookPath, '755');
 
-console.log('✅ Git pre-push hook installed successfully!'); 
+console.log('✅ Git pre-push hook installed successfully!');

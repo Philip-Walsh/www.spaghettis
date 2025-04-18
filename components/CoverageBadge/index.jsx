@@ -60,4 +60,4 @@ export default function CoverageBadge() {
             </div>
         </div>
     );
-} 
+}
