@@ -141,7 +141,7 @@ export default function RamenBuilder() {
   return (
     <div className={styles['ramen-container']}>
       <div className={styles['page-content']} style={{ maxWidth: 'clamp(360px, 90%, 1200px)' }}>
-        <h1 className={styles['title']}>{isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}</h1>
+        <h1 className={styles['title'] + ' animated-gradient'}>{isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}</h1>
         {isSummaryStep ? (
           <SummaryView
             selectedItems={selectedItems}

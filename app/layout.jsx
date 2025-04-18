@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import Head from 'next/head';
 
 export const metadata = {
     title: {
@@ -13,7 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="grid grid-rows-[auto_1fr_auto] h-screen antialiased text-white bg-blue-900">
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+      </Head>
+      <body className="grid grid-rows-[auto_1fr_auto] h-screen font-neon antialiased text-white bg-blue-900">
         <header className="grid-row-1">
           <Nav />
         </header>

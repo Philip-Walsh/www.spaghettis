@@ -1,26 +1,30 @@
 import Link from 'next/link';
 import styles from './Home.module.css';
 
-export default function Page() {
+export default function HomePage() {
   return (
-    <main className={styles.main}>
-      <section className={styles.hero}>
-        <div className={styles.heroBgDrip}></div>
+    <div className={styles.heroWrap}>
+      <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <span className={styles.heroEmoji}>🍜</span>
-          <h1 className={styles.heroTitle}>Forbidden Ramen</h1>
-          <p className={styles.heroSubtitle}>Create your perfect bowl with the most <span className={styles.boldAccent}>next-gen</span> noodle configurator.</p>
-          <Link href="/ramen" className={styles.ctaLink}>
-            <button className={styles.ctaBtn}>
-              Start Building Your Ramen
-            </button>
-          </Link>
+          <h1 className={styles.heroTitle + ' animated-gradient'}>
+            <span className={styles.ramenIcon}>🍜</span>
+            Forbidden Ramen
+          </h1>
+          <p className={styles.heroSubtitle + ' animated-gradient'}>
+            The next generation of noodles. <br />
+            <span className={styles.gradientText}>Vibe Coding with AI & Windsurf</span>
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="/ramen" className={styles.ctaButton}>Start Your Order</Link>
+            <Link href="/about" className={styles.secondaryButton}>Learn More</Link>
+          </div>
+        </div>
+        <div className={styles.heroBoxes}>
+          <div className={styles.noodleBox + ' ' + styles.box1}>🍜</div>
+          <div className={styles.noodleBox + ' ' + styles.box2}>🥡</div>
+          <div className={styles.noodleBox + ' ' + styles.box3}>🍥</div>
         </div>
       </section>
-      <section className={styles.patternSection}>
-        <h2 className={styles.sectionTitle}>Urban Flavors. Bold Choices.</h2>
-        <p className={styles.sectionDesc}>Mix, match, and customize every ingredient. Ramen, but make it street.</p>
-      </section>
-    </main>
+    </div>
   );
 }
