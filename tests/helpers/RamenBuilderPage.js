@@ -29,6 +29,14 @@ export const PRICES = {
   },
 };
 
+// Utility for robust option selection
+const selectOptionByLabel = async (label) => {
+  const el = await screen.findByLabelText(new RegExp(label, 'i'));
+  fireEvent.click(el);
+};
+
+// Always use findByLabelText for ingredient/option selection to match the UI's aria-labels. Do not use findByRole('button') for custom controls.
+
 // Page Object Pattern
 export class RamenBuilderPage {
   static async setup() {
@@ -37,37 +45,32 @@ export class RamenBuilderPage {
   }
 
   async selectNoodle(name) {
-    const button = await screen.findByRole('button', { name: new RegExp(name, 'i') });
-    fireEvent.click(button);
+    await selectOptionByLabel(name);
     return this;
   }
 
   async selectProteins(proteins) {
     for (const protein of proteins) {
-      const button = await screen.findByRole('button', { name: new RegExp(protein, 'i') });
-      fireEvent.click(button);
+      await selectOptionByLabel(protein);
     }
     return this;
   }
 
   async selectGardenPicks(picks) {
     for (const pick of picks) {
-      const button = await screen.findByRole('button', { name: new RegExp(pick, 'i') });
-      fireEvent.click(button);
+      await selectOptionByLabel(pick);
     }
     return this;
   }
 
   async selectBroth(name) {
-    const button = await screen.findByRole('button', { name: new RegExp(name, 'i') });
-    fireEvent.click(button);
+    await selectOptionByLabel(name);
     return this;
   }
 
   async selectGarnishes(garnishes) {
     for (const garnish of garnishes) {
-      const button = await screen.findByRole('button', { name: new RegExp(garnish, 'i') });
-      fireEvent.click(button);
+      await selectOptionByLabel(garnish);
     }
     return this;
   }
@@ -96,12 +99,12 @@ export class RamenBuilderPage {
   }
 
   async verifyPrice(expectedTotal) {
-    expect(screen.getByText(new RegExp(`total: \\$${expectedTotal.toFixed(2)}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`total: \$${expectedTotal.toFixed(2)}`, 'i'))).toBeInTheDocument();
     return this;
   }
 
   async verifyButtonState(buttonName, isSelected) {
-    const button = screen.getByRole('button', { name: new RegExp(buttonName, 'i') });
+    const button = screen.getByLabelText(new RegExp(buttonName, 'i'));
     expect(button).toHaveAttribute('aria-pressed', isSelected.toString());
     return this;
   }
@@ -110,4 +113,4 @@ export class RamenBuilderPage {
     expect(screen.queryByText(new RegExp(itemName, 'i'))).not.toBeInTheDocument();
     return this;
   }
-} 
+}
