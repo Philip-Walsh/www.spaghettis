@@ -1,0 +1,144 @@
+/* Futuristic Neon Drippy Pop Styles */
+:root {
+  --neon-blue: #00eaff;
+  --neon-pink: #ff5af7;
+  --neon-yellow: #fbbf24;
+  --card-bg: rgba(30,34,54,0.93);
+  --glass-bg: rgba(255,255,255,0.10);
+  --white: #fff;
+  --shadow-blue: #00eaff44;
+  --shadow-pink: #ff5af744;
+  --shadow-yellow: #fbbf2444;
+  --input-bg: #222a;
+}
+
+.fieldset {
+  border: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  width: 100%;
+}
+.legend {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1.3rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+  text-shadow: 0 4px 24px var(--neon-blue), 0 1px 4px var(--white);
+  background: linear-gradient(90deg, var(--neon-blue) 0%, var(--neon-pink) 100%);
+  border-radius: 1.1rem;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 2px 28px var(--shadow-blue);
+  backdrop-filter: blur(8px) saturate(1.2);
+}
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+@media (min-width: 600px) {
+  .optionsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.optionBtn {
+  background: var(--card-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: 0.9rem;
+  box-shadow: 0 2px 18px var(--shadow-blue), 0 1.5px 4px var(--shadow-pink) inset;
+  padding: 1.3rem 1.1rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 74px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: border 0.16s, background 0.16s, box-shadow 0.16s, transform 0.13s;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.optionBtn.selected,
+.optionBtn[aria-pressed="true"] {
+  border-color: var(--neon-pink);
+  background: linear-gradient(90deg, var(--neon-blue) 0%, var(--neon-pink) 100%);
+  box-shadow: 0 0 14px var(--neon-pink), 0 0 4px var(--neon-blue);
+  color: var(--white);
+}
+.optionBtn:focus-visible {
+  outline: 3px solid var(--neon-yellow);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--shadow-yellow);
+}
+.optionBtn:hover:not(:disabled) {
+  border-color: var(--neon-yellow);
+  background: linear-gradient(90deg, var(--neon-pink) 0%, var(--neon-blue) 100%);
+  color: var(--white);
+  transform: translateY(-1px) scale(1.03) skewY(-1deg);
+  box-shadow: 0 4px 18px var(--neon-pink), 0 0 8px var(--neon-blue);
+}
+.optionBtn::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 0.9rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, var(--neon-pink) 0%, var(--neon-blue) 80%);
+  opacity: 0.09;
+  z-index: 0;
+}
+.optionContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.iconWrap {
+  font-size: 1.6rem;
+  margin-right: 1.1rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px var(--neon-blue));
+}
+.optionTextWrap {
+  flex: 1;
+  min-width: 0;
+}
+.optionTitle {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.18rem;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px var(--shadow-blue);
+}
+.optionDetails {
+  margin-top: 0.18rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.priceTag {
+  color: var(--neon-yellow);
+  font-weight: 700;
+  font-size: 1.01rem;
+  text-shadow: 0 1px 6px var(--shadow-yellow);
+}
+.input {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--neon-blue);
+  border-radius: 0.38rem;
+  accent-color: var(--neon-pink);
+  margin-right: 1.1rem;
+  background: var(--input-bg);
+  box-shadow: 0 0 6px var(--shadow-blue);
+}
+@media (max-width: 599px) {
+  .optionBtn {
+    font-size: 0.98rem;
+    padding: 0.8rem;
+  }
+}

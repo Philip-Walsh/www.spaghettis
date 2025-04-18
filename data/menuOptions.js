@@ -2,35 +2,39 @@ export const menuOptions = {
   noodleBase: {
     label: "Choose Your Noodle Base",
     key: "noodleBase",
-    multi: true,
+    multi: false,
     choices: [
       {
         name: "Forbidden Ramen",
         price: 0,
         icon: "🥷🍜",
         tag: "base",
-        description: "Signature spicy ramen with secret sauce."
+        description: "Signature spicy ramen with secret sauce.",
+        defaults: { gardenPicks: [] }
       },
       {
         name: "Neo Udon",
         price: 1.5,
         icon: "🤖🍜",
         tag: "base",
-        description: "Thick noodles, futuristic broth, plant protein."
+        description: "Thick noodles, futuristic broth, plant protein.",
+        defaults: { gardenPicks: ['Bok Choy'] }
       },
       {
         name: "Quantum Soba",
         price: 1.75,
         icon: "🌀🥢",
         tag: "base",
-        description: "Buckwheat noodles, umami dashi, nano-greens."
+        description: "Buckwheat noodles, umami dashi, nano-greens.",
+        defaults: { gardenPicks: ['Mushrooms', 'Bean Sprouts'] }
       },
       {
         name: "Rice Noodles (GF)",
         price: 1.5,
         icon: "🌾🚫",
         tag: "glutenfree",
-        description: "Classic rice noodles, 100% gluten free."
+        description: "Classic rice noodles, 100% gluten free.",
+        defaults: { gardenPicks: [] }
       }
     ]
   },

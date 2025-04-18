@@ -8,6 +8,27 @@
   --color-text: #2d1600;
   --color-accent: #e85d04;
 
+  --neon-blue: #00eaff;
+  --neon-pink: #ff5af7;
+  --neon-yellow: #fbbf24;
+  --card-bg: rgba(30,34,54,0.93);
+  --glass-bg: rgba(255,255,255,0.10);
+  --white: #fff;
+  --dark: #181c27;
+  --shadow-blue: #00eaff44;
+  --shadow-pink: #ff5af744;
+  --shadow-yellow: #fbbf2444;
+  --input-bg: #222a;
+  --nav-bg: linear-gradient(90deg, #181c27 0%, #232946 100%);
+  --nav-active: var(--neon-blue);
+  --nav-inactive: #232946;
+  --nav-shadow: 0 2px 16px var(--shadow-blue);
+  --nav-radius: 1.1rem;
+  --button-radius: 0.9rem;
+  --button-bg: linear-gradient(90deg, var(--neon-blue) 0%, var(--neon-pink) 100%);
+  --button-bg-alt: linear-gradient(90deg, var(--neon-pink) 0%, var(--neon-blue) 100%);
+  --button-shadow: 0 4px 24px var(--shadow-blue), 0 2px 10px var(--shadow-pink);
+  --button-dark-filter: brightness(0.75) contrast(1.2) saturate(1.4);
 }
 
 body {
