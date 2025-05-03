@@ -9,6 +9,11 @@ export default function Footer() {
           Built With Windsurf
           <img src="https://windsurf.com/favicon.ico" alt="Windsurf logo" style={{ display: 'inline', verticalAlign: 'middle', width: 16, height: 16, marginLeft: 4 }} />
         </a>
+        {" | "}
+        <a href="https://www.cursor.so/" target="_blank" rel="noopener noreferrer">
+          Built With Cursor AI
+          <img src="https://www.cursor.so/favicon.ico" alt="Cursor AI logo" style={{ display: 'inline', verticalAlign: 'middle', width: 16, height: 16, marginLeft: 4 }} />
+        </a>
       </span>
     </footer>
   );

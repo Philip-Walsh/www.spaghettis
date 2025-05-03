@@ -51,6 +51,7 @@ export default function RamenBuilder() {
   });
 
   const navRef = useRef();
+  const stepContainerRef = useRef();
   const width = useWindowWidth();
 
   useEffect(() => {
@@ -58,6 +59,10 @@ export default function RamenBuilder() {
     const activeBtn = nav?.querySelector('[aria-current="step"]');
     if (activeBtn && nav) {
       activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+    // Scroll the step container to the top when the step changes
+    if (stepContainerRef.current) {
+      stepContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [currentStep]);
 
@@ -244,27 +249,30 @@ export default function RamenBuilder() {
   const totalPrice = calculateTotalPrice(selectedOptions);
 
   return (
-    <div className={styles.builderContainer}>
+    <main className={styles.builderContainer}>
       <ThemeToggle />
-      <h1 className={styles.title}>
-        {isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}
-      </h1>
+      <header className={styles.title}>
+        <h1>
+          {isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}
+        </h1>
+      </header>
 
-      <div className={styles.contentContainer}>
-        <div className={styles.builderContent}>
-          <div className={styles.stepsContainer}>
+      <section className={styles.contentContainer}>
+        <article className={styles.builderContent}>
+          <nav className={styles.stepsContainer}>
             <StepNavigation
               currentStep={currentStep}
               steps={steps}
               onStepClick={setCurrentStep}
               navRef={navRef}
             />
-          </div>
+          </nav>
 
-          <div className={styles.stepContent}>
+          <section className={styles.stepContent}>
             <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
 
-            <div className={styles.filterControls}>
+            <fieldset className={styles.filterControls}>
+              <legend>Filter Options</legend>
               <label className={styles.filterToggle}>
                 <input
                   type="checkbox"
@@ -283,31 +291,43 @@ export default function RamenBuilder() {
                 />
                 <span>🌾 Gluten Free</span>
               </label>
-            </div>
+            </fieldset>
 
             <PriceDisplay totalPrice={totalPrice} />
 
-            <StepSelector
-              width={width}
-              step={currentStep}
-              options={menuOptions[currentKey]}
-              selectedOptions={currentSelection}
-              onOptionSelect={handleOptionSelect}
-              veggieOnly={veggieOnly}
-              glutenFreeOnly={glutenFreeOnly}
-            />
+            <section className={styles.stepContainer} ref={stepContainerRef}>
+              <AnimatePresence mode="wait">
+                <motion.article
+                  key={currentStep}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <StepSelector
+                    options={menuOptions[steps[currentStep].id]}
+                    selectedOptions={selectedOptions[steps[currentStep].id]}
+                    onOptionSelect={handleOptionSelect}
+                    veggieOnly={veggieOnly}
+                    glutenFreeOnly={glutenFreeOnly}
+                  />
+                </motion.article>
+              </AnimatePresence>
+            </section>
 
-            <StepControls
-              currentStep={currentStep}
-              totalSteps={steps.length}
-              canProceed={canProceed()}
-              onBack={() => setCurrentStep(prev => Math.max(0, prev - 1))}
-              onNext={() => setCurrentStep(prev => Math.min(steps.length - 1, prev + 1))}
-              isLastStep={isLastStep}
-              currentStepKey={currentKey}
-            />
+            <nav className={styles.stepControls}>
+              <StepControls
+                currentStep={currentStep}
+                totalSteps={steps.length}
+                canProceed={canProceed()}
+                onBack={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+                onNext={() => setCurrentStep(prev => Math.min(steps.length - 1, prev + 1))}
+                isLastStep={isLastStep}
+                currentStepKey={currentKey}
+              />
+            </nav>
 
-            <div className={styles.actions}>
+            <section className={styles.actions}>
               {isLastStep ? (
                 <button
                   className={styles.actionButton}
@@ -341,16 +361,18 @@ export default function RamenBuilder() {
               >
                 Start New Order
               </button>
-            </div>
-          </div>
-        </div>
+            </section>
+          </section>
+        </article>
 
-        <Cart
-          items={cartItems}
-          onAddItem={addToCart}
-          onRemoveItem={removeFromCart}
-        />
-      </div>
-    </div>
+        <aside className={styles.cartContainer}>
+          <Cart
+            items={cartItems}
+            onAddItem={addToCart}
+            onRemoveItem={removeFromCart}
+          />
+        </aside>
+      </section>
+    </main>
   );
 }

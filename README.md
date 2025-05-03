@@ -1,6 +1,6 @@
 # Forbidden Ramen 🍜
 
-A professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for Vibe Coding with AI and Windsurf.
+ A fun and interactive ramen builder that lets you craft your perfect bowl, powered by AI and built with the latest coding tools. This project showcases how AI can help create engaging, accessible web experiences that are both beautiful and functional.
 
 ## Overview
 
@@ -40,7 +40,6 @@ As a demonstration project, Forbidden Ramen has some intentional limitations:
 ## Future Enhancements
 
 Planned features and improvements:
-- 📱 Mobile app version with offline support
 - 🗄️ Database integration for order persistence
 - 👥 User accounts and order history
 - 🌍 Internationalization and localization

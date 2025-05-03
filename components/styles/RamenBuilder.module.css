@@ -37,7 +37,7 @@
 }
 
 .card {
-  max-width: clamp(360px, 90%, 1200px);
+  max-width: 70vw;
   width: 100%;
   margin: 0 auto;
   background: var(--card-bg);
@@ -57,6 +57,45 @@
 @media (max-width: 700px) {
   .card {
     max-width: 98vw;
+  }
+}
+
+@media (max-width: 375px) {
+  .card {
+    max-width: 95vw;
+    padding: 1.5rem 0.2rem;
+  }
+
+  .optionBtn {
+    min-height: 50px;
+    padding: 0.2rem 0.1rem;
+    font-size: 0.9rem;
+  }
+
+  .optionTextWrap {
+    font-size: 0.9rem;
+  }
+
+  .step-nav-btn {
+    min-width: 80px;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .button,
+  .buttonPrimary {
+    min-width: 120px;
+    min-height: 50px;
+    font-size: 1.1rem;
+  }
+
+  .step-nav {
+    padding: 0.2rem 0.3rem;
   }
 }
 
@@ -436,6 +475,9 @@
   font-weight: 600;
   margin-bottom: 0.1rem;
   text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .optionDetails {
