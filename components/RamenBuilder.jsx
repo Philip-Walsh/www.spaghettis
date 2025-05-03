@@ -13,6 +13,7 @@ import { calculateTotalPrice } from './utils';
 import styles from './styles/RamenBuilder.module.css';
 import ThemeToggle from './ThemeToggle';
 import './styles/main.css';
+import Cart from './Cart';
 
 // Hook to track window width
 function useWindowWidth() {
@@ -40,6 +41,14 @@ export default function RamenBuilder() {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [veggieOnly, setVeggieOnly] = useState(false);
   const [glutenFreeOnly, setGlutenFreeOnly] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [currentOrder, setCurrentOrder] = useState({
+    base: null,
+    protein: null,
+    vegetables: [],
+    broth: null,
+    garnish: null
+  });
 
   const navRef = useRef();
   const width = useWindowWidth();
@@ -53,54 +62,65 @@ export default function RamenBuilder() {
   }, [currentStep]);
 
   const steps = [
-    { key: 'noodleBase', label: 'Noodle Base' },
-    { key: 'protein', label: 'Protein' },
-    { key: 'gardenPicks', label: 'Garden Picks' },
-    { key: 'sauceBroth', label: 'Sauce & Broth' },
-    { key: 'garnish', label: 'Garnish' }
+    { id: 'noodleBase', title: 'Choose Your Base', icon: '🍜' },
+    { id: 'protein', title: 'Select Protein', icon: '🍗' },
+    { id: 'gardenPicks', title: 'Add Vegetables', icon: '🥬' },
+    { id: 'sauceBroth', title: 'Pick Your Broth', icon: '🍲' },
+    { id: 'garnish', title: 'Final Touches', icon: '🌿' }
   ];
 
-  const handleStepClick = (index) => {
-    setCurrentStep(index);
-  };
-
   const handleOptionSelect = (option) => {
-    setSelectedOptions(prev => {
-      const currentStepKey = steps[currentStep].key;
-      const currentOptions = menuOptions[currentStepKey];
+    const currentStepKey = steps[currentStep].id;
+    const currentOptions = menuOptions[currentStepKey];
 
-      if (currentOptions.multi) {
-        // For multi-select, option will be an array
-        return {
-          ...prev,
-          [currentStepKey]: option
-        };
+    setSelectedOptions(prev => {
+      if (currentOptions?.multi) {
+        // For multi-select steps (protein, gardenPicks, garnish)
+        const currentSelection = prev[currentStepKey] || [];
+        const newSelection = currentSelection.includes(option)
+          ? currentSelection.filter(item => item !== option)
+          : [...currentSelection, option];
+        return { ...prev, [currentStepKey]: newSelection };
       } else {
-        // For single select, option will be a string
-        return {
-          ...prev,
-          [currentStepKey]: option
-        };
+        // For single-select steps
+        return { ...prev, [currentStepKey]: option };
       }
+    });
+
+    // Update currentOrder to match selectedOptions structure
+    setCurrentOrder(prev => {
+      const newOrder = { ...prev };
+      if (currentStepKey === 'gardenPicks') {
+        // For garden picks, store in vegetables array
+        const currentVeggies = prev.vegetables || [];
+        newOrder.vegetables = currentVeggies.includes(option)
+          ? currentVeggies.filter(item => item !== option)
+          : [...currentVeggies, option];
+      } else if (currentStepKey === 'protein' || currentStepKey === 'garnish') {
+        // For protein and garnish, ensure they're arrays
+        const currentSelection = prev[currentStepKey] || [];
+        newOrder[currentStepKey] = currentSelection.includes(option)
+          ? currentSelection.filter(item => item !== option)
+          : [...currentSelection, option];
+      } else {
+        // For single-select options (base, broth)
+        newOrder[currentStepKey] = option;
+      }
+      return newOrder;
     });
   };
 
-  const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep(prev => prev - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(prev => prev + 1);
-    }
-  };
-
   const canProceed = () => {
-    const currentStepKey = steps[currentStep].key;
+    const currentStepKey = steps[currentStep].id;
     const currentOptions = menuOptions[currentStepKey];
     const currentSelection = selectedOptions[currentStepKey];
+
+    // Allow proceeding if it's an optional step
+    if (currentStepKey === 'protein' || currentStepKey === 'gardenPicks' || currentStepKey === 'garnish') {
+      return true;
+    }
+
+    if (!currentOptions) return false;
 
     if (currentOptions.multi) {
       return Array.isArray(currentSelection) && currentSelection.length > 0;
@@ -109,112 +129,228 @@ export default function RamenBuilder() {
     }
   };
 
+  const canAddToCart = () => {
+    // Must have selected noodle base and broth
+    if (!selectedOptions.noodleBase || !selectedOptions.sauceBroth) {
+      return false;
+    }
+
+    // Check if all required steps have selections
+    const requiredSteps = ['noodleBase', 'sauceBroth'];
+    return requiredSteps.every(step => selectedOptions[step] !== undefined);
+  };
+
+  const calculateOrderPrice = (options) => {
+    let total = 2.50; // Base price for noodles
+
+    // Add noodle price if selected
+    if (options.noodleBase) {
+      const noodle = menuOptions.noodleBase.choices.find(n => n.name === options.noodleBase);
+      if (noodle) {
+        total += noodle.price;
+      }
+    }
+
+    // Add protein prices (multi-select)
+    if (options.protein && Array.isArray(options.protein)) {
+      options.protein.forEach(proteinName => {
+        const protein = menuOptions.protein.choices.find(p => p.name === proteinName);
+        if (protein) {
+          total += protein.price;
+        }
+      });
+    }
+
+    // Add vegetable prices
+    if (options.gardenPicks && Array.isArray(options.gardenPicks)) {
+      options.gardenPicks.forEach(vegName => {
+        const vegetable = menuOptions.gardenPicks.choices.find(v => v.name === vegName);
+        if (vegetable) {
+          total += vegetable.price;
+        }
+      });
+    }
+
+    // Add broth price
+    if (options.sauceBroth) {
+      const broth = menuOptions.sauceBroth.choices.find(b => b.name === options.sauceBroth);
+      if (broth) {
+        total += broth.price;
+      }
+    }
+
+    // Add garnish prices (multi-select)
+    if (options.garnish && Array.isArray(options.garnish)) {
+      options.garnish.forEach(garnishName => {
+        const garnish = menuOptions.garnish.choices.find(g => g.name === garnishName);
+        if (garnish) {
+          total += garnish.price;
+        }
+      });
+    }
+
+    return total;
+  };
+
+  const addToCart = () => {
+    if (!canAddToCart()) return;
+
+    // Create a concise order name
+    const orderName = [
+      selectedOptions.noodleBase,
+      Array.isArray(selectedOptions.protein) ? selectedOptions.protein.join(', ') : selectedOptions.protein,
+      selectedOptions.sauceBroth
+    ].filter(Boolean).join(' + ');
+
+    // If the name is too long, use a generic name
+    const finalOrderName = orderName.length > 50 ? 'Custom Ramen' : orderName;
+
+    const orderPrice = calculateOrderPrice(selectedOptions);
+
+    setCartItems([...cartItems, {
+      name: finalOrderName,
+      price: orderPrice,
+      details: {
+        base: selectedOptions.noodleBase,
+        protein: selectedOptions.protein || [],
+        vegetables: selectedOptions.gardenPicks || [],
+        broth: selectedOptions.sauceBroth,
+        garnish: selectedOptions.garnish || []
+      }
+    }]);
+
+    // Reset current order
+    setCurrentOrder({
+      base: null,
+      protein: [],
+      vegetables: [],
+      broth: null,
+      garnish: []
+    });
+    setSelectedOptions({});
+    setCurrentStep(0);
+  };
+
+  const removeFromCart = (index) => {
+    setCartItems(cartItems.filter((_, i) => i !== index));
+  };
+
   const currentStepData = steps[currentStep];
-  const currentKey = currentStepData?.key;
+  const currentKey = currentStepData?.id;
   const currentSelection = selectedOptions[currentKey];
   const isSummaryStep = currentKey === 'summary';
-  const isLastStep = currentStep === steps.length - 2;
+  const isLastStep = currentStep === steps.length - 1;
 
   const totalPrice = calculateTotalPrice(selectedOptions);
 
-  if (!steps.length) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="ramenBuilder">
+    <div className={styles.builderContainer}>
       <ThemeToggle />
-      <h1 className={styles['title']}>{isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}</h1>
-      {isSummaryStep ? (
-        <SummaryView
-          selectedItems={selectedOptions}
-          totalPrice={totalPrice}
-        />
-      ) : (
-        <div className={styles['card']} role="region" aria-label="Ramen builder">
-          <div className={styles['card-header-row']}>
-            <PriceDisplay totalPrice={totalPrice} />
-            <div className={styles['filter-controls']}>
-              <label className={styles['filter-toggle']}>
+      <h1 className={styles.title}>
+        {isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}
+      </h1>
+
+      <div className={styles.contentContainer}>
+        <div className={styles.builderContent}>
+          <div className={styles.stepsContainer}>
+            <StepNavigation
+              currentStep={currentStep}
+              steps={steps}
+              onStepClick={setCurrentStep}
+              navRef={navRef}
+            />
+          </div>
+
+          <div className={styles.stepContent}>
+            <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
+
+            <div className={styles.filterControls}>
+              <label className={styles.filterToggle}>
                 <input
                   type="checkbox"
                   checked={veggieOnly}
                   onChange={() => setVeggieOnly(v => !v)}
                   aria-label="Vegetarian Only"
                 />
-                <span role="img" aria-label="vegetarian">🥬</span>
-                <span>Vegetarian</span>
+                <span>🥬 Vegetarian</span>
               </label>
-              <label className={styles['filter-toggle']}>
+              <label className={styles.filterToggle}>
                 <input
                   type="checkbox"
                   checked={glutenFreeOnly}
                   onChange={() => setGlutenFreeOnly(g => !g)}
                   aria-label="Gluten Free Only"
                 />
-                <span role="img" aria-label="gluten free">🌾</span>
-                <span>Gluten Free</span>
+                <span>🌾 Gluten Free</span>
               </label>
             </div>
-          </div>
-          <StepNavigation
-            currentStep={currentStep}
-            steps={steps}
-            onStepClick={handleStepClick}
-            navRef={navRef}
-          />
-          <div>
-            <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
-          </div>
-          <div className={styles['step-container']}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{
-                  opacity: 0,
-                  clipPath: currentStep > 0
-                    ? 'ellipse(80% 0% at 50% 100%)'
-                    : 'ellipse(80% 0% at 50% 0%)'
+
+            <PriceDisplay totalPrice={totalPrice} />
+
+            <StepSelector
+              width={width}
+              step={currentStep}
+              options={menuOptions[currentKey]}
+              selectedOptions={currentSelection}
+              onOptionSelect={handleOptionSelect}
+              veggieOnly={veggieOnly}
+              glutenFreeOnly={glutenFreeOnly}
+            />
+
+            <StepControls
+              currentStep={currentStep}
+              totalSteps={steps.length}
+              canProceed={canProceed()}
+              onBack={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+              onNext={() => setCurrentStep(prev => Math.min(steps.length - 1, prev + 1))}
+              isLastStep={isLastStep}
+              currentStepKey={currentKey}
+            />
+
+            <div className={styles.actions}>
+              {isLastStep ? (
+                <button
+                  className={styles.actionButton}
+                  onClick={addToCart}
+                  disabled={!canAddToCart()}
+                >
+                  Finish & Add to Cart
+                </button>
+              ) : (
+                <button
+                  className={styles.actionButton}
+                  onClick={addToCart}
+                  disabled={!canAddToCart()}
+                >
+                  Add to Cart
+                </button>
+              )}
+              <button
+                className={styles.actionButton}
+                onClick={() => {
+                  setCurrentStep(0);
+                  setSelectedOptions({});
+                  setCurrentOrder({
+                    base: null,
+                    protein: [],
+                    vegetables: [],
+                    broth: null,
+                    garnish: []
+                  });
                 }}
-                animate={{
-                  opacity: 1,
-                  clipPath: 'ellipse(100% 100% at 50% 50%)'
-                }}
-                exit={{
-                  opacity: 0,
-                  clipPath: currentStep > 0
-                    ? 'ellipse(80% 0% at 50% 0%)'
-                    : 'ellipse(80% 0% at 50% 100%)'
-                }}
-                transition={{ duration: 0.44, ease: [0.4, 0, 0.2, 1] }}
-                className={styles['step-content-drip']}
-                id={`step-${currentKey}`}
-                role="tabpanel"
-                aria-labelledby={`step-${currentKey}-label`}
               >
-                <StepSelector
-                  width={width}
-                  step={currentStep}
-                  options={menuOptions[steps[currentStep].key]}
-                  selectedOptions={selectedOptions[steps[currentStep].key]}
-                  onOptionSelect={handleOptionSelect}
-                  veggieOnly={veggieOnly}
-                  glutenFreeOnly={glutenFreeOnly}
-                />
-              </motion.div>
-            </AnimatePresence>
+                Start New Order
+              </button>
+            </div>
           </div>
-          <StepControls
-            currentStep={currentStep}
-            totalSteps={steps.length}
-            canProceed={canProceed}
-            onBack={handleBack}
-            onNext={handleNext}
-            isLastStep={isLastStep}
-            currentStepKey={currentKey}
-          />
         </div>
-      )}
+
+        <Cart
+          items={cartItems}
+          onAddItem={addToCart}
+          onRemoveItem={removeFromCart}
+        />
+      </div>
     </div>
   );
 }

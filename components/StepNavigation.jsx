@@ -1,35 +1,27 @@
 import React from 'react';
+import styles from './styles/StepNavigation.module.css';
 
-const stepIcons = {
-    noodleBase: '🍜',
-    protein: '🍗',
-    gardenPicks: '🥬',
-    sauceBroth: '🍲',
-    garnish: '🌿'
-};
-
-export default function StepNavigation({ currentStep, steps, onStepClick }) {
+export default function StepNavigation({ currentStep, steps, onStepClick, navRef }) {
     return (
-        <div className="navigation">
+        <div className={styles.stepNav} ref={navRef}>
             {steps.map((step, index) => {
                 const isActive = index === currentStep;
                 const isCompleted = index < currentStep;
-                const stepClass = `step ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                const stepClass = `${styles.stepNavBtn} ${isActive ? styles.active : ''} ${isCompleted ? styles.completed : ''}`;
 
                 return (
-                    <div
-                        key={step.key}
+                    <button
+                        key={step.id}
                         className={stepClass}
                         onClick={() => onStepClick(index)}
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`${step.label} step ${isActive ? 'current' : isCompleted ? 'completed' : ''}`}
+                        role="tab"
+                        aria-selected={isActive}
+                        aria-controls={`step-${step.id}`}
+                        aria-label={`${step.title} step ${isActive ? 'current' : isCompleted ? 'completed' : ''}`}
                     >
-                        <div className="stepNumber">
-                            {stepIcons[step.key] || index + 1}
-                        </div>
-                        <div className="stepLabel">{step.label}</div>
-                    </div>
+                        <span className={styles.stepNavBtnIcon}>{step.icon}</span>
+                        <span className={styles.stepNavBtnText}>{step.title}</span>
+                    </button>
                 );
             })}
         </div>

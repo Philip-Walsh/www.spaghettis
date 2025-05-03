@@ -35,6 +35,14 @@ export const menuOptions = {
         tags: ["vegetarian", "glutenfree"],
         description: "Light, gluten-free noodles made from polished rice flour—clean, neutral, and versatile.",
         defaults: { gardenPicks: [] }
+      },
+      {
+        name: "Glass Noodles",
+        price: 1.75,
+        icon: "🧊🍜",
+        tags: ["vegetarian", "glutenfree"],
+        description: "Translucent noodles made from mung bean starch. Springy, slippery, and ideal for lighter broths.",
+        defaults: { gardenPicks: ['Snow Peas', 'Carrots'] }
       }
     ]
   },
@@ -84,6 +92,13 @@ export const menuOptions = {
         icon: "🌾🚫",
         tags: ["vegetarian", "vegan", "glutenfree"],
         description: "Steamed young soybeans, nutrient-dense and naturally gluten free."
+      },
+      {
+        name: "Vegan 'Pork'",
+        price: 2.0,
+        icon: "🌱🐷",
+        tags: ["vegan"],
+        description: "Plant-based protein with smoky undertones, engineered for depth and chew."
       }
     ]
   },
@@ -133,6 +148,13 @@ export const menuOptions = {
         icon: "🥑",
         tags: ["vegetarian", "vegan", "glutenfree"],
         description: "Creamy avocado slices, rich in healthy fats and naturally gluten free."
+      },
+      {
+        name: "Daikon Radish",
+        price: 0.75,
+        icon: "⚪",
+        tags: ["vegetarian", "vegan", "glutenfree"],
+        description: "Cool, crisp, and mildly peppery. Adds balance and bite."
       }
     ]
   },
@@ -182,6 +204,13 @@ export const menuOptions = {
         icon: "🍛",
         tags: ["vegetarian"],
         description: "Japanese-style curry broth with warm spice and a silky finish."
+      },
+      {
+        name: "Chili Lime Tare",
+        price: 0.75,
+        icon: "🌶️🍋",
+        tags: ["vegan"],
+        description: "Concentrated flavor bomb—citrus brightness with back-end heat, meant for custom builds."
       }
     ]
   },
@@ -224,6 +253,13 @@ export const menuOptions = {
         icon: "🌱",
         tags: ["vegetarian", "vegan"],
         description: "Lightly toasted, providing texture and a gentle nuttiness."
+      },
+      {
+        name: "Chili Oil Drizzle",
+        price: 0.5,
+        icon: "🫙🔥",
+        tags: ["vegan"],
+        description: "Aromatic and punchy—adds depth, sheen, and controlled heat."
       }
     ]
   }

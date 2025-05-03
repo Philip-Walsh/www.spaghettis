@@ -35,11 +35,11 @@ export default function StepSelector({ options, selectedOptions, onOptionSelect,
 
   const handleOptionClick = (optionName) => {
     if (isMultiSelect) {
-      const currentSelections = Array.isArray(selectedOptions) ? selectedOptions : [];
+      const currentSelections = selectedOptions || [];
       const newSelections = currentSelections.includes(optionName)
         ? currentSelections.filter(name => name !== optionName)
         : [...currentSelections, optionName];
-      onOptionSelect(newSelections);
+      onOptionSelect(optionName);
     } else {
       onOptionSelect(optionName);
     }
@@ -55,6 +55,20 @@ export default function StepSelector({ options, selectedOptions, onOptionSelect,
   return (
     <div className="stepSelector">
       <h2 className="stepTitle">{options.label}</h2>
+
+      {/* User Guide */}
+      <div className="userGuide">
+        {isMultiSelect && (
+          <p className="guideText">💡 You can select multiple items by clicking on them</p>
+        )}
+        {veggieOnly && (
+          <p className="guideText">🥬 Vegetarian mode: Only showing vegetarian options</p>
+        )}
+        {glutenFreeOnly && (
+          <p className="guideText">🌾 Gluten-free mode: Only showing gluten-free options</p>
+        )}
+      </div>
+
       <div className="optionsGrid">
         {filteredOptions.map((option) => {
           const selected = isSelected(option.name);
@@ -73,8 +87,8 @@ export default function StepSelector({ options, selectedOptions, onOptionSelect,
               <div className="optionHeader">
                 <span className="optionEmoji">{option.emoji || option.icon}</span>
                 <div className="optionTags">
-                  {option.tags?.includes('vegetarian') && <span className="tag vegetarian">🥬</span>}
-                  {option.tags?.includes('glutenfree') && <span className="tag glutenfree">🌾</span>}
+                  {option.tags?.includes('vegetarian') && <span className="tag vegetarian" title="Vegetarian">🥬</span>}
+                  {option.tags?.includes('glutenfree') && <span className="tag glutenfree" title="Gluten Free">🌾</span>}
                 </div>
               </div>
               <span className="optionName">{option.name}</span>

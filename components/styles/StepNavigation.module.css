@@ -1,0 +1,153 @@
+.stepNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: clamp(0.5rem, 3vw, 2.5rem);
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 1.7rem auto;
+    padding: 0.4rem 0.6rem;
+    background: var(--nav-bg);
+    border-radius: var(--nav-radius);
+    box-shadow: var(--nav-shadow);
+    overflow-x: auto;
+    position: relative;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.stepNav::-webkit-scrollbar {
+    display: none;
+}
+
+.stepNavBtn {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    min-height: 54px;
+    max-width: 54px;
+    max-height: 54px;
+    border-radius: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--accent-main);
+    transition: box-shadow 0.18s, background 0.18s, transform 0.18s;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
+    flex: 1 1 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.stepNavBtn[aria-selected="true"],
+.stepNavBtn.active {
+    background: var(--button-bg);
+    color: var(--accent-dark);
+    box-shadow: 0 2px 12px var(--shadow-accent), 0 0 0 6px var(--accent-light);
+    font-weight: 900;
+    filter: none;
+    animation: nav-pop 0.36s cubic-bezier(.4, 1.5, .5, 1) both;
+}
+
+@keyframes nav-pop {
+    0% {
+        transform: scale(0.88) rotate(-6deg);
+    }
+
+    60% {
+        transform: scale(1.08) rotate(4deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.stepNavBtnText {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.33s cubic-bezier(.4, 0, .2, 1), opacity 0.22s cubic-bezier(.4, 0, .2, 1);
+    vertical-align: middle;
+}
+
+.stepNavBtn[aria-selected="true"] .stepNavBtnText {
+    max-width: 220px;
+    opacity: 1;
+}
+
+.stepNavBtn:hover .stepNavBtnText,
+.stepNavBtn:focus .stepNavBtnText {
+    max-width: 0;
+    opacity: 0;
+}
+
+.stepNavBtn:hover:not([aria-selected="true"]):not(:disabled) {
+    background: var(--button-bg-alt);
+    color: var(--white);
+    filter: brightness(1.1) saturate(1.2);
+}
+
+.stepNavBtn:focus-visible {
+    outline: 2.5px solid var(--neon-yellow);
+    outline-offset: 1.5px;
+    box-shadow: 0 0 0 6px var(--shadow-yellow);
+}
+
+.stepNav::before,
+.stepNav::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.stepNav::before {
+    left: 0;
+    background: linear-gradient(to right, var(--nav-bg) 70%, transparent);
+}
+
+.stepNav::after {
+    right: 0;
+    background: linear-gradient(to left, var(--nav-bg) 70%, transparent);
+}
+
+.stepNavBtnIcon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.stepNavBtn:hover .stepNavBtnIcon {
+    transform: scale(1.2);
+}
+
+.stepNavBtn[aria-selected="true"] .stepNavBtnIcon {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 5px var(--shadow-accent));
+    animation: iconPulse 2s infinite;
+}
+
+@keyframes iconPulse {
+    0% {
+        transform: scale(1.3);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1.3);
+    }
+}
