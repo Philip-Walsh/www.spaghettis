@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Tag from './Tag';
-import styles from './StepSelector.module.css';
+import './styles/main.css';
 
 const icons = {
   base: '🍜',
@@ -20,90 +20,74 @@ const optionVariants = {
   exit: { opacity: 0, y: -20 }
 };
 
-const getBackgroundColor = (isSelected, isMulti) => {
-  if (isSelected) {
-    return isMulti ? 'bg-blue-50' : 'bg-blue-100';
+export default function StepSelector({ options, selectedOptions, onOptionSelect, veggieOnly, glutenFreeOnly }) {
+  if (!options) {
+    return <div className="loading">Loading...</div>;
   }
-  return 'bg-white';
-};
 
-export default function StepSelector({ step, value, onSelection }) {
-  const handleSelect = (item) => {
-    if (step.multi) {
-      const selectedValues = Array.isArray(value) ? [...value] : [];
-      const idx = selectedValues.indexOf(item.name);
-      let newSelection;
-      if (idx > -1) {
-        newSelection = selectedValues.filter(n => n !== item.name);
-      } else {
-        newSelection = [...selectedValues, item.name];
-      }
-      onSelection(newSelection);
+  const filteredOptions = options.choices.filter(choice => {
+    const isVeggie = !veggieOnly || choice.tags?.includes('vegetarian') || choice.tags?.includes('vegan');
+    const isGlutenFree = !glutenFreeOnly || choice.tags?.includes('glutenfree');
+    return isVeggie && isGlutenFree;
+  });
+
+  const isMultiSelect = options.multi || false;
+
+  const handleOptionClick = (optionName) => {
+    if (isMultiSelect) {
+      const currentSelections = Array.isArray(selectedOptions) ? selectedOptions : [];
+      const newSelections = currentSelections.includes(optionName)
+        ? currentSelections.filter(name => name !== optionName)
+        : [...currentSelections, optionName];
+      onOptionSelect(newSelections);
     } else {
-      onSelection(item);
+      onOptionSelect(optionName);
     }
   };
 
-  if (!step || !Array.isArray(step.choices)) {
-    return <div>Loading...</div>;
-  }
+  const isSelected = (optionName) => {
+    if (isMultiSelect) {
+      return Array.isArray(selectedOptions) && selectedOptions.includes(optionName);
+    }
+    return selectedOptions === optionName;
+  };
 
   return (
-    <fieldset className={styles.fieldset} aria-labelledby={`legend-${step.key}`}> 
-      <legend id={`legend-${step.key}`} className={styles.legend} tabIndex={-1}>
-        {step.icon && (
-          <span style={{marginRight: 8, verticalAlign: 'middle'}}>
-            {step.icon}
-          </span>
-        )}
-        {step.label}
-      </legend>
-      <div className={styles.optionsGrid} role="group" aria-labelledby={`legend-${step.key}`}> 
-        {step.choices.map((item) => {
-          const isSelected = step.multi
-            ? Array.isArray(value) && value.includes(item.name)
-            : value === item.name;
-
+    <div className="stepSelector">
+      <h2 className="stepTitle">{options.label}</h2>
+      <div className="optionsGrid">
+        {filteredOptions.map((option) => {
+          const selected = isSelected(option.name);
           return (
-            <label
-              key={item.name}
-              role="button"
-              aria-label={item.name}
-              className={
-                styles.optionBtn + (isSelected ? ` ${styles.selected}` : '')
-              }
-              tabIndex={0}
-              aria-pressed={isSelected}
+            <motion.button
+              key={option.name}
+              className={`optionButton ${selected ? 'selected' : ''}`}
+              onClick={() => handleOptionClick(option.name)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              variants={optionVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
             >
-              <input
-                type={step.multi ? 'checkbox' : 'radio'}
-                name={step.key}
-                className={styles.input}
-                checked={isSelected}
-                onChange={() => handleSelect(item)}
-                style={{marginRight: 18, width: 24, height: 24}}
-              />
-              <div className={styles.optionContent} style={{display: 'flex', alignItems: 'center', width: '100%'}}>
-                <div className={styles.iconWrap} style={{fontSize: 32, marginRight: 16}}>
-                  <span className={styles.icon}>{icons[item.tag] || icons.base}</span>
-                </div>
-                <div className={styles.optionTextWrap} style={{flex: 1, minWidth: 0}}>
-                  <h3 className={styles.optionTitle} style={{fontWeight: 700, fontSize: '1.15rem'}}>{item.name}</h3>
-                  <div className={styles.optionDetails} style={{marginTop: 4, display: 'flex', alignItems: 'center', gap: 8}}>
-                    {item.tag && <Tag label={item.tag} type={item.tag} />}
-                    {typeof item.price === 'number' && item.price > 0 && (
-                      <span className={styles.priceTag}>+${item.price}</span>
-                    )}
-                  </div>
-                  {item.description && (
-                    <div style={{fontSize: '0.95rem', color: '#444', marginTop: 4}}>{item.description}</div>
-                  )}
+              <div className="optionHeader">
+                <span className="optionEmoji">{option.emoji || option.icon}</span>
+                <div className="optionTags">
+                  {option.tags?.includes('vegetarian') && <span className="tag vegetarian">🥬</span>}
+                  {option.tags?.includes('glutenfree') && <span className="tag glutenfree">🌾</span>}
                 </div>
               </div>
-            </label>
+              <span className="optionName">{option.name}</span>
+              {option.description && (
+                <span className="optionDescription">{option.description}</span>
+              )}
+              <div className="optionPrice">
+                {option.price > 0 ? `+$${option.price}` : 'Included'}
+              </div>
+            </motion.button>
           );
         })}
       </div>
-    </fieldset>
+    </div>
   );
 }

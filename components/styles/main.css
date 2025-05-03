@@ -1,0 +1,667 @@
+:root {
+    /* Base Color */
+    --base-color-rgb: 0, 0, 0;
+    --base-color-inverse-rgb: 255, 255, 255;
+    --base-color: rgb(var(--base-color-rgb));
+    --base-color-inverse: rgb(var(--base-color-inverse-rgb));
+
+    /* Theme Colors - Dark Theme (Default) */
+    --color-primary: #ff00ff;
+    --color-secondary: #00ff00;
+    --color-background: rgba(var(--base-color-rgb), 0.8);
+    --color-background-light: rgba(var(--base-color-inverse-rgb), 0.1);
+    --color-text: var(--base-color-inverse);
+    --color-text-dark: var(--base-color);
+    --color-disabled: #666;
+
+    /* Typography */
+    --font-family: 'Courier New', monospace;
+    --font-size-small: 0.75rem;
+    --font-size-normal: 1rem;
+    --font-size-large: 1.25rem;
+    --font-size-xlarge: 2rem;
+    --font-size-xxlarge: 2.5rem;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border */
+    --border-radius-sm: 0.5rem;
+    --border-radius-md: 1rem;
+    --border-width: 2px;
+
+    /* Animation */
+    --transition-fast: 0.3s;
+    --transition-normal: 0.5s;
+    --transition-slow: 2s;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --base-color-rgb: 255, 255, 255;
+    --base-color-inverse-rgb: 0, 0, 0;
+    --color-background: rgba(var(--base-color-rgb), 0.8);
+    --color-background-light: rgba(var(--base-color-inverse-rgb), 0.1);
+    --color-text: var(--base-color-inverse);
+    --color-text-dark: var(--base-color);
+}
+
+/* Base Styles */
+.ramenBuilder {
+    background: var(--color-background);
+    min-height: 100vh;
+    padding: var(--spacing-md);
+}
+
+.container {
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+}
+
+.stepContent {
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+}
+
+/* Step Controls */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md);
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.controls .button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: var(--border-width) solid var(--color-primary);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-sm);
+}
+
+.controls .button:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+.controls .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--color-disabled);
+}
+
+.controls .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(var(--base-color-inverse-rgb), 0.2),
+            transparent);
+    transition: var(--transition-normal);
+}
+
+.controls .button:hover::before {
+    left: 100%;
+}
+
+.controls .nextButton {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    animation: pulse var(--transition-slow) infinite;
+}
+
+.controls .finishButton {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    border-color: var(--color-secondary);
+    animation: pulse var(--transition-slow) infinite;
+}
+
+/* Step Navigation */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+}
+
+.navigation .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    position: relative;
+    padding: var(--spacing-sm);
+    min-width: 100px;
+    transition: all var(--transition-fast) ease;
+    cursor: pointer;
+}
+
+.navigation .step:hover {
+    transform: translateY(-5px);
+}
+
+.navigation .step::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 100%;
+    height: var(--border-width);
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transition: transform var(--transition-fast) ease;
+}
+
+.navigation .step.active::after {
+    transform: scaleX(1);
+}
+
+.navigation .step.completed {
+    color: var(--color-secondary);
+}
+
+.navigation .step.completed::after {
+    background: var(--color-secondary);
+    transform: scaleX(1);
+}
+
+.navigation .stepNumber {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: 50%;
+    font-weight: bold;
+    background: var(--color-background);
+    transition: all var(--transition-fast) ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+.navigation .stepNumber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(var(--base-color-inverse-rgb), 0.2),
+            transparent);
+    transition: var(--transition-normal);
+}
+
+.navigation .step:hover .stepNumber::before {
+    left: 100%;
+}
+
+.navigation .step.active .stepNumber {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: scale(1.1);
+    animation: pulse var(--transition-slow) infinite;
+}
+
+.navigation .step.completed .stepNumber {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    border-color: var(--color-secondary);
+    animation: pulse var(--transition-slow) infinite;
+}
+
+.navigation .stepLabel {
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Price Display */
+.priceContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--color-background-light);
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: var(--border-radius-md);
+    margin: var(--spacing-md) 0;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    animation: float var(--transition-slow) ease-in-out infinite;
+}
+
+.priceContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(255, 0, 255, 0.1),
+            transparent);
+    animation: shimmer var(--transition-slow) infinite;
+}
+
+.priceLabel {
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-large);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(var(--base-color-inverse-rgb), 0.5);
+}
+
+.priceValue {
+    color: var(--color-secondary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-xxlarge);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    animation: glow var(--transition-slow) ease-in-out infinite alternate;
+}
+
+.currency {
+    color: var(--color-primary);
+    margin-right: var(--spacing-xs);
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 255, 0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(0, 255, 0, 0.8),
+            0 0 30px rgba(0, 255, 0, 0.6);
+    }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .navigation {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+    }
+
+    .navigation .step {
+        min-width: 80px;
+    }
+
+    .navigation .stepLabel {
+        font-size: var(--font-size-small);
+    }
+
+    .priceContainer {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+
+    .priceLabel {
+        font-size: var(--font-size-normal);
+    }
+
+    .priceValue {
+        font-size: var(--font-size-xlarge);
+    }
+}
+
+/* Theme Toggle */
+.themeToggle {
+    position: fixed;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--color-background-light);
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+    z-index: 1000;
+    color: var(--color-text);
+}
+
+.themeToggle:hover {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: scale(1.1);
+}
+
+/* Step Selector */
+.stepSelector {
+    background: var(--color-background);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    box-shadow: 0 0 20px rgba(var(--base-color-inverse-rgb), 0.1);
+}
+
+.stepTitle {
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-large);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(var(--base-color-inverse-rgb), 0.3);
+}
+
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.optionButton {
+    background: var(--color-background-light);
+    border: var(--border-width) solid var(--color-primary);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--color-text);
+    position: relative;
+    overflow: hidden;
+    transform-origin: center;
+}
+
+.optionButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(var(--base-color-inverse-rgb), 0.1),
+            transparent);
+    transition: var(--transition-normal);
+}
+
+.optionButton:hover::before {
+    left: 100%;
+}
+
+.optionButton:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(var(--base-color-inverse-rgb), 0.2);
+}
+
+.optionButton.selected {
+    background: #00ff00;
+    color: #000;
+    border-color: #00ff00;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    animation: selectedPulse 2s infinite;
+}
+
+.optionButton.selected::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(0, 255, 0, 0.1),
+            transparent);
+    animation: selectedGlow 2s infinite;
+}
+
+@keyframes selectedPulse {
+    0% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+    }
+
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    }
+}
+
+@keyframes selectedGlow {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.optionButton.selected .optionEmoji {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
+    animation: emojiPulse 2s infinite;
+}
+
+@keyframes emojiPulse {
+    0% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+.optionButton.selected .optionName {
+    color: #000;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    font-weight: bold;
+}
+
+.optionButton.selected .optionDescription {
+    opacity: 1;
+    color: #000;
+    font-weight: bold;
+}
+
+.optionButton.selected .optionPrice {
+    color: #000;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    font-weight: bold;
+    animation: pricePulse 2s infinite;
+}
+
+@keyframes pricePulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.optionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.optionEmoji {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 5px rgba(var(--base-color-inverse-rgb), 0.3));
+    transition: transform var(--transition-fast);
+}
+
+.optionTags {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.tag {
+    font-size: 1.2rem;
+    padding: 2px 6px;
+    border-radius: var(--border-radius-sm);
+    background: rgba(var(--base-color-inverse-rgb), 0.1);
+}
+
+.optionName {
+    font-family: var(--font-family);
+    font-size: var(--font-size-normal);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--transition-fast);
+}
+
+.optionDescription {
+    font-size: var(--font-size-small);
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.8;
+    line-height: 1.4;
+    transition: all var(--transition-fast);
+}
+
+.optionPrice {
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    color: var(--color-primary);
+    font-weight: bold;
+    transition: all var(--transition-fast);
+}
+
+.selectionIndicator {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+}
+
+.optionButton.selected .selectionIndicator {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    border-color: var(--color-text-dark);
+}
+
+.loading {
+    color: var(--color-text);
+    text-align: center;
+    padding: var(--spacing-lg);
+    font-family: var(--font-family);
+    font-size: var(--font-size-large);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

@@ -7,7 +7,7 @@ const mockMenuOptions = {
       { name: 'Forbidden Ramen', price: 0, icon: '🍜', tag: 'base' },
       { name: 'Neo Udon', price: 1.5, icon: '🍜', tag: 'base' },
       { name: 'Quantum Soba', price: 1.75, icon: '🍜', tag: 'base', defaults: { gardenPicks: ['Mushrooms', 'Bean Sprouts'] } },
-      { name: 'Rice Noodles (GF)', price: 1.5, icon: '🍜', tag: 'base' }
+      { name: 'Rice Noodles', price: 1.5, icon: '🍜', tag: 'base' }
     ]
   },
   protein: {
@@ -17,7 +17,7 @@ const mockMenuOptions = {
     choices: [
       { name: 'Chicken', price: 2.0, icon: '🐔', tag: 'meat' },
       { name: 'Tofu', price: 1.75, icon: '🌱', tag: 'vegan' },
-      { name: 'Edamame (GF)', price: 1.0, icon: '🌱', tag: 'vegan' }
+      { name: 'Edamame', price: 1.0, icon: '🌱', tag: 'vegan' }
     ]
   },
   gardenPicks: {
