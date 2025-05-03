@@ -197,6 +197,35 @@ body {
   margin-left: 1rem;
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggle {
+  background: var(--glass-bg);
+  border: 1px solid var(--neon-blue);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  color: var(--neon-blue);
+  backdrop-filter: blur(10px);
+}
+
+.themeToggle:hover {
+  background: var(--neon-blue);
+  color: var(--dark);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--shadow-blue);
+}
+
 .nav-links {
   display: flex;
   gap: 2.5rem;
@@ -229,6 +258,10 @@ body {
 @media (max-width: 800px) {
   .nav-toggle {
     display: block;
+  }
+
+  .nav-controls {
+    order: 2;
   }
 
   .nav-links {

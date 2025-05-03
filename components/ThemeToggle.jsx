@@ -2,12 +2,30 @@ import React, { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
     const [theme, setTheme] = useState('dark');
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        setTheme(savedTheme);
-        applyTheme(savedTheme);
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+        setTheme(initialTheme);
+        applyTheme(initialTheme);
+        setMounted(true);
+
+        // Listen for system theme changes
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleChange = (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                setTheme(newTheme);
+                applyTheme(newTheme);
+            }
+        };
+
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
     }, []);
 
     const applyTheme = (theme) => {
@@ -39,6 +57,11 @@ export default function ThemeToggle() {
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
     };
+
+    // Prevent hydration mismatch
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <button

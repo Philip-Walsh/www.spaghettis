@@ -1,62 +1,109 @@
-# Forbidden Ramen
+# Forbidden Ramen 🍜
 
-[Live Demo](https://spaghettis.netlify.app/ramen)
+A professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for Vibe Coding with AI and Windsurf.
 
-A professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for **Vibe Coding with AI** and **Windsurf**. This project is designed to explore and test the real-world utilities and workflows of generative AI assistants in modern web development.
+## Overview
 
----
+Forbidden Ramen is a modern web application that demonstrates how AI can assist in building professional-grade web applications. The project showcases:
 
-## 🧑‍💻 Project Purpose
-- **Experiment with GenAI-powered coding workflows**
-- **Test the capabilities of Windsurf and AI assistants** for rapid prototyping, testing, and UI/UX iteration
-- **Discover new utilities and use cases** for AI-driven codebases and developer experience
-- **Demonstrate best practices** in Next.js, Netlify, and modern frontend engineering
-[Source Code on GitHub](https://github.com/Philip-Walsh/www.spaghettis)
+- AI-driven development workflows
+- Modern frontend engineering practices
+- Accessibility-first design
+- Performance optimization
+- Comprehensive testing
+- Theme system implementation
 
----
+## Features
 
-## 🚀 Features
-- **Multi-step order flow**: Noodle base → Protein → Garden picks → Broth/Sauce → Garnish → Summary
-- **Step navigation**: Evenly spaced, animated, accessible, and responsive nav buttons
-- **Bento-style selectors**: Compact, mobile-first, grid on desktop, wraps as needed
-- **Selection feedback**: Visual glow/border, no native radios/checkboxes
-- **Summary step**: Shows order, total, and lets you "Order More"
-- **Order reset**: Seamless, instant new order flow
-- **Full accessibility**: Keyboard, screen reader, and mobile friendly
+### Core Functionality
+- 🍜 Interactive Ramen Builder with real-time price calculation
+- ♿ Fully accessible UI with keyboard navigation and screen reader support
+- 🎨 Responsive design with futuristic glassmorphism aesthetic
+- ⚡ Optimized performance with Next.js and CSS Modules
+- 🧪 Comprehensive test coverage with Jest and Testing Library
+- 🌙 Dark/Light theme support with system preference detection
 
----
+### AI-Driven Development
+This project was built using AI-assisted development workflows, demonstrating how AI can:
+- 🤖 Generate and refine UI components with accessibility in mind
+- 🔍 Implement complex state management and business logic
+- 🎯 Write comprehensive tests and documentation
+- 🔄 Iterate on design and user experience
 
-## 🛠 Technologies Used
-- **Next.js** (React)
-- **Jest** + **Testing Library** (robust, accessible tests)
-- **Framer Motion** (animations)
-- **CSS Modules** (scoped, modern styling)
-- **Windsurf** (AI codebase acceleration)
+## Current Limitations
 
----
+As a demonstration project, Forbidden Ramen has some intentional limitations:
+- 💾 No persistent storage - selections are not saved between sessions
+- 🔒 No user authentication or order history
+- 🛒 No actual ordering functionality - this is a UI/UX demo
 
-## 🧪 Testing Philosophy
-- **Jest + Testing Library**
-- Stepper and summary (happy path)
-- Multiselect/complex order (multiple selections per step)
-- Robustness (random order, deselect/reselect, order reset)
-- All option selection via `getByRole('button', { name })`
-- Summary and reset tested for all flows
+## Future Enhancements
 
----
+Planned features and improvements:
+- 📱 Mobile app version with offline support
+- 🗄️ Database integration for order persistence
+- 👥 User accounts and order history
+- 🌍 Internationalization and localization
+- 🤖 AI-powered order recommendations
 
-## 📱 Responsive Design
-- Card grows to fit step selectors on large screens (up to 1200px)
-- Single column selector on mobile, auto-fit grid on desktop
-- Option grid always wraps and fits parent
+## Tech Stack
 
----
+- ⚡ Next.js 14
+- 🌊 Netlify
+- 🧪 Jest
+- 🎬 Framer Motion
+- 🎨 CSS Modules
+- 🌪️ Windsurf
 
-<footer>
-  <span>
-    <a href="https://windsurf.com/refer?referral_code=f181515cf7" target="_blank" rel="noopener noreferrer">
-      Built With Windsurf
-      <img src="https://windsurf.com/favicon.ico" alt="Windsurf logo" style="display:inline;vertical-align:middle;width:16px;height:16px;margin-left:4px;"/>
-    </a>
-  </span>
-</footer>
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Philip-Walsh/www.spaghettis.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Development Workflow
+
+This project follows a modern development workflow:
+1. Feature branches for new development
+2. Pull requests for code review
+3. Automated testing on push
+4. Continuous deployment via Netlify
+
+## Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- Built with ❤️ using AI-assisted development
+- Inspired by the future of web development
+- Special thanks to the Windsurf team for their support

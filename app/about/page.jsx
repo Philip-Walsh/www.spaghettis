@@ -17,26 +17,108 @@ export default function AboutPage() {
             <p className={styles.aboutText}>
               <span className={styles.highlight}>Forbidden Ramen</span> is a professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for <span className={styles.accent}>Vibe Coding with AI</span> and <span className={styles.accent}>Windsurf</span>.
             </p>
+            <p className={styles.aboutText}>
+              This project demonstrates how AI can assist in building modern web applications, from initial concept to production deployment, while maintaining high standards of accessibility, performance, and user experience.
+            </p>
           </section>
 
           <section className={styles.aboutSection}>
-            <h2 className={styles.sectionTitle}>Project Goals</h2>
+            <h2 className={styles.sectionTitle}>Core Features</h2>
             <ul className={styles.goalsList}>
               <li className={styles.goalItem}>
-                <span className={styles.goalIcon}>🚀</span>
-                <span>Experiment with GenAI-powered coding workflows</span>
+                <span className={styles.goalIcon}>🍜</span>
+                <span>Interactive Ramen Builder with real-time price calculation</span>
               </li>
               <li className={styles.goalItem}>
-                <span className={styles.goalIcon}>💡</span>
-                <span>Test the capabilities of Windsurf and AI assistants</span>
+                <span className={styles.goalIcon}>♿</span>
+                <span>Fully accessible UI with keyboard navigation and screen reader support</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🎨</span>
+                <span>Responsive design with futuristic glassmorphism aesthetic</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>⚡</span>
+                <span>Optimized performance with Next.js and CSS Modules</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🧪</span>
+                <span>Comprehensive test coverage with Jest and Testing Library</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🌙</span>
+                <span>Dark/Light theme support with system preference detection</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>AI-Driven Development</h2>
+            <p className={styles.aboutText}>
+              This project was built using AI-assisted development workflows, demonstrating how AI can:
+            </p>
+            <ul className={styles.goalsList}>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🤖</span>
+                <span>Generate and refine UI components with accessibility in mind</span>
               </li>
               <li className={styles.goalItem}>
                 <span className={styles.goalIcon}>🔍</span>
-                <span>Discover new utilities for AI-driven codebases</span>
+                <span>Implement complex state management and business logic</span>
               </li>
               <li className={styles.goalItem}>
-                <span className={styles.goalIcon}>✨</span>
-                <span>Demonstrate best practices in modern frontend engineering</span>
+                <span className={styles.goalIcon}>🎯</span>
+                <span>Write comprehensive tests and documentation</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🔄</span>
+                <span>Iterate on design and user experience</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Current Limitations</h2>
+            <p className={styles.aboutText}>
+              As a demonstration project, Forbidden Ramen has some intentional limitations:
+            </p>
+            <ul className={styles.goalsList}>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>💾</span>
+                <span>No persistent storage - selections are not saved between sessions</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🔒</span>
+                <span>No user authentication or order history</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🛒</span>
+                <span>No actual ordering functionality - this is a UI/UX demo</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Future Enhancements</h2>
+            <p className={styles.aboutText}>
+              Planned features and improvements:
+            </p>
+            <ul className={styles.goalsList}>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🗄️</span>
+                <span>Database integration for order persistence</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>👥</span>
+                <span>User accounts and order history</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🌍</span>
+                <span>Internationalization and localization</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🤖</span>
+                <span>AI-powered order recommendations</span>
               </li>
             </ul>
           </section>

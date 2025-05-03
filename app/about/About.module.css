@@ -1,21 +1,22 @@
 .aboutContainer {
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--dark) 0%, #232946 100%);
+    background: var(--color-background);
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: var(--color-text);
 }
 
 .glassPanel {
     width: 100%;
     max-width: 1200px;
-    background: rgba(30, 34, 54, 0.93);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--neon-blue);
     border-radius: 1.5rem;
     padding: 3rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px var(--shadow-blue);
     margin-bottom: 2rem;
 }
 
@@ -30,13 +31,13 @@
     background: rgba(255, 255, 255, 0.05);
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--neon-blue);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .aboutSection:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px var(--shadow-blue);
 }
 
 .aboutTitle {
@@ -59,7 +60,7 @@
 }
 
 .aboutText {
-    color: var(--white);
+    color: var(--color-text);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -88,12 +89,14 @@
     margin-bottom: 0.5rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 0.5rem;
-    color: var(--white);
+    color: var(--color-text);
     transition: background 0.3s ease;
+    border: 1px solid var(--neon-blue);
 }
 
 .goalItem:hover {
     background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 10px var(--shadow-blue);
 }
 
 .goalIcon {
@@ -115,13 +118,14 @@
     padding: 1rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--neon-blue);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--color-text);
 }
 
 .techCard:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px var(--shadow-blue);
 }
 
 .techIcon {
@@ -130,7 +134,7 @@
 }
 
 .techName {
-    color: var(--white);
+    color: var(--color-text);
     font-size: 0.9rem;
     text-align: center;
 }
