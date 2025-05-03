@@ -1,4 +1,5 @@
 import Footer from '../../components/Footer';
+import styles from './About.module.css';
 
 export const metadata = {
   title: 'About | Forbidden Ramen',
@@ -7,37 +8,86 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <main style={{ flex: 1, maxWidth: 800, margin: '0 auto', padding: '2rem 1rem' }}>
-        <h1>About Forbidden Ramen</h1>
-        <p>
-          <strong>Forbidden Ramen</strong> is a professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for <b>Vibe Coding with AI</b> and <b>Windsurf</b>.
-        </p>
-        <ul>
-          <li>Experiment with GenAI-powered coding workflows</li>
-          <li>Test the capabilities of Windsurf and AI assistants for rapid prototyping, testing, and UI/UX iteration</li>
-          <li>Discover new utilities and use cases for AI-driven codebases and developer experience</li>
-          <li>Demonstrate best practices in Next.js, Netlify, and modern frontend engineering</li>
-        </ul>
-        <h2>Technologies Used</h2>
-        <ul>
-          <li>Next.js 14 (App Router)</li>
-          <li>Netlify Platform Starter</li>
-          <li>Jest + Testing Library</li>
-          <li>Framer Motion</li>
-          <li>CSS Modules</li>
-          <li>Tailwind CSS</li>
-          <li>Windsurf</li>
-        </ul>
-        <h2>Open Source</h2>
-        <p>
-          View the source code and contribute on GitHub:
-          <br/>
-          <a href="https://github.com/Philip-Walsh/www.spaghettis" target="_blank" rel="noopener noreferrer">
-            github.com/Philip-Walsh/www.spaghettis
-          </a>
-        </p>
-      </main>
+    <div className={styles.aboutContainer}>
+      <div className={styles.glassPanel}>
+        <h1 className={styles.aboutTitle}>About Forbidden Ramen</h1>
+        <div className={styles.contentGrid}>
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Project Vision</h2>
+            <p className={styles.aboutText}>
+              <span className={styles.highlight}>Forbidden Ramen</span> is a professional, fully accessible multi-step ramen/spaghetti order builder—built as a showcase for <span className={styles.accent}>Vibe Coding with AI</span> and <span className={styles.accent}>Windsurf</span>.
+            </p>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Project Goals</h2>
+            <ul className={styles.goalsList}>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🚀</span>
+                <span>Experiment with GenAI-powered coding workflows</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>💡</span>
+                <span>Test the capabilities of Windsurf and AI assistants</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>🔍</span>
+                <span>Discover new utilities for AI-driven codebases</span>
+              </li>
+              <li className={styles.goalItem}>
+                <span className={styles.goalIcon}>✨</span>
+                <span>Demonstrate best practices in modern frontend engineering</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Tech Stack</h2>
+            <div className={styles.techGrid}>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>⚡</span>
+                <span className={styles.techName}>Next.js 14</span>
+              </div>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>🌊</span>
+                <span className={styles.techName}>Netlify</span>
+              </div>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>🧪</span>
+                <span className={styles.techName}>Jest</span>
+              </div>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>🎬</span>
+                <span className={styles.techName}>Framer Motion</span>
+              </div>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>🎨</span>
+                <span className={styles.techName}>CSS Modules</span>
+              </div>
+              <div className={styles.techCard}>
+                <span className={styles.techIcon}>🌪️</span>
+                <span className={styles.techName}>Windsurf</span>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.aboutSection}>
+            <h2 className={styles.sectionTitle}>Open Source</h2>
+            <p className={styles.aboutText}>
+              View the source code and contribute on GitHub:
+            </p>
+            <a
+              href="https://github.com/Philip-Walsh/www.spaghettis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.githubLink}
+            >
+              <span className={styles.githubIcon}>📦</span>
+              <span>github.com/Philip-Walsh/www.spaghettis</span>
+            </a>
+          </section>
+        </div>
+      </div>
       <Footer />
     </div>
   );

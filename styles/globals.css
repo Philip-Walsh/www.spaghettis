@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
+  /* Base Colors */
   --color-primary: #f7b500;
   --color-primary-dark: #c49000;
   --color-secondary: #fff3d6;
@@ -8,6 +9,7 @@
   --color-text: #2d1600;
   --color-accent: #e85d04;
 
+  /* Theme-specific Colors */
   --neon-blue: #00eaff;
   --neon-pink: #ff5af7;
   --neon-yellow: #fbbf24;
@@ -31,11 +33,21 @@
   --button-dark-filter: brightness(0.75) contrast(1.2) saturate(1.4);
 }
 
+[data-theme="light"] {
+  --color-primary: #00eaff;
+  --color-primary-dark: #00b8cc;
+  --color-secondary: #ff5af7;
+  --color-background: #181c27;
+  --color-text: #ffffff;
+  --color-accent: #fbbf24;
+}
+
 body {
   color: var(--color-text);
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   margin: 0;
   min-height: 100vh;
+  background: var(--color-background);
 }
 
 .hero-title {
