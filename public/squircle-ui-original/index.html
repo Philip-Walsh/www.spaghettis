@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Original Squircle UI - NFT Marketplace</title>
+    <style>
+        /* Original Squircle UI Styles */
+        :root {
+            --squircle-factor: 0.08;
+            --primary-color: #3B82F6;
+            --secondary-color: #06B6D4;
+            --accent-color: #22C55E;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .squircle-demo {
+            width: 300px;
+            height: 300px;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: calc(var(--squircle-factor) * 300px);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .squircle-demo:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: calc(var(--squircle-factor) * 100px);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-color);
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: calc(var(--squircle-factor) * 50px);
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .squircle-demo {
+                width: 200px;
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Original Squircle UI</h1>
+            <p>The design system that inspired the Forbidden Ramen NFT Gallery</p>
+
+            <div class="squircle-demo" onclick="animateSquircle(this)">
+                🎨
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Glass Morphism</h3>
+                <p>Beautiful frosted glass effects with backdrop blur and subtle transparency for a modern, layered
+                    aesthetic.</p>
+            </div>
+
+            <div class="card">
+                <h3>Squircle Borders</h3>
+                <p>Unique rounded rectangles that blend the softness of circles with the structure of squares for
+                    perfect balance.</p>
+            </div>
+
+            <div class="card">
+                <h3>Smooth Animations</h3>
+                <p>Fluid transitions and hover effects that bring the interface to life with subtle, purposeful motion.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Responsive Design</h3>
+                <p>Adaptive layouts that work seamlessly across all devices, from mobile phones to large desktop
+                    displays.</p>
+            </div>
+
+            <div class="card">
+                <h3>Modern Typography</h3>
+                <p>Clean, readable fonts with gradient text effects and proper hierarchy for excellent user experience.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Interactive Elements</h3>
+                <p>Engaging buttons, cards, and components that respond to user interaction with delightful feedback.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const toggle = document.querySelector('.theme-toggle');
+
+            if (body.style.background.includes('1e293b')) {
+                body.style.background = 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+                body.style.color = '#1e293b';
+                toggle.textContent = '☀️';
+            } else {
+                body.style.background = 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)';
+                body.style.color = 'white';
+                toggle.textContent = '🌙';
+            }
+        }
+
+        function animateSquircle(element) {
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 150);
+            }, 150);
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.15)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+    </script>
+</body>
+
+</html>

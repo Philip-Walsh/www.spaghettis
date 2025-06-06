@@ -1,704 +1,498 @@
-:root {
-    /* Base Color */
-    --base-color-rgb: 0, 0, 0;
-    --base-color-inverse-rgb: 255, 255, 255;
-    --base-color: rgb(var(--base-color-rgb));
-    --base-color-inverse: rgb(var(--base-color-inverse-rgb));
+/* Import design system */
+@import '../../styles/design-system.css';
 
-    /* Theme Colors - Dark Theme (Default) */
-    --color-primary: #ff00ff;
-    --color-secondary: #00ff00;
-    --color-background: rgba(var(--base-color-rgb), 0.8);
-    --color-background-light: rgba(var(--base-color-inverse-rgb), 0.1);
-    --color-text: var(--base-color-inverse);
-    --color-text-dark: var(--base-color);
-    --color-disabled: #666;
-
-    /* Typography */
-    --font-family: 'Courier New', monospace;
-    --font-size-small: 0.75rem;
-    --font-size-normal: 1rem;
-    --font-size-large: 1.25rem;
-    --font-size-xlarge: 2rem;
-    --font-size-xxlarge: 2.5rem;
-
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-
-    /* Border */
-    --border-radius-sm: 0.5rem;
-    --border-radius-md: 1rem;
-    --border-width: 2px;
-
-    /* Animation */
-    --transition-fast: 0.3s;
-    --transition-normal: 0.5s;
-    --transition-slow: 2s;
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Light Theme */
-[data-theme="light"] {
-    --base-color-rgb: 255, 255, 255;
-    --base-color-inverse-rgb: 0, 0, 0;
-    --color-background: rgba(var(--base-color-rgb), 0.8);
-    --color-background-light: rgba(var(--base-color-inverse-rgb), 0.1);
-    --color-text: var(--base-color-inverse);
-    --color-text-dark: var(--base-color);
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
-/* Base Styles */
-.ramenBuilder {
+body {
+    font-family: inherit;
     background: var(--color-background);
-    min-height: 100vh;
-    padding: var(--spacing-md);
-}
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-base), color var(--transition-base);
 
-.container {
-    background: var(--color-background-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-    margin: var(--spacing-md) 0;
-}
-
-.stepContent {
-    background: var(--color-background-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-    margin: var(--spacing-md) 0;
-}
-
-/* Step Controls */
-.controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--color-background-light);
-    border-radius: var(--border-radius-md);
-    backdrop-filter: blur(10px);
-    padding: var(--spacing-md);
-    margin-top: var(--spacing-md);
-}
-
-.controls .button {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border: var(--border-width) solid var(--color-primary);
-    background: var(--color-background);
-    color: var(--color-text);
-    font-family: var(--font-family);
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all var(--transition-fast) ease;
+    /* Temporarily remove textures for better visibility */
     position: relative;
-    overflow: hidden;
-    border-radius: var(--border-radius-sm);
 }
 
-.controls .button:hover:not(:disabled) {
-    background: var(--color-primary);
-    color: var(--color-text-dark);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
-}
-
-.controls .button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    border-color: var(--color-disabled);
-}
-
-.controls .button::before {
+body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(var(--base-color-inverse-rgb), 0.2),
-            transparent);
-    transition: var(--transition-normal);
-}
-
-.controls .button:hover::before {
-    left: 100%;
-}
-
-.controls .nextButton {
-    background: var(--color-primary);
-    color: var(--color-text-dark);
-    animation: pulse var(--transition-slow) infinite;
-}
-
-.controls .finishButton {
-    background: var(--color-secondary);
-    color: var(--color-text-dark);
-    border-color: var(--color-secondary);
-    animation: pulse var(--transition-slow) infinite;
-}
-
-/* Step Navigation */
-.navigation {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
-    background: var(--color-background-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-}
-
-.navigation .step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
-    color: var(--color-text);
-    font-family: var(--font-family);
-    position: relative;
-    padding: var(--spacing-sm);
-    min-width: 100px;
-    transition: all var(--transition-fast) ease;
-    cursor: pointer;
-}
-
-.navigation .step:hover {
-    transform: translateY(-5px);
-}
-
-.navigation .step::after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
     left: 0;
-    width: 100%;
-    height: var(--border-width);
-    background: var(--color-primary);
-    transform: scaleX(0);
-    transition: transform var(--transition-fast) ease;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    /* Completely hidden for now */
+    pointer-events: none;
+    z-index: -1;
 }
 
-.navigation .step.active::after {
-    transform: scaleX(1);
+body.dark {
+    /* Dark theme styles only - no background image for now */
 }
 
-.navigation .step.completed {
-    color: var(--color-secondary);
+body.dark::before {
+    opacity: 0;
+    /* Completely hidden for now */
 }
 
-.navigation .step.completed::after {
-    background: var(--color-secondary);
-    transform: scaleX(1);
+/* Improved focus styles for accessibility */
+*:focus {
+    outline: 2px solid var(--color-ramen-orange);
+    outline-offset: 2px;
 }
 
-.navigation .stepNumber {
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: var(--border-width) solid var(--color-primary);
-    border-radius: 50%;
-    font-weight: bold;
-    background: var(--color-background);
-    transition: all var(--transition-fast) ease;
+body.dark *:focus {
+    outline-color: var(--color-cyber-blue);
+}
+
+/* Typography improvements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+h3 {
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+}
+
+/* Links */
+a {
+    color: var(--color-ramen-orange);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: var(--color-ramen-gold);
+}
+
+body.dark a {
+    color: var(--color-cyber-blue);
+}
+
+body.dark a:hover {
+    color: var(--color-cyber-purple);
+}
+
+/* Form elements */
+input,
+textarea,
+select,
+button {
+    font-family: inherit;
+    border-radius: var(--squircle-sm);
+}
+
+button {
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+/* Enhanced glass morphism effect - more visible */
+.glass-enhanced {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px) saturate(180%) contrast(120%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.dark .glass-enhanced {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Interactive hover states */
+.interactive {
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 48px rgba(255, 133, 0, 0.15);
+}
+
+body.dark .interactive:hover {
+    box-shadow: 0 12px 48px rgba(0, 212, 255, 0.15);
+}
+
+/* Loading states */
+.loading {
     position: relative;
     overflow: hidden;
-    font-size: 1.5rem;
 }
 
-.navigation .stepNumber::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(var(--base-color-inverse-rgb), 0.2),
-            transparent);
-    transition: var(--transition-normal);
-}
-
-.navigation .step:hover .stepNumber::before {
-    left: 100%;
-}
-
-.navigation .step.active .stepNumber {
-    background: var(--color-primary);
-    color: var(--color-text-dark);
-    transform: scale(1.1);
-    animation: pulse var(--transition-slow) infinite;
-}
-
-.navigation .step.completed .stepNumber {
-    background: var(--color-secondary);
-    color: var(--color-text-dark);
-    border-color: var(--color-secondary);
-    animation: pulse var(--transition-slow) infinite;
-}
-
-.navigation .stepLabel {
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-/* Price Display */
-.priceContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
-    background: var(--color-background-light);
-    border: var(--border-width) solid var(--color-primary);
-    border-radius: var(--border-radius-md);
-    margin: var(--spacing-md) 0;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    animation: float var(--transition-slow) ease-in-out infinite;
-}
-
-.priceContainer::before {
+.loading::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg,
+    background: linear-gradient(90deg,
             transparent,
-            rgba(255, 0, 255, 0.1),
+            rgba(255, 255, 255, 0.4),
             transparent);
-    animation: shimmer var(--transition-slow) infinite;
-}
-
-.priceLabel {
-    color: var(--color-text);
-    font-family: var(--font-family);
-    font-size: var(--font-size-large);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 0 0 5px rgba(var(--base-color-inverse-rgb), 0.5);
-}
-
-.priceValue {
-    color: var(--color-secondary);
-    font-family: var(--font-family);
-    font-size: var(--font-size-xxlarge);
-    font-weight: bold;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-    animation: glow var(--transition-slow) ease-in-out infinite alternate;
-}
-
-.currency {
-    color: var(--color-primary);
-    margin-right: var(--spacing-xs);
-    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
-}
-
-/* Animations */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.4);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(255, 0, 255, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 255, 0);
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-5px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
 }
 
 @keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
+    to {
         transform: translateX(100%);
     }
 }
 
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+/* Scroll enhancements */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--squircle-sm);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-ramen-orange);
+    border-radius: var(--squircle-sm);
+    transition: background var(--transition-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ramen-gold);
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: var(--color-cyber-blue);
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-cyber-purple);
+}
+
+/* Print styles */
+@media print {
+
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
     }
 
-    to {
-        text-shadow: 0 0 20px rgba(0, 255, 0, 0.8),
-            0 0 30px rgba(0, 255, 0, 0.6);
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    .no-print {
+        display: none !important;
     }
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-    .navigation {
-        flex-wrap: wrap;
-        gap: var(--spacing-sm);
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 
-    .navigation .step {
-        min-width: 80px;
-    }
-
-    .navigation .stepLabel {
-        font-size: var(--font-size-small);
-    }
-
-    .priceContainer {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-        padding: var(--spacing-md);
-    }
-
-    .priceLabel {
-        font-size: var(--font-size-normal);
-    }
-
-    .priceValue {
-        font-size: var(--font-size-xlarge);
+    .float,
+    .fade-in-up {
+        animation: none !important;
     }
 }
 
-/* Theme Toggle */
-.themeToggle {
-    position: fixed;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    background: var(--color-background-light);
-    border: var(--border-width) solid var(--color-primary);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all var(--transition-fast);
-    z-index: 1000;
-    color: var(--color-text);
+/* High contrast preferences */
+@media (prefers-contrast: high) {
+    :root {
+        --color-ramen-orange: #ff6600;
+        --color-cyber-blue: #0099ff;
+    }
+
+    .glass,
+    .glass-strong,
+    .glass-enhanced {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border: 2px solid #000 !important;
+    }
+
+    body.dark .glass,
+    body.dark .glass-strong,
+    body.dark .glass-enhanced {
+        background: rgba(0, 0, 0, 0.95) !important;
+        border: 2px solid #fff !important;
+    }
 }
 
-.themeToggle:hover {
-    background: var(--color-primary);
-    color: var(--color-text-dark);
-    transform: scale(1.1);
-}
-
-/* Step Selector */
+/* Step Selector Styles - Original Design */
 .stepSelector {
-    background: var(--color-background);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-    margin: var(--spacing-md) 0;
-    box-shadow: 0 0 20px rgba(var(--base-color-inverse-rgb), 0.1);
+    width: 100%;
 }
 
 .stepTitle {
-    color: var(--color-text);
-    font-family: var(--font-family);
-    font-size: var(--font-size-large);
-    margin-bottom: var(--spacing-md);
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(var(--base-color-inverse-rgb), 0.3);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+    background: linear-gradient(135deg, var(--color-ramen-orange), var(--color-ramen-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.dark .stepTitle {
+    background: linear-gradient(135deg, var(--color-cyber-blue), var(--color-cyber-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.userGuide {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.guideText {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-backdrop);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--squircle-md);
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-2) 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
 }
 
 .optionsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .optionButton {
-    background: var(--color-background-light);
-    border: var(--border-width) solid var(--color-primary);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-backdrop);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--squircle-lg);
+    padding: 1.5rem;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    color: var(--color-text);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    transform-origin: center;
+    color: var(--color-text-primary);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 140px;
 }
 
 .optionButton::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(var(--base-color-inverse-rgb), 0.1),
-            transparent);
-    transition: var(--transition-normal);
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 165, 0, 0.1) 0%,
+            transparent 50%,
+            rgba(255, 215, 0, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
 .optionButton:hover::before {
-    left: 100%;
+    opacity: 1;
 }
 
 .optionButton:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 0 15px rgba(var(--base-color-inverse-rgb), 0.2);
+    border-color: rgba(255, 165, 0, 0.6);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(255, 165, 0, 0.2);
 }
 
 .optionButton.selected {
-    background: #00ff00;
-    color: #000;
-    border-color: #00ff00;
+    border-color: var(--color-ramen-orange);
+    background: rgba(255, 165, 0, 0.15);
+    box-shadow:
+        0 0 32px rgba(255, 165, 0, 0.3),
+        0 8px 32px rgba(255, 165, 0, 0.2);
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
-    animation: selectedPulse 2s infinite;
 }
 
-.optionButton.selected::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg,
-            transparent,
-            rgba(0, 255, 0, 0.1),
-            transparent);
-    animation: selectedGlow 2s infinite;
+body.dark .optionButton::before {
+    background: linear-gradient(135deg,
+            rgba(59, 130, 246, 0.15) 0%,
+            transparent 50%,
+            rgba(6, 182, 212, 0.15) 100%);
 }
 
-@keyframes selectedPulse {
-    0% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
-    }
-
-    50% {
-        transform: scale(1.08);
-        box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
-    }
-
-    100% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
-    }
+body.dark .optionButton:hover {
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 16px 48px rgba(59, 130, 246, 0.2);
 }
 
-@keyframes selectedGlow {
-    0% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.5;
-    }
-}
-
-.optionButton.selected .optionEmoji {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
-    animation: emojiPulse 2s infinite;
-}
-
-@keyframes emojiPulse {
-    0% {
-        transform: scale(1.2);
-    }
-
-    50% {
-        transform: scale(1.3);
-    }
-
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-.optionButton.selected .optionName {
-    color: #000;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-    font-weight: bold;
-}
-
-.optionButton.selected .optionDescription {
-    opacity: 1;
-    color: #000;
-    font-weight: bold;
-}
-
-.optionButton.selected .optionPrice {
-    color: #000;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-    font-weight: bold;
-    animation: pricePulse 2s infinite;
-}
-
-@keyframes pricePulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+body.dark .optionButton.selected {
+    border-color: var(--color-cyber-blue);
+    background: rgba(59, 130, 246, 0.2);
+    box-shadow:
+        0 0 32px rgba(59, 130, 246, 0.3),
+        0 8px 32px rgba(59, 130, 246, 0.2);
 }
 
 .optionHeader {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
 }
 
 .optionEmoji {
     font-size: 2.5rem;
-    filter: drop-shadow(0 0 5px rgba(var(--base-color-inverse-rgb), 0.3));
-    transition: transform var(--transition-fast);
+    filter: drop-shadow(0 2px 8px rgba(255, 165, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.optionButton:hover .optionEmoji {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.optionButton.selected .optionEmoji {
+    transform: scale(1.2);
+    filter: drop-shadow(0 4px 16px rgba(255, 165, 0, 0.5));
+}
+
+body.dark .optionEmoji {
+    filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+}
+
+body.dark .optionButton.selected .optionEmoji {
+    filter: drop-shadow(0 4px 16px rgba(59, 130, 246, 0.5));
 }
 
 .optionTags {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: 0.25rem;
 }
 
 .tag {
-    font-size: 1.2rem;
-    padding: 2px 6px;
-    border-radius: var(--border-radius-sm);
-    background: rgba(var(--base-color-inverse-rgb), 0.1);
+    font-size: 1rem;
+    padding: 0.25rem;
+    border-radius: var(--squircle-sm);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tag.vegetarian {
+    background: rgba(34, 197, 94, 0.2);
+}
+
+.tag.glutenfree {
+    background: rgba(245, 158, 11, 0.2);
 }
 
 .optionName {
-    font-family: var(--font-family);
-    font-size: var(--font-size-normal);
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all var(--transition-fast);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    position: relative;
+    z-index: 2;
+    line-height: 1.3;
 }
 
 .optionDescription {
-    font-size: var(--font-size-small);
-    text-align: center;
-    color: var(--color-text);
-    opacity: 0.8;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    position: relative;
+    z-index: 2;
     line-height: 1.4;
-    transition: all var(--transition-fast);
 }
 
 .optionPrice {
-    font-family: var(--font-family);
-    font-size: var(--font-size-small);
-    color: var(--color-primary);
-    font-weight: bold;
-    transition: all var(--transition-fast);
-}
-
-.selectionIndicator {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    font-size: 1.2rem;
-    transition: all var(--transition-fast);
-}
-
-.optionButton.selected .selectionIndicator {
-    background: var(--color-primary);
-    color: var(--color-text-dark);
-    border-color: var(--color-text-dark);
-}
-
-.loading {
-    color: var(--color-text);
-    text-align: center;
-    padding: var(--spacing-lg);
-    font-family: var(--font-family);
-    font-size: var(--font-size-large);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.userGuide {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-}
-
-.guideText {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.optionTags span {
-    cursor: help;
-}
-
-/* Add tooltip styles */
-[title] {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ramen-orange);
     position: relative;
+    z-index: 2;
+    margin-top: auto;
 }
 
-[title]:hover::after {
-    content: attr(title);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0.5rem;
-    background-color: #333;
-    color: white;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    z-index: 1000;
+body.dark .optionPrice {
+    color: var(--color-cyber-blue);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .optionsGrid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .optionButton {
+        padding: 1rem;
+        min-height: 120px;
+    }
+
+    .optionEmoji {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .optionButton {
+        padding: 0.75rem;
+        gap: 0.5rem;
+        min-height: 100px;
+    }
+
+    .optionName {
+        font-size: 1rem;
+    }
+
+    .optionDescription {
+        font-size: 0.8rem;
+    }
 }

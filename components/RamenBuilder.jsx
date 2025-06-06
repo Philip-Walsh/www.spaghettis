@@ -11,7 +11,6 @@ import PriceDisplay from './PriceDisplay';
 import SummaryView from './SummaryView';
 import { calculateTotalPrice } from './utils';
 import styles from './styles/RamenBuilder.module.css';
-import ThemeToggle from './ThemeToggle';
 import './styles/main.css';
 import Cart from './Cart';
 
@@ -250,7 +249,6 @@ export default function RamenBuilder() {
 
   return (
     <main className={styles.builderContainer}>
-      <ThemeToggle />
       <header className={styles.title}>
         <h1>
           {isSummaryStep ? 'Selection Complete!' : 'Build Your Perfect Ramen'}

@@ -1,0 +1,30 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    padding-top: 70px;
+    /* Account for fixed navigation */
+    position: relative;
+
+    /* Add texture background */
+    background-image: url('/textures/fabric-light.png');
+    background-size: 200px 200px;
+    background-attachment: fixed;
+    opacity: 0.02;
+}
+
+:global(body.dark) .main {
+    background-image: url('/textures/fabric-dark.png');
+    opacity: 0.05;
+}
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+    .main {
+        padding-top: 60px;
+    }
+}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Layout from '../../components/Layout';
 import RamenBuilder from '../../components/RamenBuilder';
 
 export default function RamenPage() {
@@ -15,8 +16,8 @@ export default function RamenPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <Layout>
       <RamenBuilder />
-    </main>
+    </Layout>
   );
 }

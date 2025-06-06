@@ -35,6 +35,7 @@ export default function Nav() {
         </div>
         <ul className={`nav-links${open ? ' open' : ''}`}>
           <li><Link href="/ramen" onClick={() => setOpen(false)}>Ramen</Link></li>
+          <li><Link href="/nft-showcase" onClick={() => setOpen(false)}>Innovation Gallery</Link></li>
           <li><Link href="/about" onClick={() => setOpen(false)}>About</Link></li>
         </ul>
       </div>
