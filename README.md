@@ -4,21 +4,13 @@
 
 ## Overview
 
-Forbidden Ramen is a modern web application that demonstrates how AI can assist in building professional-grade web applications. The project showcases:
-
-- AI-driven development workflows
-- Modern frontend engineering practices
-- Accessibility-first design
-- Performance optimization
-- Comprehensive testing
-- Theme system implementation
+Forbidden Ramen is a modern web application that demonstrates how AI can assist in building professional-grade web applications.
 
 ## Features
 
 ### Core Functionality
 - 🍜 Interactive Ramen Builder with real-time price calculation
-- ♿ Fully accessible UI with keyboard navigation and screen reader support
-- 🎨 Responsive design with futuristic glassmorphism aesthetic
+- 🎨 Responsive design with glassmorphism aesthetic
 - ⚡ Optimized performance with Next.js and CSS Modules
 - 🧪 Comprehensive test coverage with Jest and Testing Library
 - 🌙 Dark/Light theme support with system preference detection
@@ -53,6 +45,7 @@ Planned features and improvements:
 - 🎬 Framer Motion
 - 🎨 CSS Modules
 - 🌪️ Windsurf
+- 🗨️ Cursor
 
 ## Getting Started
 
@@ -101,8 +94,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## Acknowledgments
-
-- Built with ❤️ using AI-assisted development
-- Inspired by the future of web development
-- Special thanks to the Windsurf team for their support
