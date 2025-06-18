@@ -1,0 +1,80 @@
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: white;
+  max-width: 350px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease forwards 4.7s;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.info {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  border-left: 4px solid #60a5fa;
+}
+
+.success {
+  background: linear-gradient(135deg, #10b981, #047857);
+  border-left: 4px solid #34d399;
+}
+
+.warning {
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  border-left: 4px solid #fbbf24;
+}
+
+.error {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-left: 4px solid #f87171;
+}
+
+.icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.message {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.75rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}

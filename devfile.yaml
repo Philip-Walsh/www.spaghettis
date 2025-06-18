@@ -1,0 +1,19 @@
+schemaVersion: 2.0.0
+schemaVersion: 2.1.0
+components:
+  - name: dev
+    container:
+      image: public.ecr.aws/aws-mde/universal-image:latest
+      memoryLimit: "4G"
+      mountSources: true
+commands:
+  - id: install
+    exec:
+      component: dev
+      commandLine: "npm install"
+      workingDir: ${PROJECT_SOURCE}
+  - id: build
+    exec:
+      component: dev
+      commandLine: "npm run build"
+      workingDir: ${PROJECT_SOURCE}

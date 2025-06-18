@@ -1,0 +1,17 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: none;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.toastWrapper {
+  position: absolute;
+  right: 20px;
+  pointer-events: auto;
+  width: calc(100% - 40px);
+}

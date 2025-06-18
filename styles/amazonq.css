@@ -1,0 +1,64 @@
+/* Amazon Q Branding Colors */
+:root {
+  --amazonq-blue: #00A1C9;
+  --amazonq-navy: #232F3E;
+  --amazonq-purple: #6B43BC;
+  --amazonq-teal: #36C2B4;
+  --amazonq-gradient: linear-gradient(135deg, var(--amazonq-navy) 0%, var(--amazonq-blue) 50%, var(--amazonq-purple) 100%);
+  --amazonq-gradient-light: linear-gradient(135deg, rgba(35, 47, 62, 0.8) 0%, rgba(0, 161, 201, 0.8) 50%, rgba(107, 67, 188, 0.8) 100%);
+}
+
+.amazonq-badge {
+  background: var(--amazonq-gradient);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.amazonq-card {
+  background: var(--amazonq-gradient);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.amazonq-button {
+  background: var(--amazonq-blue);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.amazonq-button:hover {
+  background: var(--amazonq-purple);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.amazonq-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Animation for Amazon Q elements */
+@keyframes amazonq-pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.amazonq-animated {
+  animation: amazonq-pulse 2s infinite ease-in-out;
+}
