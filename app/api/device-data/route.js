@@ -12,7 +12,11 @@ export async function GET(request) {
                       ? 'mobile' 
                       : 'desktop');
   
+<<<<<<< HEAD
   const builtBy = request.headers.get('X-Built-By') || 'modern web technologies';
+=======
+  const builtBy = request.headers.get('X-Built-By') || 'Amazon Q';
+>>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
   
   // Return different data based on device type
   const data = {
@@ -20,6 +24,7 @@ export async function GET(request) {
     builtBy,
     timestamp: new Date().toISOString(),
     features: deviceType === 'mobile' 
+<<<<<<< HEAD
       ? [
           'Simplified UI for touch interactions',
           'Optimized images for faster loading',
@@ -46,6 +51,13 @@ export async function GET(request) {
       deviceOptimization: 'This page adapts its layout and features based on your device capabilities.',
       recommendations: 'These suggestions are tailored to improve your experience on this specific device type.'
     }
+=======
+      ? ['Simplified UI', 'Touch optimized', 'Reduced data usage']
+      : ['Full feature set', 'Advanced interactions', 'High-resolution content'],
+    recommendations: deviceType === 'mobile'
+      ? ['Use landscape mode for better experience', 'Enable notifications for updates']
+      : ['Try keyboard shortcuts for faster navigation', 'Explore advanced filtering options']
+>>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
   };
   
   // Add CORS headers to allow requests from any origin
