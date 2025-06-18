@@ -1,6 +1,8 @@
 import '../styles/globals.css';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import ErrorBoundaryWrapper from '../components/ErrorBoundaryWrapper';
+import ClientLayout from '../components/ClientLayout';
 
 export const metadata = {
     title: {
@@ -20,7 +22,11 @@ export default function RootLayout({ children }) {
         <main className="grid-row-2">
           <div className="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
             <div className="flex flex-col w-full max-w-5xl mx-auto grow">
-              {children}
+              <ErrorBoundaryWrapper>
+                <ClientLayout>
+                  {children}
+                </ClientLayout>
+              </ErrorBoundaryWrapper>
             </div>
           </div>
         </main>

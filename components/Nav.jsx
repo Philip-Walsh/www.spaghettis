@@ -36,6 +36,10 @@ export default function Nav() {
         <ul className={`nav-links${open ? ' open' : ''}`}>
           <li><Link href="/ramen" onClick={() => setOpen(false)}>Ramen</Link></li>
           <li><Link href="/about" onClick={() => setOpen(false)}>About</Link></li>
+          <li><Link href="/edge/device-optimize" onClick={() => setOpen(false)}>
+            Edge Demo
+            <span className="ml-1 text-xs bg-blue-600 px-1 rounded">New</span>
+          </Link></li>
         </ul>
       </div>
     </nav>

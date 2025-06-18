@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles/Footer.module.css';
+import AmazonQAttribution from './AmazonQAttribution';
 
 export default function Footer() {
   return (
@@ -14,6 +15,8 @@ export default function Footer() {
           Built With Cursor AI
           <img src="https://www.cursor.so/favicon.ico" alt="Cursor AI logo" style={{ display: 'inline', verticalAlign: 'middle', width: 16, height: 16, marginLeft: 4 }} />
         </a>
+        {" | "}
+        <AmazonQAttribution />
       </span>
     </footer>
   );

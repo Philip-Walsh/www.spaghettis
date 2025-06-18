@@ -37,6 +37,16 @@ As a demonstration project, Forbidden Ramen has some intentional limitations:
 - 🔒 No user authentication or order history
 - 🛒 No actual ordering functionality - this is a UI/UX demo
 
+## Recent Improvements with Amazon Q
+
+The project has been enhanced with Amazon Q to implement several best practices:
+
+- 🌐 Edge Function for device-specific content optimization
+- 🔄 API integration with edge-powered device detection
+- 🏷️ "Built by Amazon Q" attribution throughout the application
+- 📱 Responsive design optimizations for different devices
+- 🚀 Performance improvements with client-side components
+
 ## Future Enhancements
 
 Planned features and improvements:
@@ -53,6 +63,7 @@ Planned features and improvements:
 - 🎬 Framer Motion
 - 🎨 CSS Modules
 - 🌪️ Windsurf
+- 🤖 Amazon Q
 
 ## Getting Started
 
@@ -104,5 +115,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Acknowledgments
 
 - Built with ❤️ using AI-assisted development
+- Enhanced with Amazon Q for improved performance and best practices
 - Inspired by the future of web development
 - Special thanks to the Windsurf team for their support
