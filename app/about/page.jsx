@@ -15,7 +15,7 @@ export default function AboutPage() {
           <section className={styles.aboutSection}>
             <h2 className={styles.sectionTitle}>Project Vision</h2>
             <p className={styles.aboutText}>
-              <span className={styles.highlight}>Forbidden Ramen</span> represents the future of AI-assisted web development. We're demonstrating how modern tools and workflows can create exceptional digital experiences, from concept to deployment.
+              <span className={styles.highlight}>Forbidden Ramen</span> represents the future of AI-assisted web development. We&apos;re demonstrating how modern tools and workflows can create exceptional digital experiences, from concept to deployment.
             </p>
             <p className={styles.aboutText}>
               This project showcases the power of AI in modern web development, combining cutting-edge technology with best practices in accessibility, performance, and user experience. Every aspect, from the initial design to the final deployment, demonstrates how AI can enhance the development process.
@@ -105,12 +105,12 @@ export default function AboutPage() {
           <section className={styles.aboutSection}>
             <h2 className={styles.sectionTitle}>Tech Magic</h2>
             <p className={styles.aboutText}>
-              We're using Next.js, the coolest framework in town! It's like having a super-powered kitchen that:
+              We&apos;re using Next.js, the coolest framework in town! It&apos;s like having a super-powered kitchen that:
             </p>
             <ul className={styles.goalsList}>
               <li className={styles.goalItem}>
                 <span className={styles.goalIcon}>⚡</span>
-                <span>Loads your pages faster than you can say "ramen"</span>
+                <span>Loads your pages faster than you can say &quot;ramen&quot;</span>
               </li>
               <li className={styles.goalIcon}>
                 <span className={styles.goalIcon}>🎯</span>
@@ -118,7 +118,7 @@ export default function AboutPage() {
               </li>
               <li className={styles.goalItem}>
                 <span className={styles.goalIcon}>🔍</span>
-                <span>Helps Google find us (because who doesn't want more ramen fans?)</span>
+                <span>Helps Google find us (because who doesn&apos;t want more ramen fans?)</span>
               </li>
               <li className={styles.goalItem}>
                 <span className={styles.goalIcon}>🛠️</span>
@@ -152,7 +152,7 @@ export default function AboutPage() {
               </li>
               <li className={styles.goalItem}>
                 <span className={styles.goalIcon}>🌙</span>
-                <span>Your choice of light or dark mode - we've got you covered</span>
+                <span>Your choice of light or dark mode - we&apos;ve got you covered</span>
               </li>
             </ul>
           </section>
@@ -160,7 +160,7 @@ export default function AboutPage() {
           <section className={styles.aboutSection}>
             <h2 className={styles.sectionTitle}>AI-Powered Development</h2>
             <p className={styles.aboutText}>
-              We're using AI to push the boundaries of what's possible in web development:
+              We&apos;re using AI to push the boundaries of what&apos;s possible in web development:
             </p>
             <ul className={styles.goalsList}>
               <li className={styles.goalItem}>
