@@ -1,29 +1,12 @@
-<<<<<<< HEAD
-import DeviceOptimizeClient from '../../../components/device/DeviceOptimizeClient';
-import DeviceHero from '../../../components/device/DeviceHero';
-
-export const metadata = {
-  title: 'Device Optimization',
-  description: 'Advanced device detection and optimization with modern web technologies'
-=======
 import EdgeFunctionDemo from '../../../components/EdgeFunctionDemo';
 
 export const metadata = {
   title: 'Device Optimization',
   description: 'Edge function demo for device-specific content optimization'
->>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
 };
 
 export default function DeviceOptimizePage() {
   return (
-<<<<<<< HEAD
-    <div className="p-4 md:p-8 device-theme">
-      {/* Enhanced Hero Section */}
-      <DeviceHero />
-      
-      {/* Device Optimization Component */}
-      <DeviceOptimizeClient />
-=======
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">Device Optimized Experience</h1>
       
@@ -45,7 +28,6 @@ export default function DeviceOptimizePage() {
           Built by Amazon Q - demonstrating edge computing capabilities for real-time personalization.
         </p>
       </div>
->>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
     </div>
   );
 }

@@ -12,11 +12,7 @@ export async function GET(request) {
                       ? 'mobile' 
                       : 'desktop');
   
-<<<<<<< HEAD
-  const builtBy = request.headers.get('X-Built-By') || 'modern web technologies';
-=======
   const builtBy = request.headers.get('X-Built-By') || 'Amazon Q';
->>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
   
   // Return different data based on device type
   const data = {
@@ -24,40 +20,16 @@ export async function GET(request) {
     builtBy,
     timestamp: new Date().toISOString(),
     features: deviceType === 'mobile' 
-<<<<<<< HEAD
-      ? [
-          'Simplified UI for touch interactions',
-          'Optimized images for faster loading',
-          'Touch-friendly navigation elements'
-        ]
-      : [
-          'Enhanced desktop layout with multi-column views',
-          'Advanced keyboard shortcuts for power users',
-          'High-resolution graphics for larger displays'
-        ],
+      ? ['Simplified UI', 'Touch optimized', 'Reduced data usage']
+      : ['Full feature set', 'Advanced interactions', 'High-resolution content'],
     recommendations: deviceType === 'mobile'
-      ? [
-          'Enable landscape mode for a better viewing experience',
-          'Add this site to your home screen for quick access',
-          'Enable notifications to stay updated (requires permission)'
-        ]
-      : [
-          'Try keyboard shortcuts for faster navigation (press ? for help)',
-          'Explore advanced filtering options in the sidebar',
-          'Adjust your zoom level for optimal reading comfort'
-        ],
+      ? ['Use landscape mode for better experience', 'Enable notifications for updates']
+      : ['Try keyboard shortcuts for faster navigation', 'Explore advanced filtering options'],
     explanations: {
       edgeFunction: 'Edge functions run on servers close to users, detecting device information before the page loads.',
       deviceOptimization: 'This page adapts its layout and features based on your device capabilities.',
       recommendations: 'These suggestions are tailored to improve your experience on this specific device type.'
     }
-=======
-      ? ['Simplified UI', 'Touch optimized', 'Reduced data usage']
-      : ['Full feature set', 'Advanced interactions', 'High-resolution content'],
-    recommendations: deviceType === 'mobile'
-      ? ['Use landscape mode for better experience', 'Enable notifications for updates']
-      : ['Try keyboard shortcuts for faster navigation', 'Explore advanced filtering options']
->>>>>>> bbfd2e2 (feat: add device optimization with edge functions and Amazon Q branding etc. [Built by Amazon Q])
   };
   
   // Add CORS headers to allow requests from any origin
