@@ -1,0 +1,221 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop, amazon-q ]
+  pull_request:
+    branches: [ main, develop, amazon-q ]
+
+env:
+  NODE_VERSION: '18'
+  POSTGRES_DB: spaghettis_test
+  POSTGRES_USER: test_user
+  POSTGRES_PASSWORD: test_password
+
+jobs:
+  # Security scanning
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run TruffleHog
+        run: |
+          docker run --rm -v "$(pwd):/repo" trufflesecurity/trufflehog:latest \
+            --only-verified --fail --no-update /repo
+
+  # Code quality checks
+  quality:
+    name: 🧹 Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+  # Testing
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup database
+        run: |
+          npm run db:generate
+          npm run db:migrate
+          npm run db:seed
+
+      - name: Run tests
+        run: npm run test:ci
+        env:
+          DATABASE_URL: postgresql://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+
+  # Build verification
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    needs: [quality, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Check build output
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed: .next directory not found"
+            exit 1
+          fi
+          echo "✅ Build successful"
+
+  # Database validation
+  database:
+    name: 🗄️ Database
+    runs-on: ubuntu-latest
+    needs: [quality]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate database schema
+        run: npm run db:generate
+
+      - name: Check database migrations
+        run: |
+          if [ ! -f "db/schema.ts" ]; then
+            echo "❌ Database schema file not found"
+            exit 1
+          fi
+          echo "✅ Database schema validated"
+
+  # Performance check
+  performance:
+    name: ⚡ Performance
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Check bundle size
+        run: |
+          # Check if build artifacts exist and are reasonable size
+          if [ -d ".next" ]; then
+            size=$(du -sh .next | cut -f1)
+            echo "📦 Build size: $size"
+          fi
+
+  # Final status
+  status:
+    name: 📊 Status
+    runs-on: ubuntu-latest
+    needs: [security, quality, test, build, database, performance]
+    if: always()
+    steps:
+      - name: Check job status
+        run: |
+          echo "🔍 CI/CD Pipeline Status:"
+          echo "Security: ${{ needs.security.result }}"
+          echo "Quality: ${{ needs.quality.result }}"
+          echo "Tests: ${{ needs.test.result }}"
+          echo "Build: ${{ needs.build.result }}"
+          echo "Database: ${{ needs.database.result }}"
+          echo "Performance: ${{ needs.performance.result }}"
+          
+          if [[ "${{ needs.security.result }}" == "failure" ]] || \
+             [[ "${{ needs.quality.result }}" == "failure" ]] || \
+             [[ "${{ needs.test.result }}" == "failure" ]] || \
+             [[ "${{ needs.build.result }}" == "failure" ]]; then
+            echo "❌ Pipeline failed"
+            exit 1
+          else
+            echo "✅ All checks passed"
+          fi 

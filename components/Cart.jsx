@@ -1,10 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
-import { menuOptions } from '../data/menuOptions';
+import { useMenuData } from './hooks/useMenuData';
 import styles from './styles/Cart.module.css';
 
 export default function Cart({ items, onAddItem, onRemoveItem }) {
     const [deliveryOption, setDeliveryOption] = useState('takeout');
     const [specialInstructions, setSpecialInstructions] = useState('');
+
+    // Use the menu data hook
+    const { menuOptions, loading, error } = useMenuData();
 
     const calculateTotal = () => {
         const subtotal = items.reduce((sum, item) => sum + item.price, 0);
@@ -13,12 +18,14 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
     };
 
     const getItemDetails = (item) => {
+        if (!menuOptions) return [];
+
         const details = [];
-        const basePrice = 2.50; // Base price for any noodle selection
+        const basePrice = 2.5; // Base price for any noodle selection
 
         // Base noodles (always add base price plus any additional noodle cost)
         if (item.details.base) {
-            const noodle = menuOptions.noodleBase.choices.find(n => n.name === item.details.base);
+            const noodle = menuOptions.noodleBase?.choices.find((n) => n.name === item.details.base);
             details.push({
                 name: noodle ? noodle.name : 'Custom Noodles',
                 price: basePrice + (noodle ? noodle.price : 0)
@@ -27,8 +34,8 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
 
         // Protein (multi-select)
         if (item.details.protein && Array.isArray(item.details.protein)) {
-            item.details.protein.forEach(proteinName => {
-                const protein = menuOptions.protein.choices.find(p => p.name === proteinName);
+            item.details.protein.forEach((proteinName) => {
+                const protein = menuOptions.protein?.choices.find((p) => p.name === proteinName);
                 if (protein) {
                     details.push({
                         name: protein.name,
@@ -40,8 +47,8 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
 
         // Vegetables (multi-select)
         if (item.details.vegetables && Array.isArray(item.details.vegetables)) {
-            item.details.vegetables.forEach(vegName => {
-                const vegetable = menuOptions.gardenPicks.choices.find(v => v.name === vegName);
+            item.details.vegetables.forEach((vegName) => {
+                const vegetable = menuOptions.gardenPicks?.choices.find((v) => v.name === vegName);
                 if (vegetable) {
                     details.push({
                         name: vegetable.name,
@@ -53,7 +60,7 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
 
         // Broth (single-select)
         if (item.details.broth) {
-            const broth = menuOptions.sauceBroth.choices.find(b => b.name === item.details.broth);
+            const broth = menuOptions.sauceBroth?.choices.find((b) => b.name === item.details.broth);
             if (broth) {
                 details.push({
                     name: broth.name,
@@ -64,8 +71,8 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
 
         // Garnish (multi-select)
         if (item.details.garnish && Array.isArray(item.details.garnish)) {
-            item.details.garnish.forEach(garnishName => {
-                const garnish = menuOptions.garnish.choices.find(g => g.name === garnishName);
+            item.details.garnish.forEach((garnishName) => {
+                const garnish = menuOptions.garnish?.choices.find((g) => g.name === garnishName);
                 if (garnish) {
                     details.push({
                         name: garnish.name,
@@ -77,6 +84,30 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
 
         return details;
     };
+
+    // Show loading state while menu data is being fetched
+    if (loading) {
+        return (
+            <div className={styles.cartContainer}>
+                <div className={styles.loadingContainer}>
+                    <div className={styles.loadingSpinner}></div>
+                    <p>Loading menu options...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Show error state if menu data failed to load
+    if (error) {
+        return (
+            <div className={styles.cartContainer}>
+                <div className={styles.errorContainer}>
+                    <p>Error loading menu options: {error}</p>
+                    <button onClick={() => window.location.reload()}>Retry</button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.cartContainer}>
@@ -118,10 +149,7 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
                             <div key={index} className={styles.item}>
                                 <div className={styles.itemHeader}>
                                     <h3>{item.name}</h3>
-                                    <button
-                                        className={styles.removeButton}
-                                        onClick={() => onRemoveItem(index)}
-                                    >
+                                    <button className={styles.removeButton} onClick={() => onRemoveItem(index)}>
                                         Remove
                                     </button>
                                 </div>
@@ -129,9 +157,7 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
                                     {itemDetails.map((detail, i) => (
                                         <div key={i} className={styles.detailRow}>
                                             <span className={styles.detailName}>{detail.name}</span>
-                                            <span className={styles.detailPrice}>
-                                                ${detail.price.toFixed(2)}
-                                            </span>
+                                            <span className={styles.detailPrice}>${detail.price.toFixed(2)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -172,12 +198,9 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
                 </div>
             </div>
 
-            <button
-                className={styles.checkoutButton}
-                disabled={items.length === 0}
-            >
+            <button className={styles.checkoutButton} disabled={items.length === 0}>
                 Proceed to Checkout
             </button>
         </div>
     );
-} 
+}

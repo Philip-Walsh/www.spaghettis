@@ -1,11 +1,18 @@
 {
-    "printWidth": 120,
+    "printWidth": 80,
+    "semi": true,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
     "singleQuote": true,
-    "trailingComma": "none",
-    "tabWidth": 4,
     "overrides": [
         {
-            "files": ["*.md", "*.yaml"],
+            "files": [
+                "*.md",
+                "*.yaml"
+            ],
             "options": {
                 "tabWidth": 2
             }
