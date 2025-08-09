@@ -1,5 +1,37 @@
 import '@testing-library/jest-dom';
 
+// Mock framer-motion for tests
+jest.mock('framer-motion', () => ({
+  motion: {
+    div: 'div',
+    article: 'article',
+    section: 'section',
+    span: 'span',
+    main: 'main',
+    nav: 'nav',
+    header: 'header',
+    aside: 'aside',
+  },
+  AnimatePresence: ({ children }) => children,
+}));
+
+// Mock CSS modules
+jest.mock('./styles/RamenBuilder.module.css', () => ({
+  builderContainer: 'builderContainer',
+  title: 'title',
+  contentContainer: 'contentContainer',
+  builderContent: 'builderContent',
+  stepsContainer: 'stepsContainer',
+  stepContent: 'stepContent',
+  filterControls: 'filterControls',
+  filterToggle: 'filterToggle',
+  stepContainer: 'stepContainer',
+  stepControls: 'stepControls',
+  actions: 'actions',
+  actionButton: 'actionButton',
+  cartContainer: 'cartContainer',
+}));
+
 // Mock the fetch API globally
 const mockFetch = jest.fn();
 global.fetch = mockFetch;

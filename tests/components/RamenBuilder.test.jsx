@@ -9,8 +9,10 @@ import { menuOptions } from '../../data/menuOptions';
 jest.mock('framer-motion', () => {
   const AnimatePresence = ({ children }) => children;
   const motion = {
-    div: ({ children, whileHover, whileTap, ...props }) => <div {...props}>{children}</div>,
-    button: ({ children, whileHover, whileTap, ...props }) => <button {...props}>{children}</button>
+    div: ({ children, ...props }) => <div {...props}>{children}</div>,
+    button: ({ children, ...props }) => <button {...props}>{children}</button>,
+    article: ({ children, ...props }) => <article {...props}>{children}</article>,
+    section: ({ children, ...props }) => <section {...props}>{children}</section>,
   };
   return { AnimatePresence, motion };
 });
