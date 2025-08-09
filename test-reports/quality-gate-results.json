@@ -1,0 +1,38 @@
+{
+  "timestamp": "2025-08-09T15:47:03.405Z",
+  "status": "FAILED",
+  "violations": [
+    {
+      "severity": "HIGH",
+      "message": "Test success rate 0% below threshold 95%"
+    },
+    {
+      "severity": "HIGH",
+      "message": "Code coverage 0% below threshold 60%"
+    },
+    {
+      "severity": "MEDIUM",
+      "message": "Test stability 44% below threshold 90%"
+    },
+    {
+      "severity": "HIGH",
+      "message": "Change failure rate 75% exceeds threshold 15%"
+    }
+  ],
+  "warnings": [],
+  "thresholds": {
+    "testSuccessRate": 95,
+    "maxExecutionTime": 300,
+    "minCoverage": 60,
+    "maxFlakiness": 10,
+    "maxChangeFailureRate": 15,
+    "maxMTTR": 60,
+    "minTestStability": 90,
+    "maxDefectDensity": 5
+  },
+  "summary": {
+    "totalChecks": 8,
+    "violationsCount": 4,
+    "warningsCount": 0
+  }
+}

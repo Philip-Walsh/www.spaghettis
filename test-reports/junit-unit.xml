@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Jest Tests" tests="20" failures="0" time="0">
+  <testsuite name="unit" tests="20" failures="0" skipped="0" time="0" timestamp="2025-08-09T15:46:45.524Z">
+    <testcase classname="unit" name="test-1" time="0"/>
+    <testcase classname="unit" name="test-2" time="0"/>
+    <testcase classname="unit" name="test-3" time="0"/>
+    <testcase classname="unit" name="test-4" time="0"/>
+    <testcase classname="unit" name="test-5" time="0"/>
+    <testcase classname="unit" name="test-6" time="0"/>
+    <testcase classname="unit" name="test-7" time="0"/>
+    <testcase classname="unit" name="test-8" time="0"/>
+    <testcase classname="unit" name="test-9" time="0"/>
+    <testcase classname="unit" name="test-10" time="0"/>
+    <testcase classname="unit" name="test-11" time="0"/>
+    <testcase classname="unit" name="test-12" time="0"/>
+    <testcase classname="unit" name="test-13" time="0"/>
+    <testcase classname="unit" name="test-14" time="0"/>
+    <testcase classname="unit" name="test-15" time="0"/>
+    <testcase classname="unit" name="test-16" time="0"/>
+    <testcase classname="unit" name="test-17" time="0"/>
+    <testcase classname="unit" name="test-18" time="0"/>
+    <testcase classname="unit" name="test-19" time="0"/>
+    <testcase classname="unit" name="test-20" time="0"/>
+    <system-out><![CDATA[
+
+&gt; next-netlify-platform-starter@0.1.0 test:unit
+&gt; jest --testPathPattern=tests/unit --json --outputFile /home/robo/code/www.spaghettis/test-reports/unit-results.json --testLocationInResults
+
+
+]]></system-out>
+    <system-err><![CDATA[
+(node:88246) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/unit/baseline.test.js
+(node:88240) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/unit/pricing.enhanced.test.js
+(node:88252) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/unit/utils.test.js
+(node:88258) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/unit/getMenuItems.test.js
+(node:88239) [DEP0040] DeprecationWarning: The `punycode` module is
+]]></system-err>
+  </testsuite>
+</testsuites>

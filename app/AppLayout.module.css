@@ -1,0 +1,80 @@
+/* Urban/Drippy Global Layout Styles */
+.body {
+  min-height: 100vh;
+  background: #f7f8fa;
+  color: #22223b;
+  font-family: 'Inter', 'Montserrat', 'Arial', sans-serif;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow-x: hidden;
+  /* Remove animation and transitions for accessibility */
+}
+.bgNoise {
+  min-height: 100vh;
+  width: 100vw;
+  background: url('/noise.png'), linear-gradient(135deg, #f7f8fa 0%, #e7ebf0 100%);
+  background-blend-mode: overlay;
+  background-repeat: repeat;
+  background-size: 340px, cover;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.bgPattern {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 120px;
+  background: url('/drip.svg') repeat-x;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+.contentWrap {
+  flex: 1;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+.main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: 80vh;
+}
+.card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+.hero {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+.price-summary {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+.patternSection {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}

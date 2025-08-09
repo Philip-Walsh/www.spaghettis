@@ -1,0 +1,500 @@
+:root {
+    /* Deprecated: variables now live in styles/globals.css */
+}
+
+/* Base Styles */
+.ramenBuilder {
+    background: var(--color-background);
+    min-height: 100vh;
+    padding: var(--spacing-md, 1rem);
+}
+
+.container {
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+    margin: var(--spacing-md, 1rem) 0;
+}
+
+.stepContent {
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+    margin: var(--spacing-md, 1rem) 0;
+}
+
+/* Step Controls */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md, 1rem);
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-md, 1rem);
+    margin-top: var(--spacing-md, 1rem);
+}
+
+.controls .button {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-lg, 1.5rem);
+    border: 2px solid var(--color-primary);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-sm, 0.5rem);
+}
+
+.controls .button:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+}
+
+.controls .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--color-disabled, #666);
+}
+
+.controls .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: 0.5s;
+}
+
+.controls .button:hover::before {
+    left: 100%;
+}
+
+.controls .nextButton {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    animation: pulse 2s infinite;
+}
+
+.controls .finishButton {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    border-color: var(--color-secondary);
+    animation: pulse 2s infinite;
+}
+
+/* Step Navigation */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md, 1rem);
+    margin-bottom: var(--spacing-xl, 2rem);
+    background: var(--color-background-light);
+    border-radius: var(--border-radius-md, 1rem);
+    padding: var(--spacing-md, 1rem);
+}
+
+.navigation .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    color: var(--color-text);
+    position: relative;
+    padding: var(--spacing-sm, 0.5rem);
+    min-width: 100px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.navigation .step:hover {
+    transform: translateY(-5px);
+}
+
+.navigation .step::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navigation .step.active::after {
+    transform: scaleX(1);
+}
+
+.navigation .step.completed {
+    color: var(--color-secondary);
+}
+
+.navigation .step.completed::after {
+    background: var(--color-secondary);
+    transform: scaleX(1);
+}
+
+.navigation .stepNumber {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    font-weight: bold;
+    background: var(--color-background);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+.navigation .stepNumber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.navigation .step:hover .stepNumber::before {
+    left: 100%;
+}
+
+.navigation .step.active .stepNumber {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: scale(1.1);
+    animation: pulse 2s infinite;
+}
+
+.navigation .step.completed .stepNumber {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    border-color: var(--color-secondary);
+    animation: pulse 2s infinite;
+}
+
+.navigation .stepLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Price Display */
+.priceContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-lg, 1.5rem);
+    background: var(--color-background-light);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-md, 1rem);
+    margin: var(--spacing-md, 1rem) 0;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    animation: float 2s ease-in-out infinite;
+}
+
+.priceContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.priceLabel {
+    color: var(--color-text);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.priceValue {
+    color: var(--color-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.currency {
+    color: var(--color-primary);
+    margin-right: 0.25rem;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(0, 255, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.5);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navigation {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm, 0.5rem);
+    }
+
+    .navigation .step {
+        min-width: 80px;
+    }
+
+    .navigation .stepLabel {
+        font-size: 0.75rem;
+    }
+
+    .priceContainer {
+        flex-direction: column;
+        gap: var(--spacing-sm, 0.5rem);
+        padding: var(--spacing-md, 1rem);
+    }
+
+    .priceLabel {
+        font-size: 1rem;
+    }
+
+    .priceValue {
+        font-size: 2rem;
+    }
+}
+
+/* Theme Toggle */
+.themeToggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-background-light);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    z-index: 1000;
+    color: var(--color-text);
+}
+
+.themeToggle:hover {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    transform: scale(1.1);
+}
+
+/* Step Selector */
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md, 1rem);
+}
+
+.optionButton {
+    background: var(--color-background-light);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-sm, 0.5rem);
+    padding: var(--spacing-md, 1rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm, 0.5rem);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--color-text);
+    position: relative;
+    overflow: hidden;
+    transform-origin: center;
+}
+
+.optionButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.optionButton:hover::before {
+    left: 100%;
+}
+
+.optionButton:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.optionButton.selected {
+    background: var(--color-secondary);
+    color: var(--color-text-dark);
+    border-color: var(--color-secondary);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.optionButton.selected::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+}
+
+.optionEmoji {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    transition: transform 0.3s;
+}
+
+.optionName {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.optionDescription {
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+.optionPrice {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.selectionIndicator {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.optionButton.selected .selectionIndicator {
+    background: var(--color-primary);
+    color: var(--color-text-dark);
+    border-color: var(--color-text-dark);
+}
+
+.loading {
+    color: var(--color-text);
+    text-align: center;
+    padding: var(--spacing-lg, 1.5rem);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.userGuide {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+}
+
+.guideText {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+[title] {
+    position: relative;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+}

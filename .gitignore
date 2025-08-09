@@ -1,0 +1,46 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# test reports (keep metrics but not individual reports)
+test-reports/test-report-*.json
+test-reports/LATEST_TEST_REPORT.md
+test-reports/latest-test-report.json
+
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# stackbit
+.cache
+.stackbit/cache
+
+# Local Netlify folder
+.netlify

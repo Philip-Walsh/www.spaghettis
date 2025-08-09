@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Forbidden Ramen", "description": "Signature spicy ramen with secret sauce." },
+  { "id": 2, "name": "Neo Udon", "description": "Thick noodles, futuristic broth, plant protein." },
+  { "id": 3, "name": "Quantum Soba", "description": "Buckwheat noodles, umami dashi, nano-greens." }
+]

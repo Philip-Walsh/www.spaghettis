@@ -1,0 +1,95 @@
+/* Custom styles for the device optimization page */
+
+/* Override navigation styles when on device page */
+.device-page .noodle-nav {
+  background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.device-page .nav-title {
+  background: linear-gradient(90deg, #ffffff, #a5b4fc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Device page background */
+.device-page .bg-noise {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+}
+
+/* Hero section styles */
+.device-hero {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(79, 70, 229, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.2) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.device-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #ffffff, #a5b4fc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.device-hero-text {
+  color: #e0e7ff;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 42rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Badge styles */
+.device-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+  border-radius: 9999px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+  transition: all 0.3s ease;
+}
+
+.device-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.4);
+}
+
+.device-badge svg {
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .device-hero-title {
+    font-size: 2rem;
+  }
+  
+  .device-hero-text {
+    font-size: 1rem;
+  }
+}

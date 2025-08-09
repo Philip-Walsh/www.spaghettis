@@ -1,0 +1,30 @@
+{
+  "lastUpdated": "2025-08-09T18:52:38.772Z",
+  "summary": {
+    "testStability": 30,
+    "averageExecutionTime": 0,
+    "coverageTrend": 0,
+    "failureRate": 80
+  },
+  "trends": {
+    "last7Days": {
+      "totalRuns": 12,
+      "successRate": 33,
+      "averageExecutionTime": 0,
+      "coverageAverage": 0
+    },
+    "last30Days": {
+      "totalRuns": 12,
+      "successRate": 33,
+      "averageExecutionTime": 0,
+      "coverageAverage": 0
+    }
+  },
+  "alerts": [
+    {
+      "type": "error",
+      "message": "8 tests are currently failing",
+      "priority": "high"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+/* Futuristic Neon Drippy Pop Styles */
+/* Removed global :root block to fit CSS Modules restriction */
+
+.fieldset {
+  border: none;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  width: auto;
+  display: inline-block;
+}
+.legend {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-main);
+  margin-bottom: 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid var(--accent-main);
+  padding-bottom: 0.3rem;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 600px) {
+  .optionsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  }
+}
+.optionBtn {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-main);
+  border-radius: 0.9rem;
+  box-shadow: 0 2px 14px var(--shadow-accent);
+  padding: 1rem 0.7rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 58px;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: border 0.16s, background 0.16s, box-shadow 0.16s, transform 0.13s;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+@media (max-width: 599px) {
+  .optionBtn {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.93rem;
+    margin-bottom: 0.5rem;
+  }
+}
+.optionBtn.selected,
+.optionBtn[aria-pressed="true"] {
+  border-color: var(--accent-main);
+  background: linear-gradient(90deg, var(--accent-main) 0%, var(--accent-main) 100%);
+  box-shadow: 0 0 14px var(--accent-main), 0 0 4px var(--accent-main);
+  color: var(--white);
+}
+.optionBtn:focus-visible {
+  outline: 3px solid var(--accent-main);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--shadow-accent);
+}
+.optionBtn:hover:not(:disabled) {
+  border-color: var(--accent-main);
+  background: linear-gradient(90deg, var(--accent-main) 0%, var(--accent-main) 100%);
+  color: var(--white);
+  transform: translateY(-1px) scale(1.03) skewY(-1deg);
+  box-shadow: 0 4px 18px var(--accent-main), 0 0 8px var(--accent-main);
+}
+.optionBtn::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 0.9rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, var(--accent-main) 0%, var(--accent-main) 80%);
+  opacity: 0.09;
+  z-index: 0;
+}
+.optionContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.iconWrap {
+  font-size: 1.6rem;
+  margin-right: 1.1rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px var(--accent-main));
+}
+.optionTextWrap {
+  flex: 1;
+  min-width: 0;
+}
+.optionTitle {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.18rem;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px var(--shadow-accent);
+}
+.optionDetails {
+  margin-top: 0.18rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.priceTag {
+  color: var(--accent-main);
+  font-weight: 700;
+  font-size: 1.01rem;
+  text-shadow: 0 1px 6px var(--shadow-accent);
+}
+.input {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--accent-main);
+  border-radius: 0.38rem;
+  accent-color: var(--accent-main);
+  margin-right: 1.1rem;
+  background: var(--input-bg);
+  box-shadow: 0 0 6px var(--shadow-accent);
+}

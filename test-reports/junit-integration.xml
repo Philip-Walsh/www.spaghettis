@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Jest Tests" tests="4" failures="0" time="0">
+  <testsuite name="integration" tests="4" failures="0" skipped="0" time="0" timestamp="2025-08-09T15:46:45.529Z">
+    <testcase classname="integration" name="test-1" time="0"/>
+    <testcase classname="integration" name="test-2" time="0"/>
+    <testcase classname="integration" name="test-3" time="0"/>
+    <testcase classname="integration" name="test-4" time="0"/>
+    <system-out><![CDATA[
+
+&gt; next-netlify-platform-starter@0.1.0 test:integration
+&gt; jest --testPathPattern=tests/integration --runInBand --json --outputFile /home/robo/code/www.spaghettis/test-reports/integration-results.json --testLocationInResults
+
+
+]]></system-out>
+    <system-err><![CDATA[
+(node:88550) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS tests/integration/menu-api.test.js
+  Menu API Integration
+    Menu Items Retrieval
+      ✓ retrieves all menu items (10 ms)
+      ✓ filters items by category (2 ms)
+    Error Scenarios
+      ✓ handles invalid category gracefully (1 ms)
+      ✓ handles database connection errors (4 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        0.976 s, estimated 1 s
+Ran all test suites matching /tests\/integration/i.
+Test results written to: test-reports/integration-results.json
+
+]]></system-err>
+  </testsuite>
+</testsuites>
