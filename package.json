@@ -15,7 +15,26 @@
         "test:integration": "jest --testPathPattern=tests/integration --runInBand",
         "test:contract": "jest --testPathPattern=tests/contract --runInBand",
         "test:e2e": "playwright test",
-        "test:e2e:ui": "playwright test --ui"
+        "test:e2e:ui": "playwright test --ui",
+        "test:cucumber": "cucumber-js",
+        "test:cucumber:navigation": "node scripts/run-navigation-tests.js navigation",
+        "test:cucumber:ramen": "node scripts/run-navigation-tests.js ramenbuilder",
+        "test:cucumber:all": "node scripts/run-navigation-tests.js all",
+        "test:cucumber:headed": "node scripts/run-navigation-tests.js all --headed",
+        "test:cucumber:wait": "node scripts/wait-for-deploy.js && npm run test:cucumber:all",
+        "test:e2e:wait": "node scripts/wait-for-deploy.js && npm run test:e2e",
+        "test:cypress": "cypress run",
+        "test:cypress:open": "cypress open",
+        "test:cypress:navigation": "cypress run --spec 'cypress/e2e/navigation.cy.js'",
+        "test:cypress:wait": "node scripts/wait-for-deploy.js && npm run test:cypress",
+        "test:monitor": "node scripts/test-monitor.js",
+        "test:monitor:watch": "node scripts/test-monitor.js watch",
+        "test:report": "node scripts/test-monitor.js && cat test-reports/LATEST_TEST_REPORT.md",
+        "test:metrics": "cat test-reports/metrics-history.json",
+        "test:devops": "cat test-reports/devops-metrics.json",
+        "test:clean": "rm -f test-reports/test-report-*.json && echo 'Cleaned up old test reports'",
+        "test:ci": "node scripts/test-monitor.js && node scripts/generate-junit.js",
+        "test:quality-gate": "node scripts/quality-gate.js"
     },
     "dependencies": {
         "@apollo/client": "^3.13.8",
@@ -30,6 +49,10 @@
         "react-dom": "18.3.1",
         "unique-names-generator": "^4.7.1"
     },
+    "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": true,
+        "stepDefinitions": "cypress/e2e"
+    },
     "devDependencies": {
         "@pact-foundation/pact": "^13.1.3",
         "@playwright/test": "^1.48.2",
@@ -40,8 +63,11 @@
 
         "@testing-library/user-event": "^14.0.0",
         "@types/jest": "^29.5.14",
+        "babel-plugin-transform-dynamic-import": "^2.1.0",
         "better-sqlite3": "^11.6.0",
         "@cucumber/cucumber": "^10.8.0",
+        "cypress": "^14.5.4",
+        "cypress-cucumber-preprocessor": "^4.3.1",
         "drizzle-orm": "^0.36.4",
         "eslint": "8.57.1",
         "eslint-config-next": "15.3.0",
