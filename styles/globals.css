@@ -311,6 +311,9 @@ body {
     margin: 0;
     padding: 0;
     align-items: center;
+    /* Ensure navigation is visible on desktop */
+    max-height: none;
+    overflow: visible;
 }
 
 .nav-links li a {
@@ -324,6 +327,9 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    /* Debug: ensure visibility */
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .nav-links li a:hover {
@@ -369,6 +375,31 @@ body {
         font-size: 1.3rem;
         border-radius: 0;
         border-bottom: 1px solid #ffe08360;
+    }
+}
+
+/* Ensure desktop navigation is always visible */
+@media (min-width: 801px) {
+    .nav-links {
+        display: flex !important;
+        max-height: none !important;
+        overflow: visible !important;
+        position: static !important;
+        width: auto !important;
+        background: transparent !important;
+        flex-direction: row !important;
+        gap: 2.5rem !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .nav-links li a {
+        width: auto !important;
+        text-align: center !important;
+        padding: 0.4rem 1.1rem !important;
+        font-size: 1.15rem !important;
+        border-radius: 1.2rem !important;
+        border-bottom: none !important;
     }
 }
 

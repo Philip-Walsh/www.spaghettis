@@ -1,0 +1,673 @@
+[
+  {
+    "timestamp": "2025-08-10T08:03:14.727Z",
+    "date": "2025-08-10",
+    "time": "09:03:14",
+    "summary": {
+      "total": 77,
+      "passed": 69,
+      "failed": 8,
+      "skipped": 0,
+      "successRate": 90,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 0,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 0
+    },
+    "quality": {
+      "testStability": 100,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 10.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "failed",
+        "tests": "19/20",
+        "duration": 0,
+        "successRate": 95
+      },
+      "component": {
+        "status": "failed",
+        "tests": "50/57",
+        "duration": 0,
+        "successRate": 88
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:10:56.265Z",
+    "date": "2025-08-10",
+    "time": "09:10:56",
+    "summary": {
+      "total": 83,
+      "passed": 74,
+      "failed": 9,
+      "skipped": 0,
+      "successRate": 89,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 0
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 10.8
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "failed",
+        "tests": "19/20",
+        "duration": 0,
+        "successRate": 95
+      },
+      "component": {
+        "status": "failed",
+        "tests": "55/63",
+        "duration": 0,
+        "successRate": 87
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:14:49.691Z",
+    "date": "2025-08-10",
+    "time": "09:14:49",
+    "summary": {
+      "total": 83,
+      "passed": 77,
+      "failed": 6,
+      "skipped": 0,
+      "successRate": 93,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 15.6
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 7.2
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "57/63",
+        "duration": 0,
+        "successRate": 90
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:19:20.738Z",
+    "date": "2025-08-10",
+    "time": "09:19:20",
+    "summary": {
+      "total": 83,
+      "passed": 76,
+      "failed": 7,
+      "skipped": 0,
+      "successRate": 92,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 15.5
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 8.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "56/63",
+        "duration": 0,
+        "successRate": 89
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:24:43.112Z",
+    "date": "2025-08-10",
+    "time": "09:24:43",
+    "summary": {
+      "total": 83,
+      "passed": 76,
+      "failed": 7,
+      "skipped": 0,
+      "successRate": 92,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 14.9
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 8.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "56/63",
+        "duration": 0,
+        "successRate": 89
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:26:41.720Z",
+    "date": "2025-08-10",
+    "time": "09:26:41",
+    "summary": {
+      "total": 83,
+      "passed": 76,
+      "failed": 7,
+      "skipped": 0,
+      "successRate": 92,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 14
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 8.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "56/63",
+        "duration": 0,
+        "successRate": 89
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:50:10.510Z",
+    "date": "2025-08-10",
+    "time": "09:50:10",
+    "summary": {
+      "total": 83,
+      "passed": 76,
+      "failed": 7,
+      "skipped": 0,
+      "successRate": 92,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 15.4
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 8.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "56/63",
+        "duration": 0,
+        "successRate": 89
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T08:57:21.529Z",
+    "date": "2025-08-10",
+    "time": "09:57:21",
+    "summary": {
+      "total": 83,
+      "passed": 81,
+      "failed": 2,
+      "skipped": 0,
+      "successRate": 98,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 8.9
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 2.4
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "61/63",
+        "duration": 0,
+        "successRate": 97
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T09:20:27.675Z",
+    "date": "2025-08-10",
+    "time": "10:20:27",
+    "summary": {
+      "total": 83,
+      "passed": 82,
+      "failed": 1,
+      "skipped": 0,
+      "successRate": 99,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 8.9
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 1.2
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "failed",
+        "tests": "62/63",
+        "duration": 0,
+        "successRate": 98
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "0/0",
+        "duration": 0,
+        "successRate": 0
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T09:37:56.520Z",
+    "date": "2025-08-10",
+    "time": "10:37:56",
+    "summary": {
+      "total": 90,
+      "passed": 89,
+      "failed": 1,
+      "skipped": 0,
+      "successRate": 99,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🔴 Some tests failing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 100,
+      "meanTimeToRecovery": 0,
+      "testFrequency": 7
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 1.1
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "passed",
+        "tests": "63/63",
+        "duration": 0,
+        "successRate": 100
+      },
+      "integration": {
+        "status": "failed",
+        "tests": "6/7",
+        "duration": 0,
+        "successRate": 86
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  },
+  {
+    "timestamp": "2025-08-10T09:41:42.505Z",
+    "date": "2025-08-10",
+    "time": "10:41:42",
+    "summary": {
+      "total": 90,
+      "passed": 90,
+      "failed": 0,
+      "skipped": 0,
+      "successRate": 100,
+      "coverage": 0,
+      "executionTime": 0,
+      "status": "🟢 All tests passing"
+    },
+    "dora": {
+      "testFeedbackTime": 0,
+      "changeFailureRate": 0,
+      "meanTimeToRecovery": 4,
+      "testFrequency": 6.3
+    },
+    "quality": {
+      "testStability": 0,
+      "flakiness": 0,
+      "coverageTrend": 0,
+      "defectDensity": 0
+    },
+    "performance": {
+      "totalDuration": 0,
+      "averageTestTime": 0,
+      "slowestSuite": "unit",
+      "parallelization": 0
+    },
+    "suites": {
+      "unit": {
+        "status": "passed",
+        "tests": "20/20",
+        "duration": 0,
+        "successRate": 100
+      },
+      "component": {
+        "status": "passed",
+        "tests": "63/63",
+        "duration": 0,
+        "successRate": 100
+      },
+      "integration": {
+        "status": "passed",
+        "tests": "7/7",
+        "duration": 0,
+        "successRate": 100
+      }
+    },
+    "environment": {
+      "nodeVersion": "v22.13.0",
+      "platform": "linux",
+      "ciEnvironment": "local",
+      "gitBranch": "unknown",
+      "buildId": "local",
+      "pullRequest": false
+    }
+  }
+]

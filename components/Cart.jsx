@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { menuOptions } from '../data/menuOptions';
 import styles from './styles/Cart.module.css';
 
-export default function Cart({ items, onAddItem, onRemoveItem }) {
+export default function Cart({ items = [], onAddItem, onRemoveItem }) {
     const [deliveryOption, setDeliveryOption] = useState('takeout');
     const [specialInstructions, setSpecialInstructions] = useState('');
 
     const calculateTotal = () => {
-        const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+        const subtotal = (items || []).reduce((sum, item) => sum + item.price, 0);
         const deliveryFee = deliveryOption === 'delivery' ? 3.99 : 0;
         return (subtotal + deliveryFee).toFixed(2);
     };
@@ -25,9 +25,10 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
             });
         }
 
-        // Protein (multi-select)
-        if (item.details.protein && Array.isArray(item.details.protein)) {
-            item.details.protein.forEach(proteinName => {
+        // Protein (handle both string and array formats)
+        if (item.details.protein) {
+            const proteinArray = Array.isArray(item.details.protein) ? item.details.protein : [item.details.protein];
+            proteinArray.forEach(proteinName => {
                 const protein = menuOptions.protein.choices.find(p => p.name === proteinName);
                 if (protein) {
                     details.push({
@@ -38,9 +39,10 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
             });
         }
 
-        // Vegetables (multi-select)
-        if (item.details.vegetables && Array.isArray(item.details.vegetables)) {
-            item.details.vegetables.forEach(vegName => {
+        // Vegetables (handle both string and array formats)
+        if (item.details.vegetables) {
+            const vegArray = Array.isArray(item.details.vegetables) ? item.details.vegetables : [item.details.vegetables];
+            vegArray.forEach(vegName => {
                 const vegetable = menuOptions.gardenPicks.choices.find(v => v.name === vegName);
                 if (vegetable) {
                     details.push({
@@ -62,9 +64,10 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
             }
         }
 
-        // Garnish (multi-select)
-        if (item.details.garnish && Array.isArray(item.details.garnish)) {
-            item.details.garnish.forEach(garnishName => {
+        // Garnish (handle both string and array formats)
+        if (item.details.garnish) {
+            const garnishArray = Array.isArray(item.details.garnish) ? item.details.garnish : [item.details.garnish];
+            garnishArray.forEach(garnishName => {
                 const garnish = menuOptions.garnish.choices.find(g => g.name === garnishName);
                 if (garnish) {
                     details.push({
@@ -109,10 +112,10 @@ export default function Cart({ items, onAddItem, onRemoveItem }) {
             </div>
 
             <div className={styles.itemsList}>
-                {items.length === 0 ? (
+                {(items || []).length === 0 ? (
                     <p className={styles.emptyCart}>Your cart is empty</p>
                 ) : (
-                    items.map((item, index) => {
+                    (items || []).map((item, index) => {
                         const itemDetails = getItemDetails(item);
                         return (
                             <div key={index} className={styles.item}>

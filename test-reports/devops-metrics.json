@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2025-08-10T09:41:42.505Z",
+  "summary": {
+    "testStability": 0,
+    "averageExecutionTime": 0,
+    "coverageTrend": 0,
+    "failureRate": 90
+  },
+  "trends": {
+    "last7Days": {
+      "totalRuns": 11,
+      "successRate": 9,
+      "averageExecutionTime": 0,
+      "coverageAverage": 0
+    },
+    "last30Days": {
+      "totalRuns": 11,
+      "successRate": 9,
+      "averageExecutionTime": 0,
+      "coverageAverage": 0
+    }
+  },
+  "alerts": []
+}

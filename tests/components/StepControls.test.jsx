@@ -29,6 +29,7 @@ describe('StepControls', () => {
                 onNext={() => { }}
                 canProceed={true}
                 isLastStep={false}
+                currentStep={0}
                 currentStepKey="noodleBase"
             />
         );
@@ -74,6 +75,7 @@ describe('StepControls', () => {
                 onNext={handleNext}
                 canProceed={true}
                 isLastStep={false}
+                currentStep={1}
                 currentStepKey="protein"
             />
         );

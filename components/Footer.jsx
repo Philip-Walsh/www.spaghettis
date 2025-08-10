@@ -14,6 +14,10 @@ export default function Footer() {
           Built With Cursor AI
           <img src="https://www.cursor.so/favicon.ico" alt="Cursor AI logo" style={{ display: 'inline', verticalAlign: 'middle', width: 16, height: 16, marginLeft: 4 }} />
         </a>
+        {" | "}
+        <span className="text-purple-200 font-semibold">
+          Built with Amazon Q
+        </span>
       </span>
     </footer>
   );
