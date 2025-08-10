@@ -43,14 +43,18 @@ export default function NavWithTheme() {
         <ul className={`nav-links${open ? ' open' : ''}`}>
           <li><Link href="/ramen" onClick={() => setOpen(false)}>Ramen</Link></li>
           <li><Link href="/about" onClick={() => setOpen(false)}>About</Link></li>
+          <li><Link href="/classics" onClick={() => setOpen(false)}>Classics</Link></li>
+          <li><Link href="/image-cdn" onClick={() => setOpen(false)}>Image CDN</Link></li>
+          <li><Link href="/blobs" onClick={() => setOpen(false)}>Blobs</Link></li>
+          <li><Link href="/revalidation" onClick={() => setOpen(false)}>Revalidation</Link></li>
           <li>
             <Link 
               href="/edge/device-optimize" 
               onClick={() => setOpen(false)}
               className={isDeviceOptimizePage ? 'text-purple-200 font-bold' : ''}
             >
-              Edge Demo
-              <span className="ml-1 text-xs bg-accent-gradient px-1 rounded">New</span>
+              Device Optimize
+              <span className="ml-1 text-xs bg-accent-gradient px-1 rounded">Edge</span>
             </Link>
           </li>
         </ul>

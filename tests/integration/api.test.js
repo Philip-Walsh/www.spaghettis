@@ -114,7 +114,7 @@ jest.mock('../../components/RamenBuilder', () => {
         const handleOptionSelect = (stepId, option) => {
             setSelectedOptions(prev => ({
                 ...prev,
-                [stepId]: prev[stepId].includes(option) 
+                [stepId]: prev[stepId].includes(option)
                     ? prev[stepId].filter(o => o !== option)
                     : [...prev[stepId], option]
             }));
