@@ -1,0 +1,28 @@
+[33mcommit df25b4f29bbf065a682c11cdc7941030be915443[m
+Author: Temp User <philipwalshpw@gmail.com>
+Date:   Sat Aug 9 21:38:49 2025 +0100
+
+    🎯 Add comprehensive navigation testing infrastructure
+    
+    ✅ Cypress + Playwright E2E testing setup
+    ✅ Dynamic URL detection for CI/CD
+    ✅ Navigation feature testing for Edge Demo
+    ✅ Production vs Deploy Preview comparison tests
+    ✅ GitHub Actions integration
+    🔧 Ready for production testing validation
+
+CYPRESS_SETUP_VERIFICATION.md
+NAVIGATION_TESTING_SUMMARY.md
+cypress.config.js
+cypress/e2e/navigation.cy.js
+cypress/e2e/navigation.feature
+cypress/e2e/navigation/steps.js
+cypress/e2e/production-comparison.cy.js
+cypress/e2e/url-comparison.cy.js
+cypress/support/commands.js
+cypress/support/e2e.js
+scripts/run-navigation-tests.js
+scripts/wait-for-deploy.js
+tests/e2e/features/navigation.feature
+tests/e2e/pages/navigation.page.js
+tests/e2e/steps/navigation.steps.js

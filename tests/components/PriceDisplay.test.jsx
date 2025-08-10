@@ -8,7 +8,7 @@ describe('PriceDisplay', () => {
         render(<PriceDisplay totalPrice={12.5} />);
 
         expect(screen.getByRole('status')).toHaveTextContent('$12.50');
-        expect(screen.getByText('Total')).toBeInTheDocument();
+        expect(screen.getByText('Total Price:')).toBeInTheDocument();
     });
 
     it('updates when price changes', () => {

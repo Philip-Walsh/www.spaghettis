@@ -2,6 +2,7 @@
 function calculateTotal(selections) {
   return Object.values(selections)
     .flat()
+    .filter(item => item && typeof item === 'object')
     .reduce((total, item) => total + (item.price || 0), 0);
 }
 

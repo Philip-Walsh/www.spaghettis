@@ -3,7 +3,7 @@ import styles from './styles/StepNavigation.module.css';
 
 export default function StepNavigation({ currentStep, steps, onStepClick, navRef }) {
     return (
-        <div className={styles.stepNav} ref={navRef}>
+        <div className={styles.stepNav} ref={navRef} role="navigation">
             {steps.map((step, index) => {
                 const isActive = index === currentStep;
                 const isCompleted = index < currentStep;
@@ -15,9 +15,9 @@ export default function StepNavigation({ currentStep, steps, onStepClick, navRef
                         className={stepClass}
                         onClick={() => onStepClick(index)}
                         role="tab"
-                        aria-selected={isActive}
+                        aria-current={isActive ? "step" : undefined}
                         aria-controls={`step-${step.id}`}
-                        aria-label={`${step.title} step ${isActive ? 'current' : isCompleted ? 'completed' : ''}`}
+                        aria-label={`Step ${index + 1}: ${step.title}`}
                     >
                         <span className={styles.stepNavBtnIcon}>{step.icon}</span>
                         <span className={styles.stepNavBtnText}>{step.title}</span>

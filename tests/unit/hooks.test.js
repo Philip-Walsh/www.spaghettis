@@ -17,7 +17,7 @@ describe('useRamenBuilder hook', () => {
       result.current.addSelection('noodleBase', { name: 'Forbidden Ramen', price: 0 });
     });
     
-    expect(result.current.selections.noodleBase).toEqual([{ name: 'Forbidden Ramen', price: 0 }]);
+    expect(result.current.selections.noodleBase).toEqual('Forbidden Ramen');
     expect(result.current.total).toBe(0);
   });
 

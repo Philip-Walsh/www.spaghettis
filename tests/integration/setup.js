@@ -1,9 +1,9 @@
 // Integration test setup
-import { setupServer } from 'msw/node';
-import { http, HttpResponse } from 'msw';
+const { setupServer } = require('msw/node');
+const { http, HttpResponse } = require('msw');
 
 // MSW server for API mocking
-export const server = setupServer(
+const server = setupServer(
   http.get('/api/quotes/random', () => {
     return HttpResponse.json({ quote: 'Test quote', author: 'Test Author' });
   }),
@@ -15,3 +15,5 @@ export const server = setupServer(
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
+
+module.exports = { server };

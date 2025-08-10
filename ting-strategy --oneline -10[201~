@@ -1,5 +1,0 @@
-[33mfea12f5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtesting-strategy-pr[m[33m, [m[1;31morigin/testing-strategy-pr[m[33m)[m 🔧 Complete testing infrastructure transfer
-[33mdf25b4f[m 🎯 Add comprehensive navigation testing infrastructure
-[33mafc0525[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mtesting-strategy-v2[m[33m, [m[1;32mmain[m[33m)[m ✨ Add Device Optimize to navigation
-[33m41c439a[m ✨ Add device-optimize edge function and components from amazon-q branch
-[33mf77ed8b[m add tests

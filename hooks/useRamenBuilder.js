@@ -26,15 +26,15 @@ export function useRamenBuilder() {
         const existing = newSelections[category] || [];
         // Check if item already exists (avoid duplicates)
         const itemExists = existing.some(existingItem =>
-          existingItem.name === item.name
+          existingItem === item.name
         );
 
         if (!itemExists) {
-          newSelections[category] = [...existing, item];
+          newSelections[category] = [...existing, item.name];
         }
       } else {
         // Replace existing selection
-        newSelections[category] = [item];
+        newSelections[category] = item.name;
       }
 
       return newSelections;
@@ -53,12 +53,19 @@ export function useRamenBuilder() {
       const newSelections = { ...prev };
 
       if (newSelections[category]) {
-        newSelections[category] = newSelections[category].filter(
-          item => item.name !== itemName
-        );
+        if (Array.isArray(newSelections[category])) {
+          newSelections[category] = newSelections[category].filter(
+            item => item !== itemName
+          );
+        } else {
+          // Single selection - clear if it matches
+          if (newSelections[category] === itemName) {
+            delete newSelections[category];
+          }
+        }
 
         // Remove empty arrays
-        if (newSelections[category].length === 0) {
+        if (newSelections[category] && newSelections[category].length === 0) {
           delete newSelections[category];
         }
       }
@@ -97,7 +104,11 @@ export function useRamenBuilder() {
   const isItemSelected = useCallback((category, itemName) => {
     if (!category || !itemName || !selections[category]) return false;
 
-    return selections[category].some(item => item.name === itemName);
+    if (Array.isArray(selections[category])) {
+      return selections[category].includes(itemName);
+    } else {
+      return selections[category] === itemName;
+    }
   }, [selections]);
 
   /**

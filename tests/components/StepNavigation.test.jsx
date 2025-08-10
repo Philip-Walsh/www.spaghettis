@@ -4,9 +4,9 @@ import '@testing-library/jest-dom';
 import StepNavigation from '../../components/StepNavigation';
 
 const mockSteps = [
-    { key: 'noodleBase', label: 'Choose Your Noodle Base' },
-    { key: 'protein', label: 'Choose Your Protein' },
-    { key: 'sauceBroth', label: 'Choose Your Sauce/Broth' }
+    { id: 'noodleBase', title: 'Choose Your Noodle Base' },
+    { id: 'protein', title: 'Choose Your Protein' },
+    { id: 'sauceBroth', title: 'Choose Your Sauce/Broth' }
 ];
 
 describe('StepNavigation', () => {
@@ -17,12 +17,11 @@ describe('StepNavigation', () => {
                 steps={mockSteps}
                 currentStep={0}
                 onStepClick={handleStepClick}
-                navRef={{ current: null }}
             />
         );
 
         expect(screen.getByRole('navigation')).toBeInTheDocument();
-        expect(screen.getAllByRole('button')).toHaveLength(3);
+        expect(screen.getAllByRole('tab')).toHaveLength(3);
         expect(screen.getByLabelText('Step 1: Choose Your Noodle Base')).toBeInTheDocument();
         expect(screen.getByLabelText('Step 2: Choose Your Protein')).toBeInTheDocument();
         expect(screen.getByLabelText('Step 3: Choose Your Sauce/Broth')).toBeInTheDocument();
@@ -35,14 +34,13 @@ describe('StepNavigation', () => {
                 steps={mockSteps}
                 currentStep={1}
                 onStepClick={handleStepClick}
-                navRef={{ current: null }}
             />
         );
 
-        const buttons = screen.getAllByRole('button');
-        expect(buttons[1]).toHaveAttribute('aria-current', 'step');
-        expect(buttons[0]).not.toHaveAttribute('aria-current');
-        expect(buttons[2]).not.toHaveAttribute('aria-current');
+        const tabs = screen.getAllByRole('tab');
+        expect(tabs[1]).toHaveAttribute('aria-current', 'step');
+        expect(tabs[0]).not.toHaveAttribute('aria-current');
+        expect(tabs[2]).not.toHaveAttribute('aria-current');
     });
 
     it('calls onStepClick when a step is clicked', () => {
@@ -52,11 +50,28 @@ describe('StepNavigation', () => {
                 steps={mockSteps}
                 currentStep={0}
                 onStepClick={handleStepClick}
-                navRef={{ current: null }}
             />
         );
 
-        fireEvent.click(screen.getByLabelText('Step 2: Choose Your Protein'));
+        const secondStep = screen.getByLabelText('Step 2: Choose Your Protein');
+        fireEvent.click(secondStep);
+
         expect(handleStepClick).toHaveBeenCalledWith(1);
+    });
+
+    it('applies completed class to previous steps', () => {
+        const handleStepClick = jest.fn();
+        render(
+            <StepNavigation
+                steps={mockSteps}
+                currentStep={2}
+                onStepClick={handleStepClick}
+            />
+        );
+
+        const tabs = screen.getAllByRole('tab');
+        expect(tabs[0]).toHaveClass('completed');
+        expect(tabs[1]).toHaveClass('completed');
+        expect(tabs[2]).not.toHaveClass('completed');
     });
 }); 

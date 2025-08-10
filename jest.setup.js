@@ -1,40 +1,61 @@
 import '@testing-library/jest-dom';
 
-// Mock framer-motion for tests
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: 'div',
-    article: 'article',
-    section: 'section',
-    span: 'span',
-    main: 'main',
-    nav: 'nav',
-    header: 'header',
-    aside: 'aside',
-  },
-  AnimatePresence: ({ children }) => children,
-}));
-
-// Mock CSS modules
-jest.mock('./styles/RamenBuilder.module.css', () => ({
-  builderContainer: 'builderContainer',
-  title: 'title',
-  contentContainer: 'contentContainer',
-  builderContent: 'builderContent',
-  stepsContainer: 'stepsContainer',
-  stepContent: 'stepContent',
-  filterControls: 'filterControls',
-  filterToggle: 'filterToggle',
-  stepContainer: 'stepContainer',
-  stepControls: 'stepControls',
-  actions: 'actions',
-  actionButton: 'actionButton',
-  cartContainer: 'cartContainer',
-}));
-
 // Mock the fetch API globally
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
+
+// Mock window.matchMedia (needed for ThemeToggle tests)
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: query === '(prefers-color-scheme: dark)', // Default to preferring dark mode
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+// Mock Element.prototype.scrollTo (needed for RamenBuilder)
+Element.prototype.scrollTo = jest.fn();
+
+// Mock Element.prototype.scrollIntoView (needed for RamenBuilder)
+Element.prototype.scrollIntoView = jest.fn();
+
+// Mock localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+global.localStorage = localStorageMock;
+
+// Mock sessionStorage
+const sessionStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+global.sessionStorage = sessionStorageMock;
+
+// Mock IntersectionObserver
+global.IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
+
+// Mock ResizeObserver
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
 // Mock the menuOptions module (named export)
 jest.mock('./data/menuOptions.js', () => ({
@@ -92,3 +113,19 @@ jest.mock('./data/menuOptions.js', () => ({
     }
   }
 }));
+
+// Reset mocks before each test
+beforeEach(() => {
+  jest.clearAllMocks();
+  localStorageMock.getItem.mockReturnValue(null);
+  window.matchMedia.mockReturnValue({
+    matches: false,
+    media: '',
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  });
+});
